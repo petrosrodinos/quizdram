@@ -12,13 +12,19 @@
   "dependencies": {
     "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@pinia/nuxt": "^0.9.0",
+    "@primevue/themes": "^4.2.4",
     "@tanstack/vue-query": "^5.62.3",
     "nuxt": "^3.14.1592",
     "pinia": "^2.3.0",
+    "primevue": "^4.2.4",
     "vue": "latest",
     "vue-router": "latest"
   },
   "overrides": {
     "vue": "latest"
+  },
+  "devDependencies": {
+    "@primevue/nuxt-module": "^4.2.4",
+    "nuxt-primevue": "^3.0.0"
   }
 }
