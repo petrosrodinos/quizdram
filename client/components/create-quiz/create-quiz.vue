@@ -29,7 +29,6 @@ const components: any = {
 const handleOptionClick = (option: string) => {
   selectedOption.value = option;
   step.value++;
-  console.log(selectedOption.value);
 };
 
 const handleGoBack = () => {
@@ -57,13 +56,13 @@ const handleGoBack = () => {
 <style scoped>
 .create-quiz-container {
   padding: 1rem;
+  margin: 0 auto;
+  max-width: 800px;
 }
 
 .step-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: 1rem;
-  max-width: 800px;
-  margin: 0 auto;
 }
 </style>

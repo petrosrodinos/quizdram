@@ -6,7 +6,7 @@ defineProps<{
 }>();
 
 const options: any = {
-  custom: defineAsyncComponent(() => import("./custom.vue")),
+  doc: defineAsyncComponent(() => import("./doc.vue")),
   ai: defineAsyncComponent(() => import("./ai.vue")),
   text: defineAsyncComponent(() => import("./text.vue")),
   video: defineAsyncComponent(() => import("./video.vue")),
@@ -16,7 +16,6 @@ const options: any = {
 <template>
   <div>
     <component :is="options[option]" />
-    <!-- <h2><CreateQuizStep2Ai /></h2> -->
   </div>
 </template>
 

@@ -1,0 +1,72 @@
+[
+  {
+    "question": "What is the primary purpose of React?",
+    "answers": ["To build mobile apps", "To manage application state", "To build user interfaces"],
+    "correctAnswer": "To build user interfaces"
+  },
+  {
+    "question": "What is JSX?",
+    "answers": ["A templating engine", "A syntax extension for JavaScript", "A CSS framework"],
+    "correctAnswer": "A syntax extension for JavaScript"
+  },
+  {
+    "question": "Which method is used to update the state in a React class component?",
+    "answers": ["updateState()", "setState()", "changeState()"],
+    "correctAnswer": "setState()"
+  },
+  {
+    "question": "What is the use of the useState hook in React?",
+    "answers": [
+      "To manage side effects",
+      "To declare a state variable in a functional component",
+      "To fetch data from an API"
+    ],
+    "correctAnswer": "To declare a state variable in a functional component"
+  },
+  {
+    "question": "What is the virtual DOM in React?",
+    "answers": [
+      "A copy of the real DOM that is stored in memory",
+      "A tool to access the real DOM directly",
+      "A way to store application data"
+    ],
+    "correctAnswer": "A copy of the real DOM that is stored in memory"
+  },
+  {
+    "question": "How do you pass data to a child component in React?",
+    "answers": ["Using state", "Using props", "Using context"],
+    "correctAnswer": "Using props"
+  },
+  {
+    "question": "What does React's useEffect hook do?",
+    "answers": [
+      "Manages component state",
+      "Performs side effects in functional components",
+      "Handles component rendering"
+    ],
+    "correctAnswer": "Performs side effects in functional components"
+  },
+  {
+    "question": "What is the purpose of React Router?",
+    "answers": [
+      "To manage global state",
+      "To handle navigation and routing in a React application",
+      "To interact with APIs"
+    ],
+    "correctAnswer": "To handle navigation and routing in a React application"
+  },
+  {
+    "question": "What is the default value of a React component's state?",
+    "answers": ["null", "undefined", "It depends on the initial state defined by the developer"],
+    "correctAnswer": "It depends on the initial state defined by the developer"
+  },
+  {
+    "question": "What is the correct way to conditionally render a component in React?",
+    "answers": [
+      "Using an if-else statement in the render method",
+      "Using a switch-case statement in the componentDidMount method",
+      "Using ternary operators or logical && in JSX"
+    ],
+    "correctAnswer": "Using ternary operators or logical && in JSX"
+  }
+]

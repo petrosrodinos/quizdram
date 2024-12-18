@@ -3,7 +3,7 @@ import { ref } from "vue";
 </script>
 
 <template>
-  <h1>custom</h1>
+  <h1>doc</h1>
 </template>
 
 <style scoped></style>

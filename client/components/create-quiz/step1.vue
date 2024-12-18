@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Files, VideoPlay, Notebook, Link } from "@element-plus/icons-vue";
+import { Files, VideoPlay, Notebook, Cpu } from "@element-plus/icons-vue";
 import { ref, defineEmits } from "vue";
 
 const emit = defineEmits(["onOptionClick"]);
@@ -17,7 +17,7 @@ const handleOptionClick = (option: string) => {
     </div>
     <div @click="handleOptionClick('ai')" class="option-item">
       <el-text class="mx-1" size="large">Generate your own with AI</el-text>
-      <el-icon><Link /></el-icon>
+      <el-icon><Cpu /></el-icon>
     </div>
     <div @click="handleOptionClick('video')" class="option-item">
       <el-text class="mx-1" size="large">From youtube video</el-text>

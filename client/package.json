@@ -10,7 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@nuxt/fonts": "^0.10.3",
+    "@tanstack/vue-query": "^5.62.8",
+    "axios": "^1.7.9",
     "nuxt": "^3.14.1592",
     "vue": "latest",
     "vue-router": "latest"
