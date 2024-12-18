@@ -1,29 +1,29 @@
 <script lang="ts" setup>
 import { Files, VideoPlay, Notebook, Link } from "@element-plus/icons-vue";
-import { ref } from "vue";
+import { ref, defineEmits } from "vue";
 
-const active = ref(0);
+const emit = defineEmits(["onOptionClick"]);
 
-const next = () => {
-  if (active.value++ > 2) active.value = 0;
+const handleOptionClick = (option: string) => {
+  emit("onOptionClick", option);
 };
 </script>
 
 <template>
   <div class="options-container">
-    <div class="option-item">
+    <div @click="handleOptionClick('doc')" class="option-item">
       <el-text class="mx-1" size="large">Upload document</el-text>
       <el-icon><Files /></el-icon>
     </div>
-    <div class="option-item">
+    <div @click="handleOptionClick('ai')" class="option-item">
       <el-text class="mx-1" size="large">Generate your own with AI</el-text>
       <el-icon><Link /></el-icon>
     </div>
-    <div class="option-item">
+    <div @click="handleOptionClick('video')" class="option-item">
       <el-text class="mx-1" size="large">From youtube video</el-text>
       <el-icon><VideoPlay /></el-icon>
     </div>
-    <div class="option-item">
+    <div @click="handleOptionClick('text')" class="option-item">
       <el-text class="mx-1" size="large">From text</el-text>
       <el-icon><Notebook /></el-icon>
     </div>

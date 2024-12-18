@@ -1,13 +1,69 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, defineAsyncComponent, watch } from "vue";
+import { ArrowLeft } from "@element-plus/icons-vue";
 
-const active = ref(0);
+const step = ref(0);
+const selectedOption = ref("");
+
+const steps: any = [
+  {
+    title: "Choose a source",
+    component: "step1",
+  },
+  {
+    title: "Type your source",
+    component: "step2",
+  },
+  {
+    title: "Create quiz",
+    component: "step3",
+  },
+];
+
+const components: any = {
+  step1: defineAsyncComponent(() => import("./step1.vue")),
+  step2: defineAsyncComponent(() => import("./step2/index.vue")),
+  // step3: defineAsyncComponent(() => import("./step3.vue")),
+};
+
+const handleOptionClick = (option: string) => {
+  selectedOption.value = option;
+  step.value++;
+  console.log(selectedOption.value);
+};
+
+const handleGoBack = () => {
+  if (step.value > 0) step.value -= 1;
+};
 </script>
 
 <template>
   <div class="create-quiz-container">
-    <CreateQuizStep1 />
+    <h3>{{ steps[step].title }}</h3>
+    <component
+      :option="selectedOption"
+      @onOptionClick="handleOptionClick"
+      :is="components[steps[step].component]"
+    />
+
+    <div class="step-buttons">
+      <el-button @click="handleGoBack" v-if="step > 0" type="danger" :icon="ArrowLeft"
+        >Back</el-button
+      >
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.create-quiz-container {
+  padding: 1rem;
+}
+
+.step-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+</style>
