@@ -15,6 +15,14 @@ export default defineNuxtConfig({
       "useQueryClient",
     ],
   },
+  runtimeConfig: {
+    public: {
+      myPublicVariable: process.env.API_URL,
+    },
+    // private: {
+    //   myPrivateToken: process.env.PRIVATE_TOKEN
+    // }
+  },
   app: {
     head: {
       charset: "utf-8",

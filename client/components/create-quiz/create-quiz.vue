@@ -11,11 +11,11 @@ const steps: any = [
     component: "step1",
   },
   {
-    title: "Type your source",
+    title: "Create Quiz",
     component: "step2",
   },
   {
-    title: "Create quiz",
+    title: "Review Quiz",
     component: "step3",
   },
 ];
