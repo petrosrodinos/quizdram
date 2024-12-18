@@ -1,0 +1,72 @@
+<script lang="ts" setup>
+import { Files, VideoPlay, Notebook, Link } from "@element-plus/icons-vue";
+import { ref } from "vue";
+
+const active = ref(0);
+
+const next = () => {
+  if (active.value++ > 2) active.value = 0;
+};
+</script>
+
+<template>
+  <div class="options-container">
+    <div class="option-item">
+      <el-text class="mx-1" size="large">Upload document</el-text>
+      <el-icon><Files /></el-icon>
+    </div>
+    <div class="option-item">
+      <el-text class="mx-1" size="large">Generate your own with AI</el-text>
+      <el-icon><Link /></el-icon>
+    </div>
+    <div class="option-item">
+      <el-text class="mx-1" size="large">From youtube video</el-text>
+      <el-icon><VideoPlay /></el-icon>
+    </div>
+    <div class="option-item">
+      <el-text class="mx-1" size="large">From text</el-text>
+      <el-icon><Notebook /></el-icon>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.options-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.option-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.option-item:last-child {
+  grid-column: span 3;
+  justify-self: center;
+  max-width: 200px;
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  .options-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.option-item:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+</style>
