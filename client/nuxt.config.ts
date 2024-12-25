@@ -3,6 +3,9 @@ export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   devtools: { enabled: true },
   modules: ["@hebilicious/vue-query-nuxt", "@element-plus/nuxt", "@nuxt/fonts"],
+  alias: {
+    "@interfaces": "./interfaces/*",
+  },
   vueQuery: {
     stateKey: "vue-query-nuxt",
     autoImports: [

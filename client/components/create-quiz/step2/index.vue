@@ -1,20 +1,12 @@
 <script lang="ts" setup>
-import { defineAsyncComponent, ref } from "vue";
-import { useMutation } from "@tanstack/vue-query";
-import { generateQuiz } from "../../../services/quiz";
+import { defineAsyncComponent, defineEmits } from "vue";
+import type { NewQuiz } from "../../../interfaces/quiz";
 
 defineProps<{
   option: string;
 }>();
 
-const { mutate } = useMutation({
-  mutationFn: (newTodo: any) => generateQuiz(newTodo),
-  onSuccess: async (res: any) => {
-    console.log(res);
-  },
-});
-
-const source = ref("");
+const emit = defineEmits(["onSettingsSelect"]);
 
 const options: any = {
   doc: defineAsyncComponent(() => import("./doc.vue")),
@@ -23,18 +15,14 @@ const options: any = {
   video: defineAsyncComponent(() => import("./video.vue")),
 };
 
-const handleSourceSelect = (value: string) => {
-  source.value = value;
-  // mutate({ source });
+const handleSettingsSelect = (value: NewQuiz) => {
+  emit("onSettingsSelect", value);
 };
 </script>
 
 <template>
   <div>
-    <component @onSourceSelect="handleSourceSelect" :is="options[option]" />
-    <div v-if="source">
-      <el-button @click="mutate({ source })">Next</el-button>
-    </div>
+    <component @onSettingsSelect="handleSettingsSelect" :is="options[option]" />
   </div>
 </template>
 

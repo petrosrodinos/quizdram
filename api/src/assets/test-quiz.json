@@ -1,72 +1,69 @@
 [
   {
-    "question": "What is the primary purpose of React?",
-    "answers": ["To build mobile apps", "To manage application state", "To build user interfaces"],
-    "correctAnswer": "To build user interfaces"
+    "type": "multiple",
+    "question": "What is the capital of France?",
+    "answers": ["Berlin", "Madrid", "Paris", "Rome"],
+    "correct": "2"
   },
   {
-    "question": "What is JSX?",
-    "answers": ["A templating engine", "A syntax extension for JavaScript", "A CSS framework"],
-    "correctAnswer": "A syntax extension for JavaScript"
+    "type": "multiple",
+    "question": "Which programming language is used for web development?",
+    "answers": ["Python", "JavaScript", "C++", "Java"],
+    "correct": "1"
   },
   {
-    "question": "Which method is used to update the state in a React class component?",
-    "answers": ["updateState()", "setState()", "changeState()"],
-    "correctAnswer": "setState()"
-  },
-  {
-    "question": "What is the use of the useState hook in React?",
+    "type": "multiple",
+    "question": "What does HTML stand for?",
     "answers": [
-      "To manage side effects",
-      "To declare a state variable in a functional component",
-      "To fetch data from an API"
+      "HyperText Markup Language",
+      "Home Tool Markup Language",
+      "Hyperlink and Text Markup Language",
+      "HyperText Markdown Language"
     ],
-    "correctAnswer": "To declare a state variable in a functional component"
+    "correct": "0"
   },
   {
-    "question": "What is the virtual DOM in React?",
+    "type": "multiple",
+    "question": "Which planet is known as the Red Planet?",
+    "answers": ["Earth", "Mars", "Jupiter", "Venus"],
+    "correct": "1"
+  },
+  {
+    "type": "multiple",
+    "question": "Who wrote 'To Kill a Mockingbird'?",
     "answers": [
-      "A copy of the real DOM that is stored in memory",
-      "A tool to access the real DOM directly",
-      "A way to store application data"
+      "Mark Twain",
+      "Harper Lee",
+      "F. Scott Fitzgerald",
+      "J.K. Rowling"
     ],
-    "correctAnswer": "A copy of the real DOM that is stored in memory"
+    "correct": "1"
   },
   {
-    "question": "How do you pass data to a child component in React?",
-    "answers": ["Using state", "Using props", "Using context"],
-    "correctAnswer": "Using props"
+    "type": "multiple",
+    "question": "What is the boiling point of water at sea level?",
+    "answers": ["90°C", "100°C", "110°C", "120°C"],
+    "correct": "1"
   },
   {
-    "question": "What does React's useEffect hook do?",
-    "answers": [
-      "Manages component state",
-      "Performs side effects in functional components",
-      "Handles component rendering"
-    ],
-    "correctAnswer": "Performs side effects in functional components"
+    "type": "multiple",
+    "question": "Which organ in the human body filters blood?",
+    "answers": ["Lungs", "Kidneys", "Heart", "Liver"],
+    "correct": "1"
   },
   {
-    "question": "What is the purpose of React Router?",
-    "answers": [
-      "To manage global state",
-      "To handle navigation and routing in a React application",
-      "To interact with APIs"
-    ],
-    "correctAnswer": "To handle navigation and routing in a React application"
+    "type": "binary",
+    "question": "The Earth revolves around the Sun.",
+    "correct": "true"
   },
   {
-    "question": "What is the default value of a React component's state?",
-    "answers": ["null", "undefined", "It depends on the initial state defined by the developer"],
-    "correctAnswer": "It depends on the initial state defined by the developer"
+    "type": "binary",
+    "question": "JavaScript is the same as Java.",
+    "correct": "false"
   },
   {
-    "question": "What is the correct way to conditionally render a component in React?",
-    "answers": [
-      "Using an if-else statement in the render method",
-      "Using a switch-case statement in the componentDidMount method",
-      "Using ternary operators or logical && in JSX"
-    ],
-    "correctAnswer": "Using ternary operators or logical && in JSX"
+    "type": "binary",
+    "question": "The Great Wall of China is visible from space.",
+    "correct": "false"
   }
 ]

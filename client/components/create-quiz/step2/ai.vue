@@ -2,12 +2,18 @@
 import { Position } from "@element-plus/icons-vue";
 import { ref, defineEmits } from "vue";
 
-const emit = defineEmits(["onSourceSelect"]);
+const emit = defineEmits(["onSettingsSelect"]);
 
 const input = ref("");
 
 const handleGenerateQuiz = () => {
-  emit("onSourceSelect", input.value);
+  const quizSettings = {
+    prompt: input.value,
+    source: "ai",
+    difficulty: "easy",
+    category: "multiple",
+  };
+  emit("onSettingsSelect", quizSettings);
 };
 </script>
 
@@ -15,7 +21,7 @@ const handleGenerateQuiz = () => {
   <div>
     <el-input clearable v-model="input" style="width: 240px" placeholder="ex: cats" />
     <el-button :disabled="!input" type="success" @click="handleGenerateQuiz" :icon="Position"
-      >Next</el-button
+      >Create</el-button
     >
   </div>
 </template>

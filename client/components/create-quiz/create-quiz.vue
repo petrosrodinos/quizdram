@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { ref, defineAsyncComponent, watch } from "vue";
+import { ref, defineAsyncComponent } from "vue";
 import { ArrowLeft } from "@element-plus/icons-vue";
+import type { NewQuiz } from "../../interfaces/quiz";
 
 const step = ref(0);
 const selectedOption = ref("");
+const quizSettings = ref({});
 
 const steps: any = [
   {
@@ -15,7 +17,7 @@ const steps: any = [
     component: "step2",
   },
   {
-    title: "Review Quiz",
+    title: "Finalize",
     component: "step3",
   },
 ];
@@ -23,11 +25,16 @@ const steps: any = [
 const components: any = {
   step1: defineAsyncComponent(() => import("./step1.vue")),
   step2: defineAsyncComponent(() => import("./step2/index.vue")),
-  // step3: defineAsyncComponent(() => import("./step3.vue")),
+  step3: defineAsyncComponent(() => import("./step3/index.vue")),
 };
 
 const handleOptionClick = (option: string) => {
   selectedOption.value = option;
+  step.value++;
+};
+
+const handleSettingsSelect = (settings: NewQuiz) => {
+  quizSettings.value = settings;
   step.value++;
 };
 
@@ -40,9 +47,11 @@ const handleGoBack = () => {
   <div class="create-quiz-container">
     <h3>{{ steps[step].title }}</h3>
     <component
+      :is="components[steps[step].component]"
       :option="selectedOption"
       @onOptionClick="handleOptionClick"
-      :is="components[steps[step].component]"
+      @onSettingsSelect="handleSettingsSelect"
+      :quizSettings="quizSettings"
     />
 
     <div class="step-buttons">
