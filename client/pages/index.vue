@@ -1,5 +1,11 @@
-<script setup></script>
-
 <template>
-  <CreateQuiz />
+  <div>
+    <CreateQuiz />
+  </div>
 </template>
+
+<style>
+* {
+  font-family: "Poppins";
+}
+</style>

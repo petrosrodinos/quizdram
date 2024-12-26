@@ -1,15 +1,10 @@
 <template>
-  <div>
+  <NuxtLayout>
     <NuxtRouteAnnouncer />
     <Head>
       <Title>QuizCrafts</Title>
     </Head>
-    <NavBar />
-  </div>
-</template>
 
-<style>
-* {
-  font-family: "Poppins";
-}
-</style>
+    <NuxtPage />
+  </NuxtLayout>
+</template>

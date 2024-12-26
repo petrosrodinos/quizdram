@@ -2,6 +2,7 @@
 import { ref, defineAsyncComponent } from "vue";
 import { ArrowLeft } from "@element-plus/icons-vue";
 import type { NewQuiz } from "../../interfaces/quiz";
+import { navigateTo } from "nuxt/app";
 
 const step = ref(0);
 const selectedOption = ref("");
@@ -42,7 +43,9 @@ const handleGoBack = () => {
   if (step.value > 0) step.value -= 1;
 };
 
-const handleFinalize = () => {};
+const handleFinalize = async () => {
+  await navigateTo("/user/quiz");
+};
 </script>
 
 <template>
