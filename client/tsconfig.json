@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@interfaces/*": ["./interfaces/*"]
+      "@interfaces/*": ["interfaces/*"]
     }
   }
 }

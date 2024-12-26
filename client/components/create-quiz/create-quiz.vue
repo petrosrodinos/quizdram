@@ -23,7 +23,7 @@ const steps: any = [
 ];
 
 const components: any = {
-  step1: defineAsyncComponent(() => import("./step1.vue")),
+  step1: defineAsyncComponent(() => import("./step1/index..vue")),
   step2: defineAsyncComponent(() => import("./step2/index.vue")),
   step3: defineAsyncComponent(() => import("./step3/index.vue")),
 };
@@ -41,6 +41,8 @@ const handleSettingsSelect = (settings: NewQuiz) => {
 const handleGoBack = () => {
   if (step.value > 0) step.value -= 1;
 };
+
+const handleFinalize = () => {};
 </script>
 
 <template>
@@ -58,6 +60,7 @@ const handleGoBack = () => {
       <el-button @click="handleGoBack" v-if="step > 0" type="danger" :icon="ArrowLeft"
         >Back</el-button
       >
+      <el-button @click="handleFinalize" v-if="step == 2" type="success">Finalize</el-button>
     </div>
   </div>
 </template>

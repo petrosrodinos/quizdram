@@ -12,14 +12,19 @@
   "dependencies": {
     "@hebilicious/vue-query-nuxt": "^0.3.0",
     "@nuxt/fonts": "^0.10.3",
+    "@pinia/nuxt": "^0.9.0",
     "@tanstack/vue-query": "^5.62.8",
     "axios": "^1.7.9",
     "nuxt": "^3.14.1592",
+    "pinia": "^2.3.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.1.0",
     "element-plus": "^2.9.1"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

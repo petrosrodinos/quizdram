@@ -5,7 +5,6 @@
       <Title>QuizCrafts</Title>
     </Head>
     <NavBar />
-    <CreateQuiz />
   </div>
 </template>
 
