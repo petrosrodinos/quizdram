@@ -44,7 +44,7 @@ const handleGoBack = () => {
 };
 
 const handleFinalize = async () => {
-  await navigateTo("/user/quiz");
+  await navigateTo("/user/quizes");
 };
 </script>
 

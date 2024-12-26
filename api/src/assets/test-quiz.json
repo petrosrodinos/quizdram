@@ -1,69 +1,85 @@
-[
-  {
-    "type": "multiple",
-    "question": "What is the capital of France?",
-    "answers": ["Berlin", "Madrid", "Paris", "Rome"],
-    "correct": "2"
-  },
-  {
-    "type": "multiple",
-    "question": "Which programming language is used for web development?",
-    "answers": ["Python", "JavaScript", "C++", "Java"],
-    "correct": "1"
-  },
-  {
-    "type": "multiple",
-    "question": "What does HTML stand for?",
-    "answers": [
-      "HyperText Markup Language",
-      "Home Tool Markup Language",
-      "Hyperlink and Text Markup Language",
-      "HyperText Markdown Language"
-    ],
-    "correct": "0"
-  },
-  {
-    "type": "multiple",
-    "question": "Which planet is known as the Red Planet?",
-    "answers": ["Earth", "Mars", "Jupiter", "Venus"],
-    "correct": "1"
-  },
-  {
-    "type": "multiple",
-    "question": "Who wrote 'To Kill a Mockingbird'?",
-    "answers": [
-      "Mark Twain",
-      "Harper Lee",
-      "F. Scott Fitzgerald",
-      "J.K. Rowling"
-    ],
-    "correct": "1"
-  },
-  {
-    "type": "multiple",
-    "question": "What is the boiling point of water at sea level?",
-    "answers": ["90°C", "100°C", "110°C", "120°C"],
-    "correct": "1"
-  },
-  {
-    "type": "multiple",
-    "question": "Which organ in the human body filters blood?",
-    "answers": ["Lungs", "Kidneys", "Heart", "Liver"],
-    "correct": "1"
-  },
-  {
-    "type": "boolean",
-    "question": "The Earth revolves around the Sun.",
-    "correct": "true"
-  },
-  {
-    "type": "boolean",
-    "question": "JavaScript is the same as Java.",
-    "correct": "false"
-  },
-  {
-    "type": "boolean",
-    "question": "The Great Wall of China is visible from space.",
-    "correct": "false"
-  }
-]
+{
+  "id": "1",
+  "userId": "1",
+  "name": "Test Quiz",
+  "createdAt": "2021-07-01T00:00:00.000Z",
+  "questions": [
+    {
+      "id": "1",
+      "type": "multiple",
+      "question": "What is the capital of France?",
+      "answers": ["Berlin", "Madrid", "Paris", "Rome"],
+      "correct": "2"
+    },
+    {
+      "id": "2",
+      "type": "multiple",
+      "question": "Which programming language is used for web development?",
+      "answers": ["Python", "JavaScript", "C++", "Java"],
+      "correct": "1"
+    },
+    {
+      "id": "3",
+      "type": "multiple",
+      "question": "What does HTML stand for?",
+      "answers": [
+        "HyperText Markup Language",
+        "Home Tool Markup Language",
+        "Hyperlink and Text Markup Language",
+        "HyperText Markdown Language"
+      ],
+      "correct": "0"
+    },
+    {
+      "id": "4",
+      "type": "multiple",
+      "question": "Which planet is known as the Red Planet?",
+      "answers": ["Earth", "Mars", "Jupiter", "Venus"],
+      "correct": "1"
+    },
+    {
+      "id": "5",
+      "type": "multiple",
+      "question": "Who wrote 'To Kill a Mockingbird'?",
+      "answers": [
+        "Mark Twain",
+        "Harper Lee",
+        "F. Scott Fitzgerald",
+        "J.K. Rowling"
+      ],
+      "correct": "1"
+    },
+    {
+      "id": "6",
+      "type": "multiple",
+      "question": "What is the boiling point of water at sea level?",
+      "answers": ["90°C", "100°C", "110°C", "120°C"],
+      "correct": "1"
+    },
+    {
+      "id": "7",
+      "type": "multiple",
+      "question": "Which organ in the human body filters blood?",
+      "answers": ["Lungs", "Kidneys", "Heart", "Liver"],
+      "correct": "1"
+    },
+    {
+      "id": "8",
+      "type": "boolean",
+      "question": "The Earth revolves around the Sun.",
+      "correct": "true"
+    },
+    {
+      "id": "9",
+      "type": "boolean",
+      "question": "JavaScript is the same as Java.",
+      "correct": "false"
+    },
+    {
+      "id": "10",
+      "type": "boolean",
+      "question": "The Great Wall of China is visible from space.",
+      "correct": "false"
+    }
+  ]
+}

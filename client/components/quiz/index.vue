@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import type { Question } from "../../interfaces/quiz";
+import type { Quiz } from "../../interfaces/quiz";
 import { ref } from "vue";
 
 const { quiz } = defineProps<{
-  quiz: Question[];
+  quiz: Quiz;
 }>();
 
-const selectedAnswers = ref<string[]>(Array(quiz.length).fill(""));
+const selectedAnswers = ref<string[]>(Array(quiz.questions.length).fill(""));
 </script>
 
 <template>
   <div>
-    <div v-for="(question, index) in quiz" :key="index">
+    <div v-for="(question, index) in quiz.questions" :key="index">
       <el-card class="mb-3">
         <div slot="header">
           <h3>{{ question.question }}</h3>

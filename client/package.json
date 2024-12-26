@@ -17,12 +17,14 @@
     "axios": "^1.7.9",
     "nuxt": "^3.14.1592",
     "pinia": "^2.3.0",
+    "pinia-plugin-persistedstate": "^4.2.0",
     "vue": "latest",
     "vue-router": "latest"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.1.0",
-    "element-plus": "^2.9.1"
+    "element-plus": "^2.9.1",
+    "sass": "^1.83.0"
   },
   "overrides": {
     "vue": "latest"

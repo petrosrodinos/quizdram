@@ -5,9 +5,10 @@ export interface NewQuiz {
   type?: QuizType;
 }
 
-export interface Quiz extends NewQuiz {
+export interface Quiz {
   id?: string;
-  creatorId?: string;
+  userId?: string;
+  name: string;
   questions: Question[];
   createdAt: string;
 }
