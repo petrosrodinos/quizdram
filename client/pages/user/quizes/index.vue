@@ -1,5 +1,5 @@
 <script setup>
-import { useQuizStore } from "../../stores/quiz";
+import { useQuizStore } from "../../../stores/quiz";
 import { ElCard, ElRow, ElCol } from "element-plus";
 import { Calendar, Document } from "@element-plus/icons-vue";
 import { ref } from "vue";
@@ -14,6 +14,10 @@ const formatDate = (dateString) => {
     day: "numeric",
   });
 };
+
+const handleQuizClick = (quiz) => {
+  console.log(quiz);
+};
 </script>
 
 <template>
@@ -21,23 +25,25 @@ const formatDate = (dateString) => {
     <h1 class="quiz-title">Your Quizes</h1>
     <el-row :gutter="20">
       <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="quiz in quizes" :key="quiz.id">
-        <el-card class="quiz-card" shadow="hover">
-          <div class="quiz-card-content">
-            <h2 class="quiz-name">{{ quiz.name }}</h2>
+        <NuxtLink :to="`/user/quizes/${quiz.id}`">
+          <el-card class="quiz-card" shadow="hover">
+            <div class="quiz-card-content">
+              <h2 class="quiz-name">{{ quiz.name }}</h2>
 
-            <div class="quiz-info">
-              <div class="info-item">
-                <el-icon><Calendar /></el-icon>
-                <span>{{ formatDate(quiz.createdAt) }}</span>
-              </div>
+              <div class="quiz-info">
+                <div class="info-item">
+                  <el-icon><Calendar /></el-icon>
+                  <span>{{ formatDate(quiz.createdAt) }}</span>
+                </div>
 
-              <div class="info-item">
-                <el-icon><Document /></el-icon>
-                <span>{{ quiz.questions.length }} Questions</span>
+                <div class="info-item">
+                  <el-icon><Document /></el-icon>
+                  <span>{{ quiz.questions.length }} Questions</span>
+                </div>
               </div>
             </div>
-          </div>
-        </el-card>
+          </el-card>
+        </NuxtLink>
       </el-col>
     </el-row>
   </div>
@@ -82,6 +88,10 @@ const formatDate = (dateString) => {
         }
       }
     }
+  }
+
+  a {
+    text-decoration: none;
   }
 }
 </style>

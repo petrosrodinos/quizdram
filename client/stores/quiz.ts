@@ -8,7 +8,9 @@ export const useQuizStore = defineStore(
   () => {
     const quizes = ref<Quiz[]>([]);
     function setQuiz(newQuiz: any) {
-      quizes.value.push(newQuiz);
+      let prevquizes = quizes.value;
+      prevquizes.push(newQuiz);
+      quizes.value = prevquizes;
     }
 
     return { quizes, setQuiz };

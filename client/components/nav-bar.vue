@@ -11,9 +11,10 @@
       <img class="image-logo" style="width: 100px" src="/assets/logo.jpg" alt="Element logo" />
     </el-menu-item>
     <el-menu-item index="1">
-      <el-menu-item index="1-1">Home</el-menu-item>
+      <NuxtLink to="/"><el-menu-item index="1-1">Home</el-menu-item></NuxtLink>
     </el-menu-item>
 
+    <NuxtLink to="/user/quizes"><el-menu-item index="3">Quizes</el-menu-item></NuxtLink>
     <el-menu-item index="2">About</el-menu-item>
     <el-sub-menu index="3">
       <template #title>Workspace</template>
@@ -39,7 +40,10 @@ const handleSelect = (key: string, keyPath: string[]) => {
 };
 </script>
 
-<style>
+<style scoped>
+a {
+  text-decoration: none;
+}
 template {
   font-family: Roboto, sans-serif;
 }

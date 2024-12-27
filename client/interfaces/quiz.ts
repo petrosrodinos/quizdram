@@ -6,7 +6,7 @@ export interface NewQuiz {
 }
 
 export interface Quiz {
-  id?: string;
+  id: string;
   userId?: string;
   name: string;
   questions: Question[];
