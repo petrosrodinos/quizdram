@@ -3,7 +3,7 @@ import * as Format from '../assets/format.json';
 import { QuizSettings } from 'src/types/quiz';
 
 const PROMPT = `
-create a quiz based on the below settings and below format.each item in the settings/questions array is a question with some settings,so for the below settings you should generate 10 questions with the below information.Your response should be in the format of the format.json file.`;
+Create a quiz based on the following settings in the specified JSON format.Each item in the questions array is a question with its settings.Use the input settings to generate appropriate questions in a json format strictly.`;
 
 export const generateQuizPrompt = (settings?: QuizSettings) => {
   return `
