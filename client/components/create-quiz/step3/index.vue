@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useQuery } from "@tanstack/vue-query";
-import { generateQuiz } from "../../../services/quiz";
+import { createQuiz } from "../../../services/quiz";
 import type { NewQuiz } from "../../../interfaces/quiz";
 import { ref, watch, computed, onUnmounted } from "vue";
 import { useQuizStore } from "../../../stores/quiz";
@@ -13,7 +13,7 @@ const quizStore = useQuizStore();
 
 const { isLoading, data, error } = useQuery({
   queryKey: ["new-quiz"],
-  queryFn: () => generateQuiz(quizSettings),
+  queryFn: () => createQuiz(quizSettings),
 });
 
 watch(data, (newData) => {

@@ -1,28 +1,24 @@
 <script lang="ts" setup>
-import { Position } from "@element-plus/icons-vue";
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
 
-const emit = defineEmits(["onSettingsSelect"]);
+const emit = defineEmits(["onPromptChange"]);
 
 const input = ref("");
 
-const handleGenerateQuiz = () => {
-  const quizSettings = {
-    prompt: input.value,
-    source: "ai",
-    difficulty: "easy",
-    category: "multiple",
-  };
-  emit("onSettingsSelect", quizSettings);
+const handlePromptChange = (value: string) => {
+  emit("onPromptChange", value);
 };
 </script>
 
 <template>
   <div>
-    <el-input clearable v-model="input" style="width: 240px" placeholder="ex: cats" />
-    <el-button :disabled="!input" type="success" @click="handleGenerateQuiz" :icon="Position"
-      >Create</el-button
-    >
+    <el-input
+      @input="handlePromptChange"
+      clearable
+      v-model="input"
+      style="width: 240px"
+      placeholder="ex: cats"
+    />
   </div>
 </template>
 

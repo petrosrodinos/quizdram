@@ -13,6 +13,7 @@ const quiz: Quiz | undefined = quizStore?.quizes.find((quiz: Quiz) => quiz.id ==
 
 <template>
   <div>
+    <h2>{{ quiz?.name }}</h2>
     <QuizPlayOptions v-if="quiz" :quiz="quiz" />
     <Quiz v-if="quiz" :quiz="quiz" />
     <el-alert v-else title="Could not find quiz" type="error" />

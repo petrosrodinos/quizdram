@@ -4,7 +4,7 @@ import type { Question } from "../../interfaces/quiz";
 
 const { question, answer } = defineProps<{
   question: Question;
-  answer: string;
+  answer?: string;
 }>();
 
 const emit = defineEmits(["onAnswerChange"]);
@@ -18,7 +18,7 @@ const handleAnswerChange = () => {
 watch(
   () => answer,
   (newAnswer) => {
-    selectedAnswer.value = newAnswer;
+    selectedAnswer.value = newAnswer || "";
   }
 );
 </script>

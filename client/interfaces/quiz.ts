@@ -1,8 +1,20 @@
+// export interface NewQuiz {
+//   prompt: string;
+//   source: "ai" | "doc" | "video" | "text";
+//   difficulty?: "easy" | "medium" | "hard";
+//   type?: QuizType;
+// }
+
 export interface NewQuiz {
   prompt: string;
-  source: "ai" | "doc" | "video" | "text";
-  difficulty?: "easy" | "medium" | "hard";
-  type?: QuizType;
+  questions: Array<QuestionSettings>;
+}
+
+export interface QuestionSettings {
+  type: QuizType;
+  answers: number;
+  possibleCorrect: number;
+  difficulty: QuizDifficulty;
 }
 
 export interface Quiz {
@@ -22,3 +34,4 @@ export interface Question {
 }
 
 export type QuizType = "multiple" | "boolean";
+export type QuizDifficulty = "easy" | "medium" | "hard";

@@ -34,8 +34,11 @@ const handleOptionClick = (option: string) => {
   step.value++;
 };
 
-const handleSettingsSelect = (settings: NewQuiz) => {
-  quizSettings.value = settings;
+const handleCreateQuiz = (settings: NewQuiz) => {
+  quizSettings.value = {
+    ...quizSettings.value,
+    ...settings,
+  };
   step.value++;
 };
 
@@ -55,7 +58,7 @@ const handleFinalize = async () => {
       :is="components[steps[step].component]"
       :option="selectedOption"
       @onOptionClick="handleOptionClick"
-      @onSettingsSelect="handleSettingsSelect"
+      @onCreateQuiz="handleCreateQuiz"
       :quizSettings="quizSettings"
     />
 
