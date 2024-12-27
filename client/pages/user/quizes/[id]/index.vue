@@ -17,9 +17,13 @@ const quiz: Quiz | undefined = quizStore?.quizes.find((quiz: Quiz) => quiz.id ==
     <QuizPlayOptions :quiz="quiz" />
     <QuizHistory :quiz="quiz" />
     <h2>Questions</h2>
-    <Quiz :quiz="quiz" />
+    <Quiz :quiz="quiz" :edit="true" />
   </div>
   <el-alert :closable="false" v-else title="Could not find quiz" type="error" />
 </template>
 
-<style scoped></style>
+<style scoped>
+.el-alert {
+  margin-top: 20px;
+}
+</style>

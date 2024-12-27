@@ -46,7 +46,13 @@ const formatDate = (dateString) => {
         </NuxtLink>
       </el-col>
     </el-row>
-    <el-alert v-else-if="quizes.length == 0" title="Could not find any quizes" type="warning" />
+    <el-alert
+      :closable="false"
+      effect="dark"
+      v-else-if="quizes.length == 0"
+      title="Could not find any quizes"
+      type="warning"
+    />
     <el-alert v-else title="Error finding your quizes" type="error" />
   </div>
 </template>
