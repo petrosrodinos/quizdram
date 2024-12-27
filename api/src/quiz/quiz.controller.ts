@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Req,
+} from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
@@ -8,8 +17,10 @@ export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
   @Post()
-  create(@Body() createQuizDto: CreateQuizDto) {
-    return this.quizService.create(createQuizDto);
+  create(@Req() req: Express.Request, @Body() createQuizDto: CreateQuizDto) {
+    const userId = req.user?.userId;
+
+    return this.quizService.create(createQuizDto, userId);
   }
 
   @Get()

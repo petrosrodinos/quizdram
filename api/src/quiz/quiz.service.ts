@@ -3,16 +3,30 @@ import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
 import { askOpenAI } from 'src/utils/openai';
 import { generateQuizPrompt } from 'src/utils/prompt';
+import { Quiz } from 'src/schemas/quiz.schema';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class QuizService {
-  async create(createQuizDto: CreateQuizDto) {
+  constructor(
+    @InjectModel(Quiz.name)
+    private quizModel: Model<Quiz>,
+  ) {}
+  async create(createQuizDto: CreateQuizDto, userId?: string) {
     const prompt = generateQuizPrompt(createQuizDto);
-    const result = await askOpenAI(prompt);
+    const quiz = await askOpenAI(prompt);
 
-    return {
-      result: JSON.parse(result),
+    const data = {
+      userId: userId || 'visitor',
+      ...JSON.parse(quiz),
     };
+
+    const result = new this.quizModel(data);
+
+    await result.save();
+
+    return result;
   }
 
   findAll() {

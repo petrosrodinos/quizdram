@@ -3,6 +3,7 @@ import { ref, defineAsyncComponent } from "vue";
 import { ArrowLeft } from "@element-plus/icons-vue";
 import type { NewQuiz } from "../../interfaces/quiz";
 import { navigateTo } from "nuxt/app";
+import { useQuery } from "@tanstack/vue-query";
 
 const step = ref(0);
 const selectedOption = ref("");
@@ -28,6 +29,11 @@ const components: any = {
   step2: defineAsyncComponent(() => import("./step2/index.vue")),
   step3: defineAsyncComponent(() => import("./step3/index.vue")),
 };
+
+// const { isPending, isError, data, error } = useQuery({
+//   queryKey: ['todos'],
+//   queryFn: getTodos,
+// })
 
 const handleOptionClick = (option: string) => {
   selectedOption.value = option;
