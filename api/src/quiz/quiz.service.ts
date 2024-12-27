@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
-import * as TestQuiz from '../assets/test-quiz.json';
+import { askOpenAI } from 'src/utils/openai';
+import { generateQuizPrompt } from 'src/utils/prompt';
 
 @Injectable()
 export class QuizService {
-  create(createQuizDto: CreateQuizDto) {
-    return TestQuiz;
+  async create(createQuizDto: CreateQuizDto) {
+    const prompt = generateQuizPrompt(createQuizDto);
+    const result = await askOpenAI(prompt);
+
+    return {
+      result: JSON.parse(result),
+    };
   }
 
   findAll() {

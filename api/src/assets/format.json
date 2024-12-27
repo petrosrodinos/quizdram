@@ -1,0 +1,18 @@
+{
+  "name": "Test Quiz",
+  "questions": [
+    {
+      "id": "1",
+      "type": "multiple",
+      "question": "What is the capital of France?",
+      "answers": ["Berlin", "Madrid", "Paris", "Rome"],
+      "correct": "2"
+    },
+    {
+      "id": "2",
+      "type": "boolean",
+      "question": "The Great Wall of China is visible from space.",
+      "correct": "false"
+    }
+  ]
+}
