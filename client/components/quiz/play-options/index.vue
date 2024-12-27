@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { ElCard, ElButton } from "element-plus";
 import { Edit, UserFilled, Notebook } from "@element-plus/icons-vue";
+import type { Quiz } from "../../../interfaces/quiz";
+import { navigateTo } from "nuxt/app";
+
+const { quiz } = defineProps<{
+  quiz: Quiz;
+}>();
+
+const handlePlayQuiz = async () => {
+  await navigateTo(`/user/quizes/${quiz.id}/play`);
+};
 </script>
 
 <template>
@@ -8,11 +18,11 @@ import { Edit, UserFilled, Notebook } from "@element-plus/icons-vue";
     <ElCard shadow="always" class="custom-card">
       <h2>Play Options</h2>
       <div class="button-container">
-        <ElButton type="primary" :icon="Edit">Play Quiz</ElButton>
+        <ElButton @click="handlePlayQuiz" type="primary" :icon="Edit">Play Quiz</ElButton>
 
         <ElButton type="success" :icon="UserFilled">Play with Friends</ElButton>
 
-        <ElButton type="warning" :icon="Notebook">Create Assignment</ElButton>
+        <ElButton disabled type="warning" :icon="Notebook">Create Assignment</ElButton>
       </div>
     </ElCard>
   </div>
@@ -27,14 +37,12 @@ import { Edit, UserFilled, Notebook } from "@element-plus/icons-vue";
 
 .button-container {
   display: flex;
-  align-content: flex-start;
   gap: 15px;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
     button {
       width: 100%;
     }

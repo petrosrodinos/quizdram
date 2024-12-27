@@ -1,7 +1,7 @@
 <script setup>
 import { useQuizStore } from "../../../stores/quiz";
 import { ElCard, ElRow, ElCol } from "element-plus";
-import { Calendar, Document } from "@element-plus/icons-vue";
+import { Calendar, Document, Edit } from "@element-plus/icons-vue";
 import { ref } from "vue";
 
 const quizStore = useQuizStore();
@@ -14,16 +14,16 @@ const formatDate = (dateString) => {
     day: "numeric",
   });
 };
-
-const handleQuizClick = (quiz) => {
-  console.log(quiz);
-};
 </script>
 
 <template>
   <div class="quiz-container">
     <h1 class="quiz-title">Your Quizes</h1>
-    <el-row :gutter="20">
+    <NuxtLink to="/user/quizes/new"
+      ><ElButton type="success" :icon="Edit">Create a Quiz</ElButton></NuxtLink
+    >
+
+    <el-row v-if="quizes.length > 0" :gutter="20">
       <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="quiz in quizes" :key="quiz.id">
         <NuxtLink :to="`/user/quizes/${quiz.id}`">
           <el-card class="quiz-card" shadow="hover">
@@ -46,6 +46,8 @@ const handleQuizClick = (quiz) => {
         </NuxtLink>
       </el-col>
     </el-row>
+    <el-alert v-else-if="quizes.length == 0" title="Could not find any quizes" type="warning" />
+    <el-alert v-else title="Error finding your quizes" type="error" />
   </div>
 </template>
 
@@ -88,6 +90,10 @@ const handleQuizClick = (quiz) => {
         }
       }
     }
+  }
+
+  button {
+    margin-bottom: 10px;
   }
 
   a {
