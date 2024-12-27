@@ -1,10 +1,3 @@
-// export interface NewQuiz {
-//   prompt: string;
-//   source: "ai" | "doc" | "video" | "text";
-//   difficulty?: "easy" | "medium" | "hard";
-//   type?: QuizType;
-// }
-
 export interface NewQuiz {
   prompt: string;
   questions: Array<QuestionSettings>;
