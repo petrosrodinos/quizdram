@@ -16,13 +16,13 @@ const handlePlayQuiz = async () => {
 <template>
   <div>
     <ElCard shadow="always" class="custom-card">
-      <h2>Play Options</h2>
+      <h2>play options</h2>
       <div class="button-container">
-        <ElButton @click="handlePlayQuiz" type="primary" :icon="Edit">Take Quiz</ElButton>
+        <ElButton @click="handlePlayQuiz" type="primary" :icon="Edit">take quiz</ElButton>
 
-        <ElButton type="success" :icon="UserFilled">Play with Friends</ElButton>
+        <ElButton type="success" :icon="UserFilled">play with friends</ElButton>
 
-        <ElButton disabled type="warning" :icon="Notebook">Create Assignment</ElButton>
+        <ElButton disabled type="warning" :icon="Notebook">create assignment</ElButton>
       </div>
     </ElCard>
   </div>
