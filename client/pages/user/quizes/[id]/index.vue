@@ -16,10 +16,8 @@ const isLoggedIn = !!authStore?.user;
 
 const quiz: Quiz | undefined = quizStore?.quizes.find((quiz: Quiz) => quiz.id === quizId);
 
-console.log("quizes", quiz);
-
 const { isLoading, data } = useQuery({
-  queryKey: ["quizes", quizId as string],
+  queryKey: ["quiz", quizId as string],
   queryFn: () => getQuiz(quizId as string),
   enabled: !!authStore?.user && !!quizId,
 });
@@ -30,7 +28,7 @@ const { isLoading, data } = useQuery({
     <div v-if="isLoading">getting quiz...</div>
 
     <div v-if="(quiz || data) && !isLoading">
-      <h2>{{ quiz?.name }}</h2>
+      <h2>{{ quiz?.name || data?.name }}</h2>
       <QuizPlayOptions v-if="isLoggedIn && data" :quiz="data" />
       <QuizPlayOptions v-if="!isLoggedIn && quiz" :quiz="quiz" />
 
