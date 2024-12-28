@@ -33,3 +33,17 @@ export const getQuizzes = async (token: string): Promise<Quiz[]> => {
     throw new Error(error.response.data.message);
   }
 };
+
+export const getQuiz = async (id: string): Promise<Quiz> => {
+  try {
+    const response = await axios.get(`${API_URL}/quiz/${id}`);
+    const data = response.data;
+    const formattedData = {
+      ...data,
+      id: data._id,
+    };
+    return formattedData;
+  } catch (error: any) {
+    throw new Error(error.response.data.message);
+  }
+};
