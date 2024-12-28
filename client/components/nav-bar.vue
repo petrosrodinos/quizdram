@@ -1,3 +1,12 @@
+<script lang="ts" setup>
+import { ref } from "vue";
+import { useAuthStore } from "../stores/auth";
+
+const authStore = useAuthStore();
+const activeIndex = ref("1");
+const handleSelect = (key: string, keyPath: string[]) => {};
+</script>
+
 <template>
   <el-menu
     :default-active="activeIndex"
@@ -14,8 +23,13 @@
       <NuxtLink to="/"><el-menu-item index="1-1">home</el-menu-item></NuxtLink>
     </el-menu-item>
 
-    <NuxtLink to="/user/quizes"><el-menu-item index="3">quizes</el-menu-item></NuxtLink>
-    <NuxtLink to="/auth/login"><el-menu-item index="2">login/sign Up</el-menu-item></NuxtLink>
+    <el-menu-item index="2"><NuxtLink to="/user/quizes">quizes</NuxtLink></el-menu-item>
+    <NuxtLink v-if="!authStore.user" to="/auth/login">
+      <el-menu-item index="3">login/sign Up</el-menu-item>
+    </NuxtLink>
+    <NuxtLink @click="authStore.logout()" v-else to="/auth/login"
+      ><el-menu-item index="4">logout</el-menu-item></NuxtLink
+    >
     <!-- <el-sub-menu index="3">
       <template #title>Workspace</template>
       <el-menu-item index="3-1">item one</el-menu-item>
@@ -30,13 +44,6 @@
     </el-sub-menu> -->
   </el-menu>
 </template>
-
-<script lang="ts" setup>
-import { ref } from "vue";
-
-const activeIndex = ref("1");
-const handleSelect = (key: string, keyPath: string[]) => {};
-</script>
 
 <style scoped>
 a {

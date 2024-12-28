@@ -1,10 +1,10 @@
 import type { Quiz } from "@interfaces/quiz";
 import { defineStore } from "pinia";
 
-const QUIZ_STORE_KEY = "quiz";
+const STORE_KEY = "QUIZ";
 
 export const useQuizStore = defineStore(
-  QUIZ_STORE_KEY,
+  STORE_KEY,
   () => {
     const quizes = ref<Quiz[]>([]);
     function setQuiz(newQuiz: any) {

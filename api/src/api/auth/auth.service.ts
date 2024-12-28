@@ -24,7 +24,7 @@ export class AuthService {
     });
 
     if (existingUser) {
-      throw new ConflictException('Credentials taken');
+      throw new ConflictException('email already exists');
     }
 
     let avatarUrl = undefined;
@@ -66,13 +66,13 @@ export class AuthService {
     });
 
     if (!user) {
-      throw new ForbiddenException('Credentials incorrect');
+      throw new ForbiddenException('user does not exist');
     }
 
     const passwordMatch = await argon.verify(user.password, data.password);
 
     if (!passwordMatch) {
-      throw new ForbiddenException('Credentials incorrect');
+      throw new ForbiddenException('incorect credentials');
     }
 
     const token = await this.jwt.signToken({

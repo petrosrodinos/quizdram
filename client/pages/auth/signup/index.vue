@@ -1,67 +1,89 @@
 <script setup lang="ts">
 import { ElMessage, type FormRules, type FormInstance } from "element-plus";
 import { reactive, ref } from "vue";
+import { useMutation } from "@tanstack/vue-query";
+import { signUp } from "../../../services/auth";
+import type { SignUp, User } from "../../../interfaces/auth";
+import { useAuthStore } from "../../../stores/auth";
+import { navigateTo } from "nuxt/app";
 
-interface RuleForm {
-  username: string;
-  email: string;
-  password: string;
-}
+const authStore = useAuthStore();
 
 const ruleFormRef = ref<FormInstance>();
-const signupForm = reactive<RuleForm>({
+const signupForm = reactive<SignUp>({
   username: "",
   email: "",
   password: "",
 });
 
-const rules = reactive<FormRules<RuleForm>>({
+const rules = reactive<FormRules<SignUp>>({
   username: [
     {
       required: true,
-      message: "Please input username",
+      message: "please input username",
       trigger: "blur",
     },
     {
       min: 4,
-      message: "Username length should be at least 4 characters",
+      message: "username length should be at least 4 characters",
       trigger: "blur",
     },
   ],
   email: [
     {
       required: true,
-      message: "Please input email address",
+      message: "please input email address",
       trigger: "blur",
     },
     {
       type: "email",
-      message: "Please input correct email address",
+      message: "please input correct email address",
       trigger: ["blur", "change"],
     },
   ],
   password: [
     {
       required: true,
-      message: "Please input password",
+      message: "please input password",
       trigger: "blur",
     },
     {
       min: 6,
-      message: "Password length should be at least 6 characters",
+      message: "password length should be at least 6 characters",
       trigger: "blur",
     },
   ],
+});
+
+const { mutate } = useMutation({
+  mutationFn: signUp,
+  onSuccess: async (data: User) => {
+    authStore.setUser(data);
+    await navigateTo("/user/quizes");
+    ElMessage({
+      showClose: true,
+      message: "sign up successfully",
+      type: "success",
+    });
+  },
+  onError: (err) => {
+    ElMessage({
+      showClose: true,
+      message: err.message,
+      type: "error",
+    });
+  },
 });
 
 const handleSignUp = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
+      mutate(signupForm);
     } else {
       ElMessage({
         showClose: true,
-        message: "Please fill out all fields.",
+        message: "please fill out all fields.",
         type: "warning",
       });
     }
@@ -83,7 +105,7 @@ const handleSignUp = async (formEl: FormInstance | undefined) => {
       <el-form-item prop="username" label="@username" label-position="top">
         <el-input v-model="signupForm.username" />
       </el-form-item>
-      <el-form-item prop="email" label="Email">
+      <el-form-item prop="email" label="email">
         <el-input v-model="signupForm.email" />
       </el-form-item>
       <el-form-item prop="password" label="password" label-position="top">

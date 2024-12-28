@@ -12,6 +12,7 @@ export default defineNuxtConfig({
   alias: {
     "@interfaces": "./interfaces",
     "@stores": "./stores",
+    "@utils": "./utils",
   },
   vueQuery: {
     stateKey: "vue-query-nuxt",

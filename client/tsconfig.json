@@ -5,7 +5,8 @@
     "baseUrl": ".",
     "paths": {
       "@interfaces/*": ["interfaces/*"],
-      "@stores/*": ["stores/*"]
+      "@stores/*": ["stores/*"],
+      "@utils/*": ["utils/*"]
     }
   }
 }

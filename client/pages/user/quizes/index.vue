@@ -18,9 +18,9 @@ const formatDate = (dateString) => {
 
 <template>
   <div class="quiz-container">
-    <h1 class="quiz-title">Your Quizes</h1>
+    <h1 class="quiz-title">your quizes</h1>
     <NuxtLink to="/user/quizes/new"
-      ><ElButton type="success" :icon="Edit">Create a Quiz</ElButton></NuxtLink
+      ><ElButton type="success" :icon="Edit">create a quiz</ElButton></NuxtLink
     >
 
     <el-row v-if="quizes.length > 0" :gutter="20">
@@ -46,14 +46,12 @@ const formatDate = (dateString) => {
         </NuxtLink>
       </el-col>
     </el-row>
-    <el-alert
-      :closable="false"
-      effect="dark"
-      v-else-if="quizes.length == 0"
-      title="Could not find any quizes"
-      type="warning"
-    />
-    <el-alert v-else title="Error finding your quizes" type="error" />
+    <el-card shadow="hover" v-if="quizes.length == 0">
+      <el-alert :closable="false" effect="dark" title="your quizzes are empty." type="warning" />
+    </el-card>
+    <el-card shadow="hover" v-else-if="!quizes?.length">
+      <el-alert title="error finding your quizes." type="error" />
+    </el-card>
   </div>
 </template>
 

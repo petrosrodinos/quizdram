@@ -1,53 +1,77 @@
 <script setup lang="ts">
 import { ElMessage, type FormRules, type FormInstance } from "element-plus";
 import { reactive, ref } from "vue";
+import { useMutation } from "@tanstack/vue-query";
+import { logIn } from "../../../services/auth";
+import type { Login, User } from "../../../interfaces/auth";
+import { useAuthStore } from "../../../stores/auth";
+import { navigateTo } from "nuxt/app";
 
-interface RuleForm {
-  email: string;
-  password: string;
-}
+const authStore = useAuthStore();
 
 const ruleFormRef = ref<FormInstance>();
-const loginForm = reactive<RuleForm>({
+const loginForm = reactive<Login>({
   email: "",
   password: "",
 });
 
-const rules = reactive<FormRules<RuleForm>>({
+const rules = reactive<FormRules<Login>>({
   email: [
     {
       required: true,
-      message: "Please input email address",
+      message: "please input email address",
       trigger: "blur",
     },
     {
       type: "email",
-      message: "Please input correct email address",
+      message: "please input correct email address",
       trigger: ["blur", "change"],
     },
   ],
   password: [
     {
       required: true,
-      message: "Please input password",
+      message: "please input password",
       trigger: "blur",
     },
     {
       min: 6,
-      message: "Password length should be at least 6 characters",
+      message: "password length should be at least 6 characters",
       trigger: "blur",
     },
   ],
+});
+
+const { mutate } = useMutation({
+  mutationFn: logIn,
+  onSuccess: async (data: User) => {
+    authStore.setUser(data);
+    await navigateTo("/user/quizes");
+
+    ElMessage({
+      showClose: true,
+      message: "login successfully",
+      type: "success",
+    });
+  },
+  onError: (err) => {
+    ElMessage({
+      showClose: true,
+      message: err.message,
+      type: "error",
+    });
+  },
 });
 
 const handleLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
+      mutate(loginForm);
     } else {
       ElMessage({
         showClose: true,
-        message: "Please fill out all fields.",
+        message: "please fill out all fields.",
         type: "warning",
       });
     }
@@ -66,7 +90,7 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       label-width="auto"
       style="max-width: 600px"
     >
-      <el-form-item prop="email" label="Email">
+      <el-form-item prop="email" label="email">
         <el-input v-model="loginForm.email" />
       </el-form-item>
 
