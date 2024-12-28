@@ -14,27 +14,39 @@ export class QuizService {
     private quizModel: Model<Quiz>,
   ) {}
   async create(createQuizDto: CreateQuizDto, userId?: string) {
-    const prompt = generateQuizPrompt(createQuizDto);
-    const quiz = await askOpenAI(prompt);
+    try {
+      const prompt = generateQuizPrompt(createQuizDto);
+      const quiz = await askOpenAI(prompt);
 
-    const data = {
-      userId: userId || 'visitor',
-      ...JSON.parse(quiz),
-    };
+      const data = {
+        userId: userId || 'visitor',
+        ...JSON.parse(quiz),
+      };
 
-    const result = new this.quizModel(data);
+      const result = new this.quizModel(data);
 
-    await result.save();
+      await result.save();
 
-    return result;
+      return result;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all quiz`;
+  findAll(userId?: string) {
+    try {
+      return this.quizModel.find({ userId });
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} quiz`;
+  findOne(id: string) {
+    try {
+      return this.quizModel.findById(id);
+    } catch (error) {
+      throw error;
+    }
   }
 
   update(id: number, updateQuizDto: UpdateQuizDto) {

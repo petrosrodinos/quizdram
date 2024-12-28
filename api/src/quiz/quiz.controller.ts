@@ -12,7 +12,7 @@ import {
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
-import { LooseJwtGuard } from 'src/api/auth/guard';
+import { LooseJwtGuard, JwtGuard } from 'src/api/auth/guard';
 
 @Controller('quiz')
 export class QuizController {
@@ -26,14 +26,17 @@ export class QuizController {
     return this.quizService.create(createQuizDto, userId);
   }
 
+  @UseGuards(JwtGuard)
   @Get()
-  findAll() {
-    return this.quizService.findAll();
+  findAll(@Req() req: Express.Request) {
+    const userId = req.user?.userId;
+
+    return this.quizService.findAll(userId);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.quizService.findOne(+id);
+    return this.quizService.findOne(id);
   }
 
   @Patch(':id')
