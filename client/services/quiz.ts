@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { NewQuiz } from "../interfaces/quiz";
+import type { NewQuiz, Quiz } from "../interfaces/quiz";
 import { getHeaders } from "./utils";
 
 export const createQuiz = async (quiz: NewQuiz, token: string | undefined) => {
@@ -18,16 +18,18 @@ export const createQuiz = async (quiz: NewQuiz, token: string | undefined) => {
   }
 };
 
-export const getQuizes = async () => {
+export const getQuizzes = async (token: string): Promise<Quiz[]> => {
   try {
-    const response = await axios.get(`${API_URL}/quiz`);
+    const response = await axios.get(`${API_URL}/quiz`, {
+      headers: getHeaders(token),
+    });
     const data = response.data;
     const formattedData = data.map((quiz: any) => ({
       ...quiz,
       id: quiz._id,
     }));
     return formattedData;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    throw new Error(error.response.data.message);
   }
 };

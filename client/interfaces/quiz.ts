@@ -12,14 +12,14 @@ export interface QuestionSettings {
 
 export interface Quiz {
   id: string;
-  userId?: string;
+  userId: string;
   name: string;
   questions: Question[];
   createdAt: string;
 }
 
 export interface Question {
-  id?: string;
+  id: string;
   type: QuizType;
   question: string;
   answers: string[];

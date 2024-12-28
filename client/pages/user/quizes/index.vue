@@ -3,17 +3,19 @@ import { useQuizStore } from "../../../stores/quiz";
 import { ElCard, ElRow, ElCol } from "element-plus";
 import { Calendar, Document, Edit } from "@element-plus/icons-vue";
 import { ref } from "vue";
+import { useQuery } from "@tanstack/vue-query";
+import { useAuthStore } from "../../../stores/auth";
+import { getQuizzes } from "../../../services/quiz";
 
+const authStore = useAuthStore();
 const quizStore = useQuizStore();
 const quizes = ref(quizStore?.quizes);
 
-const formatDate = (dateString) => {
-  return new Date(dateString).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
+const { isLoading, data } = useQuery({
+  queryKey: ["quizes"],
+  queryFn: () => getQuizzes(authStore.user.token),
+  enabled: !!authStore?.user,
+});
 </script>
 
 <template>
@@ -22,79 +24,21 @@ const formatDate = (dateString) => {
     <NuxtLink to="/user/quizes/new"
       ><ElButton type="success" :icon="Edit">create a quiz</ElButton></NuxtLink
     >
+    <QuizCards :loading="isLoading" v-if="authStore.user" :quizes="data" />
+    <QuizCards v-else :quizes="quizes" />
 
-    <el-row v-if="quizes.length > 0" :gutter="20">
-      <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="quiz in quizes" :key="quiz.id">
-        <NuxtLink :to="`/user/quizes/${quiz.id}`">
-          <el-card class="quiz-card" shadow="hover">
-            <div class="quiz-card-content">
-              <h2 class="quiz-name">{{ quiz.name }}</h2>
-
-              <div class="quiz-info">
-                <div class="info-item">
-                  <el-icon><Calendar /></el-icon>
-                  <span>{{ formatDate(quiz.createdAt) }}</span>
-                </div>
-
-                <div class="info-item">
-                  <el-icon><Document /></el-icon>
-                  <span>{{ quiz.questions.length }} Questions</span>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </NuxtLink>
-      </el-col>
-    </el-row>
-    <el-card shadow="hover" v-if="quizes.length == 0">
+    <el-card shadow="hover" v-if="quizes?.length == 0 || data?.length == 0">
       <el-alert :closable="false" effect="dark" title="your quizzes are empty." type="warning" />
     </el-card>
-    <el-card shadow="hover" v-else-if="!quizes?.length">
-      <el-alert title="error finding your quizes." type="error" />
+    <el-card shadow="hover" v-else-if="!quizes?.length || data?.length == 0">
+      <el-alert :closable="false" title="error finding your quizes." type="error" />
     </el-card>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .quiz-container {
-  padding: 20px;
-
-  .quiz-title {
-    font-size: 28px;
-    margin-bottom: 30px;
-    color: var(--el-text-color-primary);
-  }
-
-  .quiz-card {
-    margin-bottom: 20px;
-    transition: transform 0.3s;
-
-    &:hover {
-      transform: translateY(-5px);
-      cursor: pointer;
-    }
-
-    .quiz-card-content {
-      .quiz-name {
-        font-size: 18px;
-        margin: 0 0 15px 0;
-        color: var(--el-text-color-primary);
-      }
-
-      .quiz-info {
-        .info-item {
-          display: flex;
-          align-items: center;
-          margin-bottom: 8px;
-          color: var(--el-text-color-secondary);
-
-          .el-icon {
-            margin-right: 8px;
-          }
-        }
-      }
-    }
-  }
+  padding: 10px;
 
   button {
     margin-bottom: 10px;
