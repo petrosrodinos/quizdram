@@ -10,15 +10,15 @@ const quizSettings = ref({});
 
 const steps: any = [
   {
-    title: "Choose a source",
+    title: "choose a source",
     component: "step1",
   },
   {
-    title: "Create Quiz",
+    title: "create quiz",
     component: "step2",
   },
   {
-    title: "Finalize",
+    title: "finalize",
     component: "step3",
   },
 ];
@@ -64,9 +64,9 @@ const handleFinalize = async () => {
 
     <div class="step-buttons">
       <el-button @click="handleGoBack" v-if="step > 0" type="danger" :icon="ArrowLeft"
-        >Back</el-button
+        >back</el-button
       >
-      <el-button @click="handleFinalize" v-if="step == 2" type="success">Finalize</el-button>
+      <el-button @click="handleFinalize" v-if="step == 2" type="success">finalize</el-button>
     </div>
   </div>
 </template>

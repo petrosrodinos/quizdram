@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "#app": ["./.nuxt/types/app"],
       "@interfaces/*": ["interfaces/*"],
       "@stores/*": ["stores/*"],
       "@utils/*": ["utils/*"]

@@ -7,15 +7,18 @@ import {
   Param,
   Delete,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
+import { LooseJwtGuard } from 'src/api/auth/guard';
 
 @Controller('quiz')
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
+  @UseGuards(LooseJwtGuard)
   @Post()
   create(@Req() req: Express.Request, @Body() createQuizDto: CreateQuizDto) {
     const userId = req.user?.userId;

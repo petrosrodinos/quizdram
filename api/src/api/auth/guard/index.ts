@@ -1,1 +1,2 @@
-export * from './jwt.guard';
+export { JwtGuard } from './jwt.guard';
+export { LooseJwtGuard } from './loosejwt.guard';

@@ -41,7 +41,7 @@ const handleCreateQuiz = () => {
       type="success"
       @click="handleCreateQuiz"
       :icon="Position"
-      >Create</el-button
+      >create</el-button
     >
   </div>
 </template>

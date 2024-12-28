@@ -1,16 +1,13 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useAuthStore } from "../stores/auth";
-import { useElementSize } from "@vueuse/core";
 
 const authStore = useAuthStore();
 const activeIndex = ref("1");
-const el = ref(null);
 const handleSelect = (key: string, keyPath: string[]) => {};
-const { width, height } = useElementSize(el);
 </script>
 
-<template ref="el">
+<template>
   <el-menu
     :default-active="activeIndex"
     class="el-menu-demo"
