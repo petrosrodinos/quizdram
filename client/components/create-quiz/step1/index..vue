@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Files, VideoPlay, Notebook, Cpu } from "@element-plus/icons-vue";
-import { ref, defineEmits } from "vue";
+import { defineEmits } from "vue";
 
 const emit = defineEmits(["onOptionClick"]);
 
@@ -30,7 +30,7 @@ const handleOptionClick = (option: string) => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .options-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -49,7 +49,11 @@ const handleOptionClick = (option: string) => {
   margin: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #ffd04b;
+
+  span {
+    color: black;
+  }
 }
 
 .option-item:last-child {
@@ -65,8 +69,25 @@ const handleOptionClick = (option: string) => {
   }
 }
 
+@media screen and (max-width: 470px) {
+  .options-container {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .option-item {
+    padding: 0.5rem;
+    margin: 0.5rem;
+  }
+
+  .option-item:last-child {
+    grid-column: span 1;
+    max-width: 100%;
+  }
+}
+
 .option-item:hover {
-  background-color: #f0f0f0;
+  background-color: #ffdd80;
   cursor: pointer;
 }
 </style>

@@ -12,13 +12,7 @@ const handlePromptChange = (value: string) => {
 
 <template>
   <div>
-    <el-input
-      @input="handlePromptChange"
-      clearable
-      v-model="input"
-      style="width: 240px"
-      placeholder="ex: cats"
-    />
+    <el-input @input="handlePromptChange" clearable v-model="input" placeholder="ex: cats" />
   </div>
 </template>
 

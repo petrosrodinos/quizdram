@@ -1,13 +1,16 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useAuthStore } from "../stores/auth";
+import { useElementSize } from "@vueuse/core";
 
 const authStore = useAuthStore();
 const activeIndex = ref("1");
+const el = ref(null);
 const handleSelect = (key: string, keyPath: string[]) => {};
+const { width, height } = useElementSize(el);
 </script>
 
-<template>
+<template ref="el">
   <el-menu
     :default-active="activeIndex"
     class="el-menu-demo"
@@ -19,41 +22,47 @@ const handleSelect = (key: string, keyPath: string[]) => {};
     <el-menu-item index="0">
       <img class="image-logo" style="width: 100px" src="/assets/logo.jpg" alt="Element logo" />
     </el-menu-item>
-    <el-menu-item index="1">
-      <NuxtLink to="/"><el-menu-item index="1-1">home</el-menu-item></NuxtLink>
+
+    <el-menu-item class="menu-item-large" index="1">
+      <NuxtLink to="/">home</NuxtLink>
     </el-menu-item>
 
-    <el-menu-item index="2"><NuxtLink to="/user/quizes">quizes</NuxtLink></el-menu-item>
-    <NuxtLink v-if="!authStore.user" to="/auth/login">
-      <el-menu-item index="3">login/sign Up</el-menu-item>
-    </NuxtLink>
-    <NuxtLink @click="authStore.logout()" v-else to="/auth/login"
-      ><el-menu-item index="4">logout</el-menu-item></NuxtLink
+    <el-menu-item class="menu-item-large" index="2"
+      ><NuxtLink to="/user/quizes">quizes</NuxtLink></el-menu-item
     >
-    <!-- <el-sub-menu index="3">
-      <template #title>Workspace</template>
-      <el-menu-item index="3-1">item one</el-menu-item>
-      <el-menu-item index="3-2">item two</el-menu-item>
-      <el-menu-item index="3-3">item three</el-menu-item>
-      <el-sub-menu index="2-4">
-        <template #title>item four</template>
-        <el-menu-item index="2-4-1">item one</el-menu-item>
-        <el-menu-item index="2-4-2">item two</el-menu-item>
-        <el-menu-item index="2-4-3">item three</el-menu-item>
-      </el-sub-menu>
-    </el-sub-menu> -->
+
+    <el-menu-item class="menu-item-large" index="3">
+      <NuxtLink v-if="!authStore.user" to="/auth/login"> login/sign Up </NuxtLink>
+      <NuxtLink v-else @click="authStore.logout()" to="/auth/login"> logout </NuxtLink>
+    </el-menu-item>
+
+    <el-sub-menu class="menu-item-small" index="1">
+      <template #title>menu</template>
+      <el-menu-item index="1-1">
+        <NuxtLink to="/">home</NuxtLink>
+      </el-menu-item>
+      <el-menu-item index="1-2"><NuxtLink to="/user/quizes">quizes</NuxtLink></el-menu-item>
+
+      <el-menu-item index="1-3">
+        <NuxtLink v-if="!authStore.user" to="/auth/login"> login/sign Up </NuxtLink>
+        <NuxtLink v-else @click="authStore.logout()" to="/auth/login"> logout </NuxtLink>
+      </el-menu-item>
+    </el-sub-menu>
   </el-menu>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 a {
   text-decoration: none;
 }
-template {
-  font-family: Roboto, sans-serif;
-}
-.el-menu--horizontal > .el-menu-item:nth-child(1) {
+.el-menu--horizontal > .el-menu-item:nth-child(3) {
   margin-right: auto;
+}
+
+.el-menu-item {
+  a {
+    color: black;
+  }
 }
 
 .image-logo {
@@ -61,5 +70,23 @@ template {
   width: 30px;
   height: 60px;
   margin-bottom: 10px;
+}
+
+.menu-item-large {
+  display: block;
+}
+
+.menu-item-small {
+  display: none;
+}
+
+@media screen and (max-width: 440px) {
+  .menu-item-large {
+    display: none;
+  }
+
+  .menu-item-small {
+    display: block;
+  }
 }
 </style>
