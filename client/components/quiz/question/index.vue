@@ -39,7 +39,7 @@ const handleToggleDialog = () => {
           @click="handleToggleDialog"
           v-if="edit"
           class="edit-button"
-          type="primary"
+          type="success"
           :icon="Edit"
           circle
           :disabled="true"

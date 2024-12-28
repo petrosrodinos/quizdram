@@ -50,8 +50,7 @@ const calculateResult = () => {
   quiz.questions.forEach((question, index) => {
     if (
       question.type == "multiple" &&
-      question.answers[Number(question.correct)].toLowerCase() ==
-        selectedAnswers.value[index].toLowerCase()
+      question.answers[Number(question.correct)] == selectedAnswers.value[index]
     ) {
       score++;
     } else {

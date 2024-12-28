@@ -11,12 +11,12 @@
       <img class="image-logo" style="width: 100px" src="/assets/logo.jpg" alt="Element logo" />
     </el-menu-item>
     <el-menu-item index="1">
-      <NuxtLink to="/"><el-menu-item index="1-1">Home</el-menu-item></NuxtLink>
+      <NuxtLink to="/"><el-menu-item index="1-1">home</el-menu-item></NuxtLink>
     </el-menu-item>
 
-    <NuxtLink to="/user/quizes"><el-menu-item index="3">Quizes</el-menu-item></NuxtLink>
-    <el-menu-item index="2">About</el-menu-item>
-    <el-sub-menu index="3">
+    <NuxtLink to="/user/quizes"><el-menu-item index="3">quizes</el-menu-item></NuxtLink>
+    <NuxtLink to="/auth/login"><el-menu-item index="2">login/sign Up</el-menu-item></NuxtLink>
+    <!-- <el-sub-menu index="3">
       <template #title>Workspace</template>
       <el-menu-item index="3-1">item one</el-menu-item>
       <el-menu-item index="3-2">item two</el-menu-item>
@@ -27,7 +27,7 @@
         <el-menu-item index="2-4-2">item two</el-menu-item>
         <el-menu-item index="2-4-3">item three</el-menu-item>
       </el-sub-menu>
-    </el-sub-menu>
+    </el-sub-menu> -->
   </el-menu>
 </template>
 
