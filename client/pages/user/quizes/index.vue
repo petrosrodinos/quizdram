@@ -8,10 +8,12 @@ import { useAuthStore } from "../../../stores/auth";
 import { getQuizzes } from "../../../services/quiz";
 
 const authStore = useAuthStore();
+
+const isLoggedIn = !!authStore?.user;
 const quizStore = useQuizStore();
 const quizes = ref(quizStore?.quizes);
 
-const { isLoading, data } = useQuery({
+const { isLoading, data, error } = useQuery({
   queryKey: ["quizes"],
   queryFn: () => getQuizzes(authStore.user.token),
   enabled: !!authStore?.user,
@@ -27,10 +29,13 @@ const { isLoading, data } = useQuery({
     <QuizCards :loading="isLoading" v-if="authStore.user" :quizes="data" />
     <QuizCards v-else :quizes="quizes" />
 
-    <el-card shadow="hover" v-if="quizes?.length == 0 || data?.length == 0">
+    <el-card
+      shadow="hover"
+      v-if="(isLoggedIn && data?.length == 0) || (!isLoggedIn && quizes?.length == 0)"
+    >
       <el-alert :closable="false" effect="dark" title="your quizzes are empty." type="warning" />
     </el-card>
-    <el-card shadow="hover" v-else-if="!quizes?.length || data?.length == 0">
+    <el-card shadow="hover" v-if="(isLoggedIn && error) || (!isLoggedIn && !quizes)">
       <el-alert :closable="false" title="error finding your quizes." type="error" />
     </el-card>
   </div>

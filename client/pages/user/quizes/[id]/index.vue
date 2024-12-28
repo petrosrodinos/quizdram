@@ -5,7 +5,6 @@ import type { Quiz } from "../../../../interfaces/quiz";
 import { useAuthStore } from "../../../../stores/auth";
 import { useQuery } from "@tanstack/vue-query";
 import { getQuiz } from "../../../../services/quiz";
-import { watch } from "vue";
 
 const route = useRoute();
 const quizId = route.params.id;
@@ -13,7 +12,11 @@ const quizId = route.params.id;
 const authStore = useAuthStore();
 const quizStore = useQuizStore();
 
+const isLoggedIn = !!authStore?.user;
+
 const quiz: Quiz | undefined = quizStore?.quizes.find((quiz: Quiz) => quiz.id === quizId);
+
+console.log("quizes", quiz);
 
 const { isLoading, data } = useQuery({
   queryKey: ["quizes", quizId as string],
@@ -25,20 +28,21 @@ const { isLoading, data } = useQuery({
 <template>
   <div>
     <div v-if="isLoading">getting quiz...</div>
+
     <div v-if="(quiz || data) && !isLoading">
       <h2>{{ quiz?.name }}</h2>
-      <QuizPlayOptions v-if="authStore.user && data" :quiz="data" />
-      <QuizPlayOptions v-if="!authStore.user && quiz" :quiz="quiz" />
+      <QuizPlayOptions v-if="isLoggedIn && data" :quiz="data" />
+      <QuizPlayOptions v-if="!isLoggedIn && quiz" :quiz="quiz" />
 
       <QuizHistory v-if="data" :quiz="data" />
       <h2>questions</h2>
-      <Quiz v-if="authStore.user && data" :quiz="data" :edit="true" />
-      <Quiz v-if="!authStore.user && quiz" :quiz="quiz" :edit="true" />
+      <Quiz v-if="isLoggedIn && data" :quiz="data" :edit="true" />
+      <Quiz v-if="!isLoggedIn && quiz" :quiz="quiz" :edit="true" />
     </div>
     <el-alert
       :closable="false"
-      v-if="!isLoading && (!data || !quiz)"
-      title="Could not find quiz"
+      v-if="((isLoggedIn && !data) || (!isLoggedIn && !quiz)) && !isLoading"
+      title="could not find quiz"
       type="error"
     />
   </div>
