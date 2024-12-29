@@ -16,6 +16,7 @@ export interface Quiz {
   name: string;
   questions: Question[];
   createdAt: string;
+  attempts: QuizAttempt[];
 }
 
 export interface Question {
@@ -24,6 +25,20 @@ export interface Question {
   question: string;
   answers: string[];
   correct: string;
+}
+
+export interface QuizAttempt {
+  _id: string;
+  userId: string;
+  selectedAnswers: string[];
+  time: string;
+  createdAt: string;
+}
+
+export interface NewQuizAttempt {
+  selectedAnswers: string[];
+  quizId: string;
+  time?: string;
 }
 
 export type QuizType = "multiple" | "boolean";

@@ -15,8 +15,8 @@ const handlePlayQuiz = async () => {
 
 <template>
   <div>
+    <h2>play options</h2>
     <ElCard shadow="always" class="custom-card">
-      <h2>play options</h2>
       <div class="button-container">
         <ElButton @click="handlePlayQuiz" type="primary" :icon="Edit">take quiz</ElButton>
 

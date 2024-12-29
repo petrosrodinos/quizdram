@@ -23,6 +23,20 @@ export class Question {
 export const QuestionSchema = SchemaFactory.createForClass(Question);
 
 @Schema({ timestamps: true })
+export class Attempt {
+  @Prop({ type: String, required: true })
+  userId: string;
+
+  @Prop({ type: [String], required: true })
+  selectedAnswers: [String];
+
+  @Prop({ type: String, required: false, default: '' })
+  time: string;
+}
+
+export const AttemptSchema = SchemaFactory.createForClass(Attempt);
+
+@Schema({ timestamps: true })
 export class Quiz {
   @Prop({ type: String, required: false })
   userId?: string;
@@ -32,6 +46,9 @@ export class Quiz {
 
   @Prop({ type: [QuestionSchema], required: true })
   questions: Question[];
+
+  @Prop({ type: [AttemptSchema], required: false, default: [] })
+  attempts: Attempt[];
 }
 
 export const QuizSchema = SchemaFactory.createForClass(Quiz);

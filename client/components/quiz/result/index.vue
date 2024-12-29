@@ -8,25 +8,6 @@ const { quiz, selectedAnswers } = defineProps<{
   selectedAnswers: string[];
 }>();
 
-const calculateResult = () => {
-  if (!quiz || selectedAnswers.length == 0) return;
-  let score = 0;
-  quiz.questions.forEach((question, index) => {
-    if (calculateCorrect(question, selectedAnswers[index])) {
-      score++;
-    }
-  });
-  return (score / quiz.questions.length) * 100;
-};
-
-const calculateCorrect = (question: any, answer: any) => {
-  if (question.type == "multiple") {
-    return question.answers[Number(question.correct)] == answer;
-  } else {
-    return question.correct == answer;
-  }
-};
-
 const handlePlayAgain = () => {};
 </script>
 
@@ -34,7 +15,7 @@ const handlePlayAgain = () => {};
   <div>
     <el-card>
       <h2>quiz finished</h2>
-      <h3>your score: {{ calculateResult() }}%</h3>
+      <h3>your score: {{ calculateResult(quiz, selectedAnswers) }}%</h3>
       <div>
         <el-button type="success" @click="handlePlayAgain" :icon="Refresh"> play Again </el-button>
 
@@ -54,4 +35,8 @@ const handlePlayAgain = () => {};
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div {
+  margin-top: 20px;
+}
+</style>

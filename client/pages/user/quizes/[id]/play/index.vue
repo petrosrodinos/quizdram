@@ -2,11 +2,10 @@
 import { ref, computed, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useQuizStore } from "../../../../../stores/quiz";
-import type { Question, Quiz } from "../../../../../interfaces/quiz";
-import { Refresh, Share } from "@element-plus/icons-vue";
+import type { NewQuizAttempt, Quiz } from "../../../../../interfaces/quiz";
 import { useAuthStore } from "../../../../../stores/auth";
-import { useQuery } from "@tanstack/vue-query";
-import { getQuiz } from "../../../../../services/quiz";
+import { useQuery, useMutation } from "@tanstack/vue-query";
+import { createAttempt, getQuiz } from "../../../../../services/quiz";
 
 const route = useRoute();
 const quizId = route.params.id as string;
@@ -34,6 +33,10 @@ const { isLoading, data } = useQuery({
   enabled: !!authStore?.user && !!quizId,
 });
 
+const { mutate } = useMutation({
+  mutationFn: (data: NewQuizAttempt) => createAttempt(data, authStore?.user?.token as string),
+});
+
 watch(data, () => {
   if (!data.value) return;
   quiz.value = data.value;
@@ -45,6 +48,15 @@ const nextQuestion = () => {
   if (currentQuestionIndex.value < quiz.value.questions.length - 1) {
     currentQuestionIndex.value++;
   } else if (currentQuestionIndex.value === quiz.value.questions.length - 1) {
+    if (authStore?.user) {
+      const newAttempt: NewQuizAttempt = {
+        quizId: quizId,
+        selectedAnswers: selectedAnswers.value,
+        time: "0",
+      };
+      mutate(newAttempt);
+    }
+
     quizFinished.value = true;
   }
 };
@@ -65,24 +77,6 @@ const handleAnswerChange = (answer: string) => {
     answer,
     ...selectedAnswers.value.slice(currentQuestionIndex.value + 1),
   ];
-};
-
-const calculateResult = () => {
-  if (!quiz.value || selectedAnswers.value.length == 0) return;
-  let score = 0;
-  quiz.value.questions.forEach((question, index) => {
-    if (
-      question.type == "multiple" &&
-      question.answers[Number(question.correct)] == selectedAnswers.value[index]
-    ) {
-      score++;
-    } else {
-      if (question.correct == selectedAnswers.value[index]) {
-        score++;
-      }
-    }
-  });
-  return (score / quiz.value.questions.length) * 100;
 };
 
 const handlePlayAgain = () => {
@@ -118,15 +112,7 @@ const handlePlayAgain = () => {
         </el-button>
       </div>
     </div>
-    <el-card v-else>
-      <h2>quiz finished</h2>
-      <h3>your score: {{ calculateResult() }}</h3>
-      <div>
-        <el-button type="success" @click="handlePlayAgain" :icon="Refresh"> play Again </el-button>
-
-        <el-button type="primary" :icon="Share"> share </el-button>
-      </div>
-    </el-card>
+    <QuizResult v-else :quiz="quiz" :selectedAnswers="selectedAnswers" />
   </div>
 
   <el-alert :closable="false" v-else-if="!quiz" title="could not find your quiz." type="warning" />
