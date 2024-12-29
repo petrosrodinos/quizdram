@@ -23,8 +23,6 @@ const selectedAnswers = ref<string[]>([]);
 
 const currentQuestion = ref<any>(quiz.value?.questions[currentQuestionIndex.value]);
 
-const quizFinished = ref(false);
-
 const { timer, formattedTime, startTimer, resetTimer } = useTimer();
 
 const { isLoading, data } = useQuery({
@@ -64,8 +62,6 @@ const nextQuestion = () => {
         },
       });
     }
-
-    quizFinished.value = true;
   }
 };
 
@@ -91,7 +87,7 @@ const handleAnswerChange = (answer: string) => {
 <template>
   <div v-if="quiz">
     <h1>{{ quiz.name }}</h1>
-    <div v-if="!quizFinished">
+    <div>
       <h3>question {{ currentQuestionIndex + 1 }} / {{ quiz.questions.length }}</h3>
       <p>time: {{ formattedTime }}</p>
       <div v-if="currentQuestion">

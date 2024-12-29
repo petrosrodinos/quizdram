@@ -42,9 +42,19 @@ export class QuizService {
     }
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     try {
-      return this.quizModel.findById(id);
+      const quiz = await this.quizModel.findById(id).lean();
+
+      if (!quiz) {
+        throw new Error('Quiz not found');
+      }
+      quiz.attempts = quiz.attempts.sort(
+        (a: any, b: any) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      );
+
+      return quiz;
     } catch (error) {
       throw error;
     }
