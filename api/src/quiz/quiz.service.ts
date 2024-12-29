@@ -6,6 +6,7 @@ import { generateQuizPrompt } from 'src/utils/prompt';
 import { Quiz } from 'src/schemas/quiz.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { CreateAttemptDto } from './dto/create-attempt.dto';
 
 @Injectable()
 export class QuizService {
@@ -55,5 +56,28 @@ export class QuizService {
 
   remove(id: number) {
     return `This action removes a #${id} quiz`;
+  }
+
+  async createAttempt(id: string, userId: string, attempt: CreateAttemptDto) {
+    try {
+      const quiz = await this.quizModel.findById(id);
+
+      if (!quiz) {
+        throw new Error('Quiz not found');
+      }
+
+      const data = {
+        userId,
+        ...attempt,
+      };
+
+      quiz.attempts.push(data);
+
+      await quiz.save();
+
+      return quiz;
+    } catch (error) {
+      throw error;
+    }
   }
 }

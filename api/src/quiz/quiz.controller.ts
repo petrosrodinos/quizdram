@@ -13,6 +13,7 @@ import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
 import { LooseJwtGuard, JwtGuard } from 'src/api/auth/guard';
+import { CreateAttemptDto } from './dto/create-attempt.dto';
 
 @Controller('quiz')
 export class QuizController {
@@ -47,5 +48,17 @@ export class QuizController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.quizService.remove(+id);
+  }
+
+  @UseGuards(JwtGuard)
+  @Post(':id/attempt')
+  attempt(
+    @Req() req: Express.Request,
+    @Param('id') id: string,
+    @Body() attempt: CreateAttemptDto,
+  ) {
+    const userId = req.user?.userId;
+
+    return this.quizService.createAttempt(id, userId, attempt);
   }
 }
