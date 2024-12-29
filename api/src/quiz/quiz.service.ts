@@ -80,4 +80,26 @@ export class QuizService {
       throw error;
     }
   }
+
+  async getAttempt(id: string, attemptId: string) {
+    try {
+      const quiz = await this.quizModel.findById(id);
+
+      if (!quiz) {
+        throw new Error('Quiz not found');
+      }
+
+      const attempt = quiz.attempts.find(
+        (a: any) => a._id.toString() === attemptId,
+      );
+
+      if (!attempt) {
+        throw new Error('Attempt not found');
+      }
+
+      return attempt;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

@@ -61,4 +61,9 @@ export class QuizController {
 
     return this.quizService.createAttempt(id, userId, attempt);
   }
+
+  @Get(':id/attempt/:attemptId')
+  getAttempt(@Param('id') id: string, @Param('attemptId') attemptId: string) {
+    return this.quizService.getAttempt(id, attemptId);
+  }
 }
