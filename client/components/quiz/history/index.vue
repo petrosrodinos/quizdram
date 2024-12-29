@@ -12,21 +12,21 @@ const authStore = useAuthStore();
         v-if="!authStore.user"
         :closable="false"
         effect="dark"
-        title="Create an account to start logging history."
+        title="create an account to start logging history."
         type="warning"
       />
       <el-alert
         v-else-if="authStore.user"
         :closable="false"
         effect="dark"
-        title="There is no history for this quiz."
+        title="there is no history for this quiz."
         type="warning"
       />
       <el-alert
         v-else
         :closable="false"
         effect="dark"
-        title="Could not get quiz history."
+        title="could not get quiz history."
         type="error"
       />
     </ElCard>
