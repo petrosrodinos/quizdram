@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useQuizStore } from "../../../../../stores/quiz";
 import type { NewQuizAttempt, Quiz } from "../../../../../interfaces/quiz";
 import { useAuthStore } from "../../../../../stores/auth";
 import { useQuery, useMutation } from "@tanstack/vue-query";
 import { createAttempt, getQuiz } from "../../../../../services/quiz";
+import { navigateTo } from "nuxt/app";
 
 const route = useRoute();
 const quizId = route.params.id as string;
@@ -18,10 +19,6 @@ const quiz = ref<Quiz | undefined>(quizStore?.quizes.find((quiz: Quiz) => quiz.i
 const currentQuestionIndex = ref(0);
 
 const selectedAnswers = ref<string[]>([]);
-
-// const currentQuestion = computed(() => {
-//   return quiz.value?.questions[currentQuestionIndex.value];
-// });
 
 const currentQuestion = ref<any>(quiz.value?.questions[currentQuestionIndex.value]);
 
@@ -54,7 +51,13 @@ const nextQuestion = () => {
         selectedAnswers: selectedAnswers.value,
         time: "0",
       };
-      mutate(newAttempt);
+      mutate(newAttempt, {
+        onSuccess: async (data: any) => {
+          navigateTo(
+            `/user/quizes/${quizId}/attempt/${data.attempts[data.attempts.length - 1]._id}`
+          );
+        },
+      });
     }
 
     quizFinished.value = true;
@@ -77,12 +80,6 @@ const handleAnswerChange = (answer: string) => {
     answer,
     ...selectedAnswers.value.slice(currentQuestionIndex.value + 1),
   ];
-};
-
-const handlePlayAgain = () => {
-  currentQuestionIndex.value = 0;
-  selectedAnswers.value = [];
-  quizFinished.value = false;
 };
 </script>
 
@@ -112,7 +109,6 @@ const handlePlayAgain = () => {
         </el-button>
       </div>
     </div>
-    <QuizResult v-else :quiz="quiz" :selectedAnswers="selectedAnswers" />
   </div>
 
   <el-alert :closable="false" v-else-if="!quiz" title="could not find your quiz." type="warning" />

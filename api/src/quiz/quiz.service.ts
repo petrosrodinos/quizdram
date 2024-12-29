@@ -97,7 +97,10 @@ export class QuizService {
         throw new Error('Attempt not found');
       }
 
-      return attempt;
+      return {
+        attempt: attempt,
+        quiz: quiz,
+      };
     } catch (error) {
       throw error;
     }

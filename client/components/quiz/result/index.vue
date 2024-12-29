@@ -1,21 +1,38 @@
 <script setup lang="ts">
-import type { Quiz } from "../../../interfaces/quiz";
+import type { Quiz, QuizAttempt } from "../../../interfaces/quiz";
 import { defineProps } from "vue";
-import { Refresh, Share } from "@element-plus/icons-vue";
+import { Refresh, Share, Document, Timer } from "@element-plus/icons-vue";
+import { navigateTo } from "nuxt/app";
 
-const { quiz, selectedAnswers } = defineProps<{
+const { quiz, attempt } = defineProps<{
   quiz: Quiz;
-  selectedAnswers: string[];
+  attempt: QuizAttempt;
 }>();
 
-const handlePlayAgain = () => {};
+const handlePlayAgain = async () => {
+  navigateTo(`/user/quizes/${quiz.id}/play`);
+};
 </script>
 
 <template>
   <div>
-    <el-card>
-      <h2>quiz finished</h2>
-      <h3>your score: {{ calculateResult(quiz, selectedAnswers) }}%</h3>
+    <h2>{{ quiz.name }}</h2>
+    <el-card class="attempt-card" shadow="hover">
+      <div class="attempt-card-content">
+        <h3 class="attempt-name">{{ formatDate(attempt.createdAt) }}</h3>
+
+        <div class="attempt-info">
+          <div class="info-item">
+            <el-icon><Document /></el-icon>
+            <span>score: {{ calculateResult(quiz, attempt.selectedAnswers) }}%</span>
+          </div>
+          <div class="info-item">
+            <el-icon><Timer /></el-icon>
+            <span>time: {{ formatTime(attempt.time) }}m</span>
+          </div>
+        </div>
+      </div>
+
       <div>
         <el-button type="success" @click="handlePlayAgain" :icon="Refresh"> play Again </el-button>
 
@@ -26,8 +43,8 @@ const handlePlayAgain = () => {};
     <div v-for="(question, index) in quiz.questions" :key="index">
       <QuizQuestion
         :question="question"
-        :answer="selectedAnswers[index]"
-        :correct="calculateCorrect(question, selectedAnswers[index])"
+        :answer="attempt.selectedAnswers[index]"
+        :correct="calculateCorrect(question, attempt.selectedAnswers[index])"
         :disabled="true"
         :resultPage="true"
       />
@@ -35,8 +52,37 @@ const handlePlayAgain = () => {};
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 div {
   margin-top: 20px;
+}
+
+.attempt-card {
+  margin-bottom: 20px;
+
+  .attempt-card-content {
+    .quiz-name {
+      font-size: 18px;
+      margin: 0 0 15px 0;
+      color: var(--el-text-color-primary);
+    }
+
+    .attempt-info {
+      .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        color: var(--el-text-color-secondary);
+
+        .el-icon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+}
+
+a {
+  text-decoration: none;
 }
 </style>

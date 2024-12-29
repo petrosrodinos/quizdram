@@ -1,22 +1,27 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { onMounted } from "vue";
-import { navigateTo } from "nuxt/app";
-import type { Quiz } from "../../../../../interfaces/quiz";
+import { useQuery } from "@tanstack/vue-query";
+import { getAttempt } from "../../../../../services/quiz";
 
 const route = useRoute();
-const quiz: Quiz = JSON.parse((route.query.quiz as string) || "{}");
-const selectedAnswers: string[] = JSON.parse((route.query.selectedAnswers as string) || "[]");
 
-onMounted(async () => {
-  if (Object.keys(quiz).length == 0 || selectedAnswers.length == 0) {
-    await navigateTo("/user/quizes");
-  }
+const quizId = route.params.id as string;
+const attemptId = route.params.attemptId as string;
+
+const { isLoading, data, error } = useQuery({
+  queryKey: ["quiz-attempt", quizId, attemptId],
+  queryFn: () => getAttempt(quizId, attemptId),
 });
 </script>
 
 <template>
-  <QuizResult :quiz="quiz" :selectedAnswers="selectedAnswers" />
+  <div>
+    <QuizResult v-if="data" :quiz="data?.quiz" :attempt="data?.attempt" />
+    <template v-else>
+      <el-alert v-if="isLoading" title="loading..." type="info" />
+      <el-alert v-else-if="error" title="error loading attempt" type="error" />
+    </template>
+  </div>
 </template>
 
 <style scoped>

@@ -41,5 +41,10 @@ export interface NewQuizAttempt {
   time?: string;
 }
 
+export interface GetAttempt {
+  quiz: Quiz;
+  attempt: QuizAttempt;
+}
+
 export type QuizType = "multiple" | "boolean";
 export type QuizDifficulty = "easy" | "medium" | "hard";

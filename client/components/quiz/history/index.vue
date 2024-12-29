@@ -18,10 +18,6 @@ const { quiz } = defineProps<{
         <NuxtLink
           :to="{
             path: `/user/quizes/${quiz.id}/attempt/${attempt._id}`,
-            query: {
-              quiz: JSON.stringify(quiz),
-              selectedAnswers: JSON.stringify(attempt.selectedAnswers),
-            },
           }"
         >
           <el-card class="attempt-card" shadow="hover">
@@ -65,12 +61,6 @@ const { quiz } = defineProps<{
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
-}
-
-.attempt-title {
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: var(--el-text-color-primary);
 }
 
 .attempt-card {
