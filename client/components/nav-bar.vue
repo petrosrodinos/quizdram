@@ -65,8 +65,9 @@ a {
 .image-logo {
   border-radius: 50px;
   width: 30px;
-  height: 60px;
-  margin-bottom: 10px;
+  height: 30px;
+  // margin-bottom: 10px;
+  margin: 20px;
 }
 
 .menu-item-large {

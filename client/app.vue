@@ -2,7 +2,7 @@
   <NuxtLayout>
     <NuxtRouteAnnouncer />
     <Head>
-      <Title>QuizCrafts</Title>
+      <Title>quizdram</Title>
     </Head>
 
     <NuxtPage />
@@ -12,5 +12,6 @@
 <style>
 * {
   font-family: "Poppins";
+  margin: 0;
 }
 </style>
