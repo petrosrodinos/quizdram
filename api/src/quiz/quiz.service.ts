@@ -30,7 +30,7 @@ export class QuizService {
 
       return result;
     } catch (error) {
-      throw error;
+      return new Error(error);
     }
   }
 
@@ -38,7 +38,7 @@ export class QuizService {
     try {
       return this.quizModel.find({ userId });
     } catch (error) {
-      throw error;
+      return new Error(error);
     }
   }
 
@@ -47,7 +47,7 @@ export class QuizService {
       const quiz = await this.quizModel.findById(id).lean();
 
       if (!quiz) {
-        throw new Error('Quiz not found');
+        return new Error('Quiz not found');
       }
       quiz.attempts = quiz.attempts.sort(
         (a: any, b: any) =>
@@ -56,7 +56,7 @@ export class QuizService {
 
       return quiz;
     } catch (error) {
-      throw error;
+      return new Error(error);
     }
   }
 
@@ -73,7 +73,7 @@ export class QuizService {
       const quiz = await this.quizModel.findById(id);
 
       if (!quiz) {
-        throw new Error('Quiz not found');
+        return new Error('Quiz not found');
       }
 
       const data = {
@@ -87,7 +87,7 @@ export class QuizService {
 
       return quiz;
     } catch (error) {
-      throw error;
+      return new Error(error);
     }
   }
 
@@ -96,7 +96,7 @@ export class QuizService {
       const quiz = await this.quizModel.findById(id);
 
       if (!quiz) {
-        throw new Error('Quiz not found');
+        return new Error('Quiz not found');
       }
 
       const attempt = quiz.attempts.find(
@@ -104,7 +104,7 @@ export class QuizService {
       );
 
       if (!attempt) {
-        throw new Error('Attempt not found');
+        return new Error('Attempt not found');
       }
 
       return {
@@ -112,7 +112,7 @@ export class QuizService {
         quiz: quiz,
       };
     } catch (error) {
-      throw error;
+      return new Error(error);
     }
   }
 }
