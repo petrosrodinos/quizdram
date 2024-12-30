@@ -9,12 +9,8 @@ import { getQuizzes } from "../../../services/quiz";
 
 const authStore = useAuthStore();
 
-const isLoggedIn = !!authStore?.user;
-const quizStore = useQuizStore();
-const quizes = ref(quizStore?.quizes);
-
 const { isLoading, data, error } = useQuery({
-  queryKey: ["quizes"],
+  queryKey: ["quizes", authStore?.user?.id],
   queryFn: () => getQuizzes(authStore.user.token),
   enabled: !!authStore?.user,
 });
@@ -26,18 +22,21 @@ const { isLoading, data, error } = useQuery({
     <NuxtLink to="/user/quizes/new"
       ><ElButton type="success" :icon="Edit">create a quiz</ElButton></NuxtLink
     >
-    <QuizCards :loading="isLoading" v-if="authStore.user" :quizes="data" />
-    <QuizCards v-else :quizes="quizes" />
+    <QuizCards :loading="isLoading" :quizes="data" />
 
-    <el-card
-      shadow="hover"
-      v-if="(isLoggedIn && data?.length == 0) || (!isLoggedIn && quizes?.length == 0)"
-    >
-      <el-alert :closable="false" effect="dark" title="your quizzes are empty." type="warning" />
-    </el-card>
-    <el-card shadow="hover" v-if="(isLoggedIn && error) || (!isLoggedIn && !quizes)">
-      <el-alert :closable="false" title="error finding your quizes." type="error" />
-    </el-card>
+    <el-alert
+      v-if="data?.length == 0 && !isLoading"
+      :closable="false"
+      effect="dark"
+      title="your quizzes are empty."
+      type="warning"
+    />
+    <el-alert
+      v-if="(error || !data) && !isLoading"
+      :closable="false"
+      title="error finding your quizes."
+      type="error"
+    />
   </div>
 </template>
 

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useQuizStore } from "../../../../../stores/quiz";
-import type { NewQuizAttempt, Quiz } from "../../../../../interfaces/quiz";
+import type { NewQuizAttempt, Question, Quiz } from "../../../../../interfaces/quiz";
 import { useAuthStore } from "../../../../../stores/auth";
 import { useQuery, useMutation } from "@tanstack/vue-query";
 import { createAttempt, getQuiz } from "../../../../../services/quiz";
@@ -14,14 +13,12 @@ const quizId = route.params.id as string;
 
 const authStore = useAuthStore();
 
-const quizStore = useQuizStore();
-const quiz = ref<Quiz | undefined>(quizStore?.quizes.find((quiz: Quiz) => quiz.id === quizId));
+const quiz = ref<Quiz | null>(null);
+const currentQuestion = ref<Question | null>(null);
 
 const currentQuestionIndex = ref(0);
 
 const selectedAnswers = ref<string[]>([]);
-
-const currentQuestion = ref<any>(quiz.value?.questions[currentQuestionIndex.value]);
 
 const { timer, formattedTime, startTimer, resetTimer } = useTimer();
 
@@ -71,10 +68,6 @@ const previousQuestion = () => {
   }
 };
 
-watch(currentQuestionIndex, () => {
-  currentQuestion.value = quiz.value?.questions[currentQuestionIndex.value];
-});
-
 const handleAnswerChange = (answer: string) => {
   selectedAnswers.value = [
     ...selectedAnswers.value.slice(0, currentQuestionIndex.value),
@@ -113,7 +106,12 @@ const handleAnswerChange = (answer: string) => {
     </div>
   </div>
 
-  <el-alert :closable="false" v-else-if="!quiz" title="could not find your quiz." type="warning" />
+  <el-alert
+    :closable="false"
+    v-else-if="!quiz && !isLoading"
+    title="could not find your quiz."
+    type="warning"
+  />
   <el-alert :closable="false" v-else title="error finding your quiz." type="error" />
 </template>
 

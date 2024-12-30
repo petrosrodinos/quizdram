@@ -2,8 +2,6 @@
 import { useQuery } from "@tanstack/vue-query";
 import { createQuiz } from "../../../services/quiz";
 import type { NewQuiz } from "../../../interfaces/quiz";
-import { watch } from "vue";
-import { useQuizStore } from "../../../stores/quiz";
 import { useAuthStore } from "../../../stores/auth";
 
 const { quizSettings } = defineProps<{
@@ -11,19 +9,12 @@ const { quizSettings } = defineProps<{
 }>();
 
 const authStore = useAuthStore();
-const quizStore = useQuizStore();
 
 const { isLoading, data, error } = useQuery({
   queryKey: ["new-quiz"],
   queryFn: () => createQuiz(quizSettings, authStore.user?.token),
   enabled: !!quizSettings,
   retry: 1,
-});
-
-watch(data, (newData) => {
-  if (newData) {
-    quizStore.setQuiz(newData);
-  }
 });
 </script>
 
@@ -37,7 +28,7 @@ watch(data, (newData) => {
 </template>
 
 <style scoped>
-.el-alert {
+div {
   margin-top: 20px;
 }
 </style>

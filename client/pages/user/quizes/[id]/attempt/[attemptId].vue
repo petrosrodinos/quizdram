@@ -17,15 +17,16 @@ const { isLoading, data, error } = useQuery({
 <template>
   <div>
     <QuizResult v-if="data" :quiz="data?.quiz" :attempt="data?.attempt" />
-    <template v-else>
-      <el-alert v-if="isLoading" title="loading..." type="info" />
-      <el-alert v-else-if="error" title="error loading attempt" type="error" />
-    </template>
+    <div v-else>
+      <div v-if="isLoading">getting attempt...</div>
+
+      <el-alert :closable="false" v-else-if="error" title="error finding attempt" type="error" />
+    </div>
   </div>
 </template>
 
 <style scoped>
-template {
+div {
   margin-top: 20px;
 }
 </style>
