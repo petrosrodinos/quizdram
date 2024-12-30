@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { useQuery, useMutation } from "@tanstack/vue-query";
 import { createAttempt, getQuiz } from "../../../../../services/quiz";
@@ -7,7 +7,8 @@ import { navigateTo } from "nuxt/app";
 import { useTimer } from "../../../../../composables/useTimer";
 import { useAuthStore } from "../../../../../stores/auth";
 import { useQuizGame } from "../../../../../composables/useQuizGame";
-import type { NewQuizAttempt, Quiz } from "../../../../../interfaces/quiz";
+import type { NewQuizAttempt } from "../../../../../interfaces/quiz";
+import { Timer } from "@element-plus/icons-vue";
 
 const route = useRoute();
 const quizId = route.params.id as string;
@@ -26,6 +27,12 @@ const { mutate } = useMutation({
 
 const { timer, formattedTime, startTimer, resetTimer } = useTimer();
 
+watchEffect(() => {
+  if (quiz.value && !isLoading.value) {
+    startTimer();
+  }
+});
+
 const {
   currentQuestionIndex,
   currentQuestion,
@@ -34,11 +41,6 @@ const {
   previousQuestion,
   handleAnswerChange,
 } = useQuizGame(quiz);
-
-watch(quiz, () => {
-  if (!quiz.value) return;
-  startTimer();
-});
 
 const handleNextClick = () => {
   if (!quiz?.value) return;
@@ -70,7 +72,11 @@ const finishQuiz = () => {
     <h1>{{ quiz.name }}</h1>
     <div>
       <h3>question {{ currentQuestionIndex + 1 }} / {{ quiz.questions.length }}</h3>
-      <p>time: {{ formattedTime }}</p>
+
+      <div class="info-item">
+        <el-icon><Timer /></el-icon>
+        <span>{{ formattedTime }}</span>
+      </div>
       <div v-if="currentQuestion">
         <QuizQuestion
           :answer="selectedAnswers[currentQuestionIndex] || ''"
@@ -100,7 +106,6 @@ const finishQuiz = () => {
     title="could not find your quiz."
     type="warning"
   />
-  <!-- <el-alert :closable="false" v-else title="error finding your quiz." type="error" /> -->
 </template>
 
 <style lang="scss" scoped>
@@ -112,5 +117,12 @@ const finishQuiz = () => {
 
 .el-alert {
   margin-top: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  color: var(--el-text-color-secondary);
 }
 </style>
