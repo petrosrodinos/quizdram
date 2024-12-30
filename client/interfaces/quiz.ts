@@ -1,14 +1,21 @@
 export interface NewQuiz {
   prompt: string;
-  questions: Array<QuestionSettings>;
+  questions: QuestionSettings[];
 }
 
-export interface QuestionSettings {
+export interface QuestionSettingsMultiple {
   type: QuizType;
   answers: number;
   possibleCorrect: number;
   difficulty: QuizDifficulty;
 }
+
+export interface QuestionSettingsBoolean {
+  type: QuizType;
+  difficulty: QuizDifficulty;
+}
+
+export type QuestionSettings = QuestionSettingsMultiple | QuestionSettingsBoolean;
 
 export interface Quiz {
   id: string;

@@ -1,6 +1,8 @@
+import type { QuestionSettings } from "../interfaces/quiz";
+
 export const API_URL = process.env.API_URL || "http://localhost:5000/api/v1";
 
-export const QUIZ_QUESTION_SETTINGS = [
+export const QUIZ_QUESTION_SETTINGS: QuestionSettings[] = [
   {
     type: "multiple",
     answers: 4,

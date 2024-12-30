@@ -1,22 +1,34 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import type { NewQuiz } from "../../interfaces/quiz";
+import { QUIZ_QUESTION_SETTINGS } from "../../utils/constants";
 
-const step = ref(0);
-const selectedOption = ref("");
-const quizSettings = ref({});
+const selectedOption = ref("ai");
 
-const handleCreateQuiz = (settings: NewQuiz) => {
+const quizSettings = ref<NewQuiz>({
+  prompt: "",
+  questions: QUIZ_QUESTION_SETTINGS,
+});
+
+const handleOptionClick = (option: string) => {
+  selectedOption.value = option;
+};
+
+const handlePromptSelected = (prompt: string) => {
   quizSettings.value = {
     ...quizSettings.value,
-    ...settings,
+    prompt,
   };
 };
 </script>
 
 <template>
   <div class="create-quiz-container">
-    <h1>oups</h1>
+    <!-- <el-tag key="test" type="primary" effect="dark" size="large" round>
+      generate your own with AI
+    </el-tag> -->
+    <CreateQuizStep2 :option="selectedOption" @onPromptSelected="handlePromptSelected" />
+    <CreateQuizStep1 @onOptionClick="handleOptionClick" />
   </div>
 </template>
 

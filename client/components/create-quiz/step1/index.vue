@@ -11,14 +11,15 @@ const handleOptionClick = (option: string) => {
 
 <template>
   <div class="options-container">
-    <div @click="handleOptionClick('doc')" class="option-item">
-      <el-text class="mx-1" size="large">upload document</el-text>
-      <el-icon><Files /></el-icon>
-    </div>
     <div @click="handleOptionClick('ai')" class="option-item">
       <el-text class="mx-1" size="large">generate your own with AI</el-text>
       <el-icon><Cpu /></el-icon>
     </div>
+    <div @click="handleOptionClick('doc')" class="option-item">
+      <el-text class="mx-1" size="large">upload document</el-text>
+      <el-icon><Files /></el-icon>
+    </div>
+
     <div @click="handleOptionClick('video')" class="option-item">
       <el-text class="mx-1" size="large">from youtube video</el-text>
       <el-icon><VideoPlay /></el-icon>

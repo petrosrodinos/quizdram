@@ -1,18 +1,11 @@
 <script lang="ts" setup>
 import { defineAsyncComponent, defineEmits, ref } from "vue";
-import { QUIZ_QUESTION_SETTINGS } from "../../../utils/constants";
-import { Position } from "@element-plus/icons-vue";
 
 const { option } = defineProps<{
   option: string;
 }>();
 
-const emit = defineEmits(["onCreateQuiz"]);
-
-const quizSettings = ref({
-  prompt: "",
-  questions: QUIZ_QUESTION_SETTINGS,
-});
+const emit = defineEmits(["onPromptSelected"]);
 
 const options: any = {
   doc: defineAsyncComponent(() => import("./doc.vue")),
@@ -21,28 +14,21 @@ const options: any = {
   video: defineAsyncComponent(() => import("./video.vue")),
 };
 
-const handlePromptChange = (prompt: string) => {
-  quizSettings.value = {
-    ...quizSettings.value,
-    prompt,
-  };
-};
-
-const handleCreateQuiz = () => {
-  emit("onCreateQuiz", quizSettings.value);
+const handlePromptSelected = (prompt: string) => {
+  emit("onPromptSelected", prompt);
 };
 </script>
 
 <template>
   <div>
-    <component @onPromptChange="handlePromptChange" :is="options[option]" />
-    <el-button
+    <component @onPromptSelected="handlePromptSelected" :is="options[option]" />
+    <!-- <el-button
       :disabled="!quizSettings.prompt"
-      type="success"
       @click="handleCreateQuiz"
+      type="success"
       :icon="Position"
       >create</el-button
-    >
+    > -->
   </div>
 </template>
 

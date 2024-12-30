@@ -1,18 +1,32 @@
 <script lang="ts" setup>
 import { ref } from "vue";
+import { Search } from "@element-plus/icons-vue";
+import { Cpu } from "@element-plus/icons-vue";
 
-const emit = defineEmits(["onPromptChange"]);
+const emit = defineEmits(["onPromptSelected"]);
 
 const input = ref("");
 
-const handlePromptChange = (value: string) => {
-  emit("onPromptChange", value);
+const handlePromptSelected = () => {
+  emit("onPromptSelected", input.value);
 };
 </script>
 
 <template>
   <div>
-    <el-input @input="handlePromptChange" clearable v-model="input" placeholder="ex: cats" />
+    <div class="mt-4">
+      <el-input
+        v-model="input"
+        placeholder="ex: cats"
+        class="input-with-select"
+        :prefix-icon="Cpu"
+        size="large"
+      >
+        <template #append>
+          <el-button :icon="Search" :disabled="!input" @click="handlePromptSelected" />
+        </template>
+      </el-input>
+    </div>
   </div>
 </template>
 

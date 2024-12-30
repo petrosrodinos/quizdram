@@ -24,7 +24,7 @@ const steps: any = [
 ];
 
 const components: any = {
-  step1: defineAsyncComponent(() => import("./step1/index..vue")),
+  step1: defineAsyncComponent(() => import("./step1/index.vue")),
   step2: defineAsyncComponent(() => import("./step2/index.vue")),
   step3: defineAsyncComponent(() => import("./step3/index.vue")),
 };
