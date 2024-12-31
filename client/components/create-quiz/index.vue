@@ -52,7 +52,7 @@ const handlePromptSelected = async (prompt: string) => {
 span {
   font-size: 24px;
   font-weight: 400;
-  margin-bottom: 20px;
+  margin: 20px;
   color: white;
   text-align: center;
   max-width: 750px;
