@@ -1,30 +1,54 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, h } from "vue";
 import type { NewQuiz } from "../../interfaces/quiz";
 import { QUIZ_QUESTION_SETTINGS } from "../../utils/constants";
 import { useQuizStore } from "../../stores/quiz";
+import { useAuthStore } from "../../stores/auth";
 import { navigateTo } from "nuxt/app";
+import { ElMessageBox } from "element-plus";
 
 const quizStore = useQuizStore();
+const authStore = useAuthStore();
 
 const selectedOption = ref("ai");
 
-const quizSettings = ref<NewQuiz>({
-  prompt: "",
-  questions: QUIZ_QUESTION_SETTINGS,
-});
+const quizSettings = ref<NewQuiz>();
 
 const handleOptionClick = (option: string) => {
   selectedOption.value = option;
 };
 
 const handlePromptSelected = async (prompt: string) => {
-  const settings = {
-    ...quizSettings.value,
+  const settings: NewQuiz = {
     prompt,
+    questions: QUIZ_QUESTION_SETTINGS,
   };
+  quizSettings.value = settings;
   quizStore.setQuizSettings(settings);
+  if (!authStore.user) {
+    showLoginDialog();
+    return;
+  }
+
   await navigateTo("/create");
+};
+
+const showLoginDialog = () => {
+  ElMessageBox({
+    title: "Please login to continue",
+    message: h("p", null, [
+      h("span", null, "You need to "),
+      h("i", { style: "color: teal" }, "login"),
+      h("span", null, " to access this feature."),
+    ]),
+    confirmButtonText: "Login",
+    cancelButtonText: "Cancel",
+    type: "warning",
+  }).then(() => {
+    console.log("HERE", quizStore.quizSettings?.prompt);
+    quizStore.setSavedPrompt(quizStore.quizSettings?.prompt || "");
+    navigateTo("/auth/signup?redirect=/");
+  });
 };
 </script>
 

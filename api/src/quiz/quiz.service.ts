@@ -36,7 +36,7 @@ export class QuizService {
 
   findAll(userId?: string) {
     try {
-      return this.quizModel.find({ userId });
+      return this.quizModel.find({ userId }).sort({ createdAt: -1 }); // Sort by createdAt in descending order
     } catch (error) {
       return new Error(error);
     }

@@ -6,7 +6,12 @@ import { logIn } from "../../../services/auth";
 import type { Login, User } from "../../../interfaces/auth";
 import { useAuthStore } from "../../../stores/auth";
 import { navigateTo } from "nuxt/app";
+import { useRoute } from "vue-router";
 
+const route = useRoute();
+
+const query = route.query;
+const redirect = query.redirect as string | undefined;
 const authStore = useAuthStore();
 
 const ruleFormRef = ref<FormInstance>();
@@ -46,7 +51,11 @@ const { mutate } = useMutation({
   mutationFn: logIn,
   onSuccess: async (data: User) => {
     authStore.setUser(data);
-    await navigateTo("/user/quizes");
+    if (redirect) {
+      await navigateTo(redirect);
+    } else {
+      await navigateTo("/user/quizes");
+    }
 
     ElMessage({
       showClose: true,

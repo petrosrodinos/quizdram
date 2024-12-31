@@ -1,10 +1,15 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { Cpu, MagicStick } from "@element-plus/icons-vue";
+import { useQuizStore } from "../../../stores/quiz";
 
 const emit = defineEmits(["onPromptSelected"]);
 
-const input = ref("");
+const quizStore = useQuizStore();
+
+const savedPrompt = ref(quizStore.quizSettings?.prompt || "");
+
+const input = ref(savedPrompt.value);
 
 const handlePromptSelected = () => {
   emit("onPromptSelected", input.value);

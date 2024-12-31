@@ -11,19 +11,19 @@ const { quizSettings } = defineProps<{
 const authStore = useAuthStore();
 
 const { isLoading, data, error } = useQuery({
-  queryKey: ["new-quiz"],
+  queryKey: ["new-quiz", quizSettings.prompt],
   queryFn: () => createQuiz(quizSettings, authStore.user?.token),
-  enabled: !!quizSettings,
+  enabled: !!quizSettings && !!authStore.user,
   retry: 1,
 });
 </script>
 
 <template>
   <div>
-    <el-alert v-if="error || !data" title="could not generate quiz" type="error" />
-    <h2 v-else-if="data">quiz generated successfully</h2>
-    <p v-else-if="isLoading">generating quiz...</p>
+    <h2 v-if="data">quiz generated successfully</h2>
     <Quiz v-if="data" :quiz="data" :edit="true" />
+    <el-alert v-if="(error || !data) && !isLoading" title="could not generate quiz" type="error" />
+    <p v-else-if="isLoading">generating quiz...</p>
   </div>
 </template>
 

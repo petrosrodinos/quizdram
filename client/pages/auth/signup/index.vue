@@ -1,19 +1,28 @@
 <script setup lang="ts">
 import { ElMessage, type FormRules, type FormInstance } from "element-plus";
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useMutation } from "@tanstack/vue-query";
 import { signUp } from "../../../services/auth";
 import type { SignUp, User } from "../../../interfaces/auth";
 import { useAuthStore } from "../../../stores/auth";
 import { navigateTo } from "nuxt/app";
+import { useRoute } from "vue-router";
 
 const authStore = useAuthStore();
+const route = useRoute();
+
+const query = route.query;
+const redirect = query.redirect as string | undefined;
 
 const ruleFormRef = ref<FormInstance>();
 const signupForm = reactive<SignUp>({
   username: "",
   email: "",
   password: "",
+});
+
+const getLoginUrl = computed(() => {
+  return redirect ? `/auth/login?redirect=${encodeURIComponent(redirect)}` : "/auth/login";
 });
 
 const rules = reactive<FormRules<SignUp>>({
@@ -59,7 +68,11 @@ const { mutate } = useMutation({
   mutationFn: signUp,
   onSuccess: async (data: User) => {
     authStore.setUser(data);
-    await navigateTo("/user/quizes");
+    if (redirect) {
+      await navigateTo(redirect);
+    } else {
+      await navigateTo("/user/quizes");
+    }
     ElMessage({
       showClose: true,
       message: "sign up successfully",
@@ -114,7 +127,7 @@ const handleSignUp = async (formEl: FormInstance | undefined) => {
         <el-button @click="handleSignUp(ruleFormRef)" type="success">sign up</el-button>
       </el-form-item>
     </el-form>
-    <p>already have an account? <NuxtLink to="/auth/login">login</NuxtLink></p>
+    <p>already have an account? <NuxtLink :to="getLoginUrl">login</NuxtLink></p>
   </div>
 </template>
 
