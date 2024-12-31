@@ -29,7 +29,7 @@ const handleSelect = (key: string, keyPath: string[]) => {};
     >
 
     <el-menu-item class="menu-item-large" index="3">
-      <NuxtLink v-if="!authStore.user" to="/auth/login"> login/sign Up </NuxtLink>
+      <NuxtLink v-if="!authStore.user" to="/auth/login">sign in</NuxtLink>
       <NuxtLink v-else @click="authStore.logout()" to="/auth/login"> logout </NuxtLink>
     </el-menu-item>
 
@@ -41,8 +41,8 @@ const handleSelect = (key: string, keyPath: string[]) => {};
       <el-menu-item index="1-2"><NuxtLink to="/user/quizes">quizes</NuxtLink></el-menu-item>
 
       <el-menu-item index="1-3">
-        <NuxtLink v-if="!authStore.user" to="/auth/login"> login/sign Up </NuxtLink>
-        <NuxtLink v-else @click="authStore.logout()" to="/auth/login"> logout </NuxtLink>
+        <NuxtLink v-if="!authStore.user" to="/auth/login">sign in</NuxtLink>
+        <NuxtLink v-else @click="authStore.logout()" to="/auth/login">logout</NuxtLink>
       </el-menu-item>
     </el-sub-menu>
   </el-menu>

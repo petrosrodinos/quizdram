@@ -24,9 +24,10 @@ const handlePromptSelected = (prompt: string) => {
 
 <template>
   <div class="create-quiz-container">
-    <!-- <el-tag key="test" type="primary" effect="dark" size="large" round>
-      generate your own with AI
-    </el-tag> -->
+    <span>
+      Generate personalized quizzes with AI in seconds! Share with friends and compete for the top
+      spot—fun, fast, and interactive!
+    </span>
     <CreateQuizStep2 :option="selectedOption" @onPromptSelected="handlePromptSelected" />
     <CreateQuizStep1 @onOptionClick="handleOptionClick" />
   </div>
@@ -34,14 +35,20 @@ const handlePromptSelected = (prompt: string) => {
 
 <style scoped>
 .create-quiz-container {
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding-top: 100px;
+  width: 100%;
   margin: 0 auto;
   max-width: 800px;
 }
 
-.step-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
+span {
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: white;
+  text-align: center;
+  max-width: 750px;
 }
 </style>

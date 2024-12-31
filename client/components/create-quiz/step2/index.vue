@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineAsyncComponent, defineEmits, ref } from "vue";
+import { defineAsyncComponent, defineEmits } from "vue";
 
 const { option } = defineProps<{
   option: string;
@@ -22,18 +22,12 @@ const handlePromptSelected = (prompt: string) => {
 <template>
   <div>
     <component @onPromptSelected="handlePromptSelected" :is="options[option]" />
-    <!-- <el-button
-      :disabled="!quizSettings.prompt"
-      @click="handleCreateQuiz"
-      type="success"
-      :icon="Position"
-      >create</el-button
-    > -->
   </div>
 </template>
 
 <style scoped>
-button {
-  margin-top: 20px;
+div {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 </style>
