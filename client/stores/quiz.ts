@@ -8,7 +8,7 @@ export const useQuizStore = defineStore(
   () => {
     const quizSettings = ref<NewQuiz>();
     const savedPrompt = ref<string>("");
-    function setQuizSettings(settings: NewQuiz) {
+    function setQuizSettings(settings: NewQuiz | undefined) {
       quizSettings.value = settings;
     }
     function setSavedPrompt(prompt: string) {

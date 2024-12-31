@@ -1,21 +1,11 @@
 <script lang="ts" setup>
-import { useQuery } from "@tanstack/vue-query";
-import { createQuiz } from "../../../services/quiz";
-import type { NewQuiz } from "../../../interfaces/quiz";
-import { useAuthStore } from "../../../stores/auth";
+import type { Quiz } from "../../../interfaces/quiz";
 
-const { quizSettings } = defineProps<{
-  quizSettings: NewQuiz;
+const { data, error, isLoading } = defineProps<{
+  data: Quiz;
+  error: any;
+  isLoading: boolean;
 }>();
-
-const authStore = useAuthStore();
-
-const { isLoading, data, error } = useQuery({
-  queryKey: ["new-quiz", quizSettings.prompt],
-  queryFn: () => createQuiz(quizSettings, authStore.user?.token),
-  enabled: !!quizSettings && !!authStore.user,
-  retry: 1,
-});
 </script>
 
 <template>
