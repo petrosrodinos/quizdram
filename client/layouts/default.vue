@@ -6,4 +6,9 @@
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+</style>

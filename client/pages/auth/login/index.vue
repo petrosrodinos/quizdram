@@ -88,7 +88,6 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
       ref="ruleFormRef"
       label-position="top"
       label-width="auto"
-      style="max-width: 600px"
     >
       <el-form-item prop="email" label="email">
         <el-input v-model="loginForm.email" />
@@ -107,7 +106,8 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
 
 <style scoped>
 .form-container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
+  width: 100%;
 }
 </style>
