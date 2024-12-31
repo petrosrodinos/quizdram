@@ -20,8 +20,8 @@ const { isLoading, data, error } = useQuery({
 
 <template>
   <div>
-    <el-alert v-if="error" :title="error.message" type="error" />
-    <p v-else-if="data">quiz generated successfully</p>
+    <el-alert v-if="error || !data" title="could not generate quiz" type="error" />
+    <h2 v-else-if="data">quiz generated successfully</h2>
     <p v-else-if="isLoading">generating quiz...</p>
     <Quiz v-if="data" :quiz="data" :edit="true" />
   </div>

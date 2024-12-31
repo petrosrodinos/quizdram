@@ -121,7 +121,6 @@ const handleSignUp = async (formEl: FormInstance | undefined) => {
 
 <style scoped>
 .form-container {
-  max-width: 600px;
   margin: 0 auto;
 }
 </style>

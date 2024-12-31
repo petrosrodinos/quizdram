@@ -2,6 +2,10 @@
 import { ref } from "vue";
 import type { NewQuiz } from "../../interfaces/quiz";
 import { QUIZ_QUESTION_SETTINGS } from "../../utils/constants";
+import { useQuizStore } from "../../stores/quiz";
+import { navigateTo } from "nuxt/app";
+
+const quizStore = useQuizStore();
 
 const selectedOption = ref("ai");
 
@@ -14,11 +18,13 @@ const handleOptionClick = (option: string) => {
   selectedOption.value = option;
 };
 
-const handlePromptSelected = (prompt: string) => {
-  quizSettings.value = {
+const handlePromptSelected = async (prompt: string) => {
+  const settings = {
     ...quizSettings.value,
     prompt,
   };
+  quizStore.setQuizSettings(settings);
+  await navigateTo("/create");
 };
 </script>
 

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { Search } from "@element-plus/icons-vue";
-import { Cpu } from "@element-plus/icons-vue";
+import { Cpu, MagicStick } from "@element-plus/icons-vue";
 
 const emit = defineEmits(["onPromptSelected"]);
 
@@ -23,7 +22,7 @@ const handlePromptSelected = () => {
         size="large"
       >
         <template #append>
-          <el-button :icon="Search" :disabled="!input" @click="handlePromptSelected" />
+          <el-button :icon="MagicStick" :disabled="!input" @click="handlePromptSelected" />
         </template>
       </el-input>
     </div>
