@@ -47,7 +47,7 @@ const rules = reactive<FormRules<Login>>({
   ],
 });
 
-const { mutate } = useMutation({
+const { mutate, isPending } = useMutation({
   mutationFn: logIn,
   onSuccess: async (data: User) => {
     authStore.setUser(data);
@@ -106,7 +106,9 @@ const handleLogin = async (formEl: FormInstance | undefined) => {
         <el-input type="password" v-model="loginForm.password" />
       </el-form-item>
       <el-form-item>
-        <el-button @click="handleLogin(ruleFormRef)" type="success">login</el-button>
+        <el-button :loading="isPending" @click="handleLogin(ruleFormRef)" type="success"
+          >login</el-button
+        >
       </el-form-item>
     </el-form>
     <p>don't have an account? <NuxtLink to="/auth/signup">sign up</NuxtLink></p>

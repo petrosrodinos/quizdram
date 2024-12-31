@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { ElCard, ElRow, ElCol, ElLoading } from "element-plus";
+import { ElCard, ElRow, ElCol } from "element-plus";
 import { Calendar, Document, Edit } from "@element-plus/icons-vue";
 import { defineProps } from "vue";
 import type { Quiz } from "../../../interfaces/quiz";
 
-const { quizes, loading } = defineProps<{
+const { quizes } = defineProps<{
   quizes: Quiz[];
-  loading: boolean;
 }>();
 </script>
 
 <template>
   <div>
-    <div v-loading="loading" v-if="loading"></div>
     <el-row v-if="quizes?.length > 0" :gutter="20">
       <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="quiz in quizes" :key="quiz.id">
         <NuxtLink :to="`/user/quizes/${quiz.id}`">

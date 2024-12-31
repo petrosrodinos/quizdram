@@ -1,8 +1,6 @@
 <script setup>
-import { useQuizStore } from "../../../stores/quiz";
 import { ElCard, ElRow, ElCol } from "element-plus";
 import { Calendar, Document, Edit } from "@element-plus/icons-vue";
-import { ref } from "vue";
 import { useQuery } from "@tanstack/vue-query";
 import { useAuthStore } from "../../../stores/auth";
 import { getQuizzes } from "../../../services/quiz";
@@ -22,7 +20,8 @@ const { isLoading, data, error } = useQuery({
     <NuxtLink to="/user/quizes/new"
       ><ElButton type="success" :icon="Edit">create a quiz</ElButton></NuxtLink
     >
-    <QuizCards :loading="isLoading" :quizes="data" />
+    <p v-if="isLoading">getting your quizzes...</p>
+    <QuizCards :quizes="data" />
 
     <el-alert
       v-if="data?.length == 0 && !isLoading"
