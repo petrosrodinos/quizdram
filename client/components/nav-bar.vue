@@ -1,10 +1,15 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useAuthStore } from "../stores/auth";
+import { useNavigationStore } from "../stores/navigation";
 
 const authStore = useAuthStore();
-const activeIndex = ref("1");
-const handleSelect = (key: string, keyPath: string[]) => {};
+const navigationStore = useNavigationStore();
+const activeIndex = ref(navigationStore.selectedLink);
+const handleSelect = (key: string, keyPath: string[]) => {
+  activeIndex.value = key;
+  navigationStore.setSelectedLink(key);
+};
 </script>
 
 <template>

@@ -9,8 +9,6 @@ const quizId = route.params.id;
 
 const authStore = useAuthStore();
 
-const isLoggedIn = !!authStore?.user;
-
 const { isLoading, data } = useQuery({
   queryKey: ["quiz", quizId as string],
   queryFn: () => getQuiz(quizId as string),
@@ -19,7 +17,7 @@ const { isLoading, data } = useQuery({
 </script>
 
 <template>
-  <div>
+  <div class="quiz-container">
     <div v-if="isLoading">getting quiz...</div>
 
     <div v-if="data && !isLoading">
@@ -27,6 +25,7 @@ const { isLoading, data } = useQuery({
       <QuizPlayOptions :quiz="data" />
 
       <QuizHistory :quiz="data" />
+      <br />
       <h2>questions</h2>
       <Quiz :quiz="data" :edit="true" />
     </div>
@@ -41,6 +40,11 @@ const { isLoading, data } = useQuery({
 
 <style scoped>
 div {
-  margin-top: 20px;
+  padding-top: 5px;
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>

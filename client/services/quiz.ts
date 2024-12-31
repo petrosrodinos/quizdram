@@ -2,7 +2,7 @@ import axios from "axios";
 import type { NewQuizAttempt, NewQuiz, Quiz, GetAttempt } from "../interfaces/quiz";
 import { getHeaders } from "./utils";
 
-export const createQuiz = async (quiz: NewQuiz, token: string | undefined) => {
+export const createQuiz = async (quiz: NewQuiz, token: string | undefined): Promise<Quiz> => {
   try {
     const response = await axios.post(`${API_URL}/quiz`, quiz, {
       headers: getHeaders(token),

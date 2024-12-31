@@ -1,18 +1,32 @@
 <script lang="ts" setup>
 import { ref, h } from "vue";
-import type { NewQuiz } from "../../interfaces/quiz";
+import type { NewQuiz, Quiz } from "../../interfaces/quiz";
 import { QUIZ_QUESTION_SETTINGS } from "../../utils/constants";
 import { useQuizStore } from "../../stores/quiz";
 import { useAuthStore } from "../../stores/auth";
 import { navigateTo } from "nuxt/app";
 import { ElMessageBox } from "element-plus";
+import { useMutation } from "@tanstack/vue-query";
+import { createQuiz } from "../../services/quiz";
+import { ElMessage } from "element-plus";
 
 const quizStore = useQuizStore();
 const authStore = useAuthStore();
 
 const selectedOption = ref("ai");
 
-const quizSettings = ref<NewQuiz>();
+const { mutate, isPending } = useMutation({
+  mutationFn: (data: NewQuiz) => createQuiz(data, authStore.user?.token),
+  onSuccess: async (data: Quiz) => {
+    navigateTo(`/user/quizes/${data.id}`);
+  },
+  onError: (error) => {
+    ElMessage({
+      message: error.message,
+      type: "error",
+    });
+  },
+});
 
 const handleOptionClick = (option: string) => {
   selectedOption.value = option;
@@ -23,14 +37,12 @@ const handlePromptSelected = async (prompt: string) => {
     prompt,
     questions: QUIZ_QUESTION_SETTINGS,
   };
-  quizSettings.value = settings;
   quizStore.setQuizSettings(settings);
   if (!authStore.user) {
     showLoginDialog();
-    return;
+  } else {
+    mutate(settings);
   }
-
-  await navigateTo("/create");
 };
 
 const showLoginDialog = () => {
@@ -45,8 +57,6 @@ const showLoginDialog = () => {
     cancelButtonText: "Cancel",
     type: "warning",
   }).then(() => {
-    console.log("HERE", quizStore.quizSettings?.prompt);
-    quizStore.setSavedPrompt(quizStore.quizSettings?.prompt || "");
     navigateTo("/auth/signup?redirect=/");
   });
 };
@@ -58,8 +68,8 @@ const showLoginDialog = () => {
       Generate personalized quizzes with AI in seconds! Share with friends and compete for the top
       spot—fun, fast, and interactive!
     </span>
-    <CreateQuizStep2 :option="selectedOption" @onPromptSelected="handlePromptSelected" />
-    <CreateQuizStep1 @onOptionClick="handleOptionClick" />
+    <CreateQuizPrompt :option="selectedOption" @onPromptSelected="handlePromptSelected" />
+    <CreateQuizOptions @onOptionClick="handleOptionClick" />
   </div>
 </template>
 
