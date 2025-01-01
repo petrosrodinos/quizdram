@@ -35,7 +35,7 @@ const handleClose = () => {
     @update:model-value="dialogVisible = $event"
     title="Share the quiz"
   >
-    <h3>Send the link with your friends</h3>
+    <h3>Send the link to your friends</h3>
     <p class="share-link">{{ FRONT_END_URL }}/quizzes/{{ quiz.id }}</p>
     <template #footer>
       <div class="dialog-footer">

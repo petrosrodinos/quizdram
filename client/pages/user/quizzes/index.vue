@@ -1,6 +1,6 @@
 <script setup>
 import { ElCard, ElRow, ElCol } from "element-plus";
-import { Calendar, Document, Edit } from "@element-plus/icons-vue";
+import { Calendar, Document, Edit, User, Share } from "@element-plus/icons-vue";
 import { useQuery } from "@tanstack/vue-query";
 import { useAuthStore } from "../../../stores/auth";
 import { getQuizzes } from "../../../services/quiz";
@@ -21,21 +21,53 @@ const { isLoading, data, error } = useQuery({
       ><ElButton type="success" :icon="Edit">create a quiz</ElButton></NuxtLink
     >
     <p v-if="isLoading">getting your quizzes...</p>
-    <QuizCards :quizes="data" />
 
-    <el-alert
-      v-if="data?.length == 0 && !isLoading"
-      :closable="false"
-      effect="dark"
-      title="your quizzes are empty."
-      type="warning"
-    />
-    <el-alert
-      v-if="(error || !data) && !isLoading"
-      :closable="false"
-      title="error finding your quizes."
-      type="error"
-    />
+    <el-tabs type="border-card" class="demo-tabs">
+      <el-tab-pane>
+        <template #label>
+          <span class="custom-tabs-label">
+            <el-icon><User /></el-icon>
+            <span>personal</span>
+          </span>
+        </template>
+        <QuizCards :quizes="data" />
+        <el-alert
+          v-if="data?.length == 0 && !isLoading"
+          :closable="false"
+          effect="dark"
+          title="your quizzes are empty."
+          type="warning"
+        />
+        <el-alert
+          v-if="(error || !data) && !isLoading"
+          :closable="false"
+          title="error finding your quizes."
+          type="error"
+        />
+      </el-tab-pane>
+      <el-tab-pane>
+        <template #label>
+          <span class="custom-tabs-label">
+            <el-icon><Share /></el-icon>
+            <span>shared</span>
+          </span>
+        </template>
+        <QuizCards :quizes="data" />
+        <el-alert
+          v-if="data?.length == 0 && !isLoading"
+          :closable="false"
+          effect="dark"
+          title="your quizzes are empty."
+          type="warning"
+        />
+        <el-alert
+          v-if="(error || !data) && !isLoading"
+          :closable="false"
+          title="error finding your quizes."
+          type="error"
+        />
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
@@ -50,5 +82,19 @@ const { isLoading, data, error } = useQuery({
   a {
     text-decoration: none;
   }
+}
+
+.demo-tabs > .el-tabs__content {
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
+}
+.demo-tabs .custom-tabs-label .el-icon {
+  vertical-align: middle;
+}
+.demo-tabs .custom-tabs-label span {
+  vertical-align: middle;
+  margin-left: 4px;
 }
 </style>
