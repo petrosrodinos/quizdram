@@ -8,6 +8,7 @@ import {
   Delete,
   Req,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
@@ -27,17 +28,14 @@ export class QuizController {
     return this.quizService.create(createQuizDto, userId);
   }
 
-  @UseGuards(JwtGuard)
   @Get()
-  findAll(@Req() req: Express.Request) {
-    const userId = req.user?.userId;
-
-    return this.quizService.findAll(userId);
+  findAll(@Query() query: any) {
+    return this.quizService.findAll(query);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.quizService.findOne(id);
+  findOne(@Param('id') id: string, @Query() query: any) {
+    return this.quizService.findOne(id, query);
   }
 
   @Patch(':id')

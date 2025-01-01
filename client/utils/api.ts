@@ -17,3 +17,7 @@ export const getHeaders = (token: string | undefined) => {
 
   return headers;
 };
+
+export const searchParams = (query: { [key: string]: string }) => {
+  return new URLSearchParams(query).toString();
+};

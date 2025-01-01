@@ -38,7 +38,7 @@ export const AttemptSchema = SchemaFactory.createForClass(Attempt);
 
 @Schema({ timestamps: true })
 export class Quiz {
-  @Prop({ type: String, required: false })
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   userId?: string;
 
   @Prop({ type: String, required: true })

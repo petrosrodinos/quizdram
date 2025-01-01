@@ -71,7 +71,7 @@ const { mutate, isPending } = useMutation({
     if (redirect) {
       await navigateTo(redirect);
     } else {
-      await navigateTo("/user/quizes");
+      await navigateTo("/user/quizzes");
     }
     ElMessage({
       showClose: true,

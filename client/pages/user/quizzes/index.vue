@@ -9,7 +9,7 @@ const authStore = useAuthStore();
 
 const { isLoading, data, error } = useQuery({
   queryKey: ["quizes", authStore?.user?.id],
-  queryFn: () => getQuizzes(authStore.user.token),
+  queryFn: () => getQuizzes({ userId: authStore?.user?.id }),
   enabled: !!authStore?.user,
 });
 </script>

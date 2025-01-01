@@ -10,7 +10,7 @@ export class User {
     description: 'username of the user',
     format: 'string',
   })
-  @Prop({ unique: true })
+  @Prop()
   username: string;
 
   @ApiProperty({

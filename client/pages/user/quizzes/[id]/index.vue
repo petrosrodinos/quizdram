@@ -11,7 +11,7 @@ const authStore = useAuthStore();
 
 const { isLoading, data } = useQuery({
   queryKey: ["quiz", quizId as string],
-  queryFn: () => getQuiz(quizId as string),
+  queryFn: () => getQuiz(quizId as string, { userId: authStore?.user?.id }),
   enabled: !!authStore?.user && !!quizId,
 });
 </script>

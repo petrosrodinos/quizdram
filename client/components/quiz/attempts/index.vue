@@ -7,7 +7,7 @@ const authStore = useAuthStore();
 
 const { quiz, isPublic } = defineProps<{
   quiz: Quiz;
-  isPublic: boolean;
+  isPublic?: boolean;
 }>();
 </script>
 
@@ -28,11 +28,11 @@ const { quiz, isPublic } = defineProps<{
               <div class="attempt-info">
                 <div class="info-item">
                   <el-icon><Document /></el-icon>
-                  <span>score: {{ calculateResult(quiz, attempt.selectedAnswers) }}%</span>
+                  <span>{{ calculateResult(quiz, attempt.selectedAnswers) }}%</span>
                 </div>
                 <div class="info-item">
                   <el-icon><Timer /></el-icon>
-                  <span>time: {{ formatTime(attempt.time) }}m</span>
+                  <span>{{ formatTime(attempt.time) }}m</span>
                 </div>
                 <div v-if="isPublic" class="info-item">
                   <el-icon><User /></el-icon>

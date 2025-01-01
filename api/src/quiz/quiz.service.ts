@@ -34,24 +34,38 @@ export class QuizService {
     }
   }
 
-  findAll(userId?: string) {
+  findAll(query?: any) {
     try {
-      return this.quizModel.find({ userId }).sort({ createdAt: -1 });
+      const filters = query || {};
+
+      return this.quizModel
+        .find(filters)
+        .sort({ createdAt: -1 })
+        .populate('userId', '-password');
     } catch (error) {
       return new Error(error);
     }
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, query?: any) {
     try {
       const quiz = await this.quizModel
         .findById(id)
-        .populate('attempts.userId', '-password')
+        .populate('userId attempts.userId', '-password')
         .lean();
 
       if (!quiz) {
         return new Error('Quiz not found');
       }
+
+      const userId = query?.userId;
+
+      if (userId) {
+        quiz.attempts = quiz.attempts.filter(
+          (a: any) => a.userId._id.toString() === userId,
+        );
+      }
+
       quiz.attempts = quiz.attempts.sort(
         (a: any, b: any) =>
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
@@ -96,7 +110,9 @@ export class QuizService {
 
   async getAttempt(id: string, attemptId: string) {
     try {
-      const quiz = await this.quizModel.findById(id);
+      const quiz = await this.quizModel
+        .findById(id)
+        .populate('attempts.userId', '-password');
 
       if (!quiz) {
         return new Error('Quiz not found');

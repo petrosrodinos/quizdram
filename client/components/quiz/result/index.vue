@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { Quiz, QuizAttempt } from "../../../interfaces/quiz";
 import { defineProps } from "vue";
-import { Refresh, Share, Document, Timer } from "@element-plus/icons-vue";
+import { Refresh, Share, Document, Timer, User } from "@element-plus/icons-vue";
 import { navigateTo } from "nuxt/app";
 
-const { quiz, attempt } = defineProps<{
+const { quiz, attempt, isPublic } = defineProps<{
   quiz: Quiz;
   attempt: QuizAttempt;
+  isPublic?: boolean;
 }>();
 
 const handlePlayAgain = async () => {
@@ -30,16 +31,20 @@ const handlePlayAgain = async () => {
             <el-icon><Timer /></el-icon>
             <span>time: {{ formatTime(attempt.time) }}m</span>
           </div>
+          <div v-if="isPublic" class="info-item">
+            <el-icon><User /></el-icon>
+            <span>@{{ attempt.userId.username }}</span>
+          </div>
         </div>
       </div>
 
       <div>
-        <el-button type="success" @click="handlePlayAgain" :icon="Refresh"> play Again </el-button>
+        <el-button type="success" @click="handlePlayAgain" :icon="Refresh">play</el-button>
 
         <el-button type="primary" :icon="Share"> share </el-button>
       </div>
     </el-card>
-    <h2>your results</h2>
+    <h2>results</h2>
     <div v-for="(question, index) in quiz.questions" :key="index">
       <QuizQuestion
         :question="question"

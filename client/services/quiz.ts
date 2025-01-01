@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { NewQuizAttempt, NewQuiz, Quiz, GetAttempt } from "../interfaces/quiz";
-import { getHeaders } from "./utils";
+import { getHeaders, searchParams } from "../utils/api";
 
 export const createQuiz = async (quiz: NewQuiz, token: string | undefined): Promise<Quiz> => {
   try {
@@ -18,11 +18,9 @@ export const createQuiz = async (quiz: NewQuiz, token: string | undefined): Prom
   }
 };
 
-export const getQuizzes = async (token: string): Promise<Quiz[]> => {
+export const getQuizzes = async (query: { [key: string]: string } = {}): Promise<Quiz[]> => {
   try {
-    const response = await axios.get(`${API_URL}/quiz`, {
-      headers: getHeaders(token),
-    });
+    const response = await axios.get(`${API_URL}/quiz?${searchParams(query)}`);
     const data = response.data;
     const formattedData = data.map((quiz: any) => ({
       ...quiz,
@@ -34,9 +32,9 @@ export const getQuizzes = async (token: string): Promise<Quiz[]> => {
   }
 };
 
-export const getQuiz = async (id: string): Promise<Quiz> => {
+export const getQuiz = async (id: string, query: { [key: string]: string } = {}): Promise<Quiz> => {
   try {
-    const response = await axios.get(`${API_URL}/quiz/${id}`);
+    const response = await axios.get(`${API_URL}/quiz/${id}?${searchParams(query)}`);
     const data = response.data;
     const formattedData = {
       ...data,

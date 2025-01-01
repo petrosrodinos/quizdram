@@ -103,7 +103,7 @@ const finishQuiz = () => {
   <el-alert
     :closable="false"
     v-else-if="!quiz && !isLoading"
-    title="could not find your quiz."
+    title="you cannot access this page."
     type="warning"
   />
 </template>
