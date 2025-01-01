@@ -30,7 +30,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
     </el-menu-item>
 
     <el-menu-item v-if="authStore.user" class="menu-item-large" index="2"
-      ><NuxtLink to="/user/quizes">quizes</NuxtLink></el-menu-item
+      ><NuxtLink to="/user/quizzes">quizzes</NuxtLink></el-menu-item
     >
 
     <el-menu-item class="menu-item-large nav-item-right">

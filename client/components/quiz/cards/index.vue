@@ -13,7 +13,7 @@ const { quizes } = defineProps<{
   <div>
     <el-row v-if="quizes?.length > 0" :gutter="20">
       <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="quiz in quizes" :key="quiz.id">
-        <NuxtLink :to="`/user/quizes/${quiz.id}`">
+        <NuxtLink :to="`/user/quizzes/${quiz.id}`">
           <el-card class="quiz-card" shadow="hover">
             <div class="quiz-card-content">
               <h2 class="quiz-name">{{ quiz.name }}</h2>

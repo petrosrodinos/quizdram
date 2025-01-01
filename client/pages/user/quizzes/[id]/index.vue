@@ -24,8 +24,7 @@ const { isLoading, data } = useQuery({
       <h2>{{ data?.name }}</h2>
       <QuizPlayOptions :quiz="data" />
 
-      <QuizHistory :quiz="data" />
-      <br />
+      <QuizAttempts :quiz="data" />
       <h2>questions</h2>
       <Quiz :quiz="data" :edit="true" />
     </div>

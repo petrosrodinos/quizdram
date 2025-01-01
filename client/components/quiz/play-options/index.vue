@@ -3,13 +3,20 @@ import { ElCard, ElButton } from "element-plus";
 import { Edit, UserFilled, Notebook } from "@element-plus/icons-vue";
 import type { Quiz } from "../../../interfaces/quiz";
 import { navigateTo } from "nuxt/app";
+import { ref } from "vue";
 
 const { quiz } = defineProps<{
   quiz: Quiz;
 }>();
 
+const dialogFormVisible = ref(false);
+
 const handlePlayQuiz = async () => {
-  await navigateTo(`/user/quizes/${quiz.id}/play`);
+  await navigateTo(`/quizzes/${quiz.id}/play`);
+};
+
+const handlePlayWithFriends = () => {
+  dialogFormVisible.value = !dialogFormVisible.value;
 };
 </script>
 
@@ -20,11 +27,18 @@ const handlePlayQuiz = async () => {
       <div class="button-container">
         <ElButton @click="handlePlayQuiz" type="primary" :icon="Edit">take quiz</ElButton>
 
-        <ElButton type="success" :icon="UserFilled">play with friends</ElButton>
+        <ElButton @click="handlePlayWithFriends" type="success" :icon="UserFilled"
+          >play with friends</ElButton
+        >
 
         <ElButton disabled type="warning" :icon="Notebook">create assignment</ElButton>
       </div>
     </ElCard>
+    <QuizPlayOptionsShare
+      :visible="dialogFormVisible"
+      @update:visible="dialogFormVisible = $event"
+      :quiz="quiz"
+    />
   </div>
 </template>
 

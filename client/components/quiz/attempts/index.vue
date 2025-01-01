@@ -17,7 +17,7 @@ const { quiz } = defineProps<{
       <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="attempt in quiz.attempts" :key="attempt._id">
         <NuxtLink
           :to="{
-            path: `/user/quizes/${quiz.id}/attempt/${attempt._id}`,
+            path: `/user/quizzes/${quiz.id}/attempt/${attempt._id}`,
           }"
         >
           <el-card class="attempt-card" shadow="hover">

@@ -2,12 +2,12 @@
 import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { useQuery, useMutation } from "@tanstack/vue-query";
-import { createAttempt, getQuiz } from "../../../../../services/quiz";
+import { createAttempt, getQuiz } from "../../../../services/quiz";
 import { navigateTo } from "nuxt/app";
-import { useTimer } from "../../../../../composables/useTimer";
-import { useAuthStore } from "../../../../../stores/auth";
-import { useQuizGame } from "../../../../../composables/useQuizGame";
-import type { NewQuizAttempt } from "../../../../../interfaces/quiz";
+import { useTimer } from "../../../../composables/useTimer";
+import { useAuthStore } from "../../../../stores/auth";
+import { useQuizGame } from "../../../../composables/useQuizGame";
+import type { NewQuizAttempt } from "../../../../interfaces/quiz";
 import { Timer } from "@element-plus/icons-vue";
 
 const route = useRoute();
@@ -61,7 +61,7 @@ const finishQuiz = () => {
   mutate(newAttempt, {
     onSuccess: async (data: any) => {
       resetTimer();
-      navigateTo(`/user/quizes/${quizId}/attempt/${data.attempts[data.attempts.length - 1]._id}`);
+      navigateTo(`/quizzes/${quizId}/attempt/${data.attempts[data.attempts.length - 1]._id}`);
     },
   });
 };

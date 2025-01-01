@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { useQuery } from "@tanstack/vue-query";
-import { getAttempt } from "../../../../../services/quiz";
+import { getAttempt } from "../../../../services/quiz";
 
 const route = useRoute();
 

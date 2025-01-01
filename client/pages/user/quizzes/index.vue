@@ -17,7 +17,7 @@ const { isLoading, data, error } = useQuery({
 <template>
   <div class="quiz-container">
     <h1 class="quiz-title">your quizes</h1>
-    <NuxtLink to="/user/quizes/new"
+    <NuxtLink to="/user/quizzes/new"
       ><ElButton type="success" :icon="Edit">create a quiz</ElButton></NuxtLink
     >
     <p v-if="isLoading">getting your quizzes...</p>

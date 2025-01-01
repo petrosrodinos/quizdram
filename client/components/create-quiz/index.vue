@@ -18,7 +18,7 @@ const selectedOption = ref("ai");
 const { mutate, isPending } = useMutation({
   mutationFn: (data: NewQuiz) => createQuiz(data, authStore.user?.token),
   onSuccess: async (data: Quiz) => {
-    navigateTo(`/user/quizes/${data.id}`);
+    navigateTo(`/user/quizzes/${data.id}`);
   },
   onError: (error) => {
     ElMessage({

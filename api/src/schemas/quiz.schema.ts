@@ -24,7 +24,7 @@ export const QuestionSchema = SchemaFactory.createForClass(Question);
 
 @Schema({ timestamps: true })
 export class Attempt {
-  @Prop({ type: String, required: true })
+  @Prop({ type: Types.ObjectId, ref: 'User' })
   userId: string;
 
   @Prop({ type: [String], required: true })

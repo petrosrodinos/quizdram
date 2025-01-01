@@ -36,7 +36,7 @@ export class QuizService {
 
   findAll(userId?: string) {
     try {
-      return this.quizModel.find({ userId }).sort({ createdAt: -1 }); // Sort by createdAt in descending order
+      return this.quizModel.find({ userId }).sort({ createdAt: -1 });
     } catch (error) {
       return new Error(error);
     }
@@ -44,7 +44,10 @@ export class QuizService {
 
   async findOne(id: string) {
     try {
-      const quiz = await this.quizModel.findById(id).lean();
+      const quiz = await this.quizModel
+        .findById(id)
+        .populate('attempts.userId', '-password')
+        .lean();
 
       if (!quiz) {
         return new Error('Quiz not found');
