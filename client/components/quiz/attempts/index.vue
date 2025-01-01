@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { Quiz } from "../../../interfaces/quiz";
 import { useAuthStore } from "../../../stores/auth";
-import { Timer, Document, Calendar } from "@element-plus/icons-vue";
+import { Timer, Document, Calendar, User } from "@element-plus/icons-vue";
 
 const authStore = useAuthStore();
 
-const { quiz } = defineProps<{
+const { quiz, isPublic } = defineProps<{
   quiz: Quiz;
+  isPublic: boolean;
 }>();
 </script>
 
@@ -17,7 +18,7 @@ const { quiz } = defineProps<{
       <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="attempt in quiz.attempts" :key="attempt._id">
         <NuxtLink
           :to="{
-            path: `/user/quizzes/${quiz.id}/attempt/${attempt._id}`,
+            path: `/quizzes/${quiz.id}/attempt/${attempt._id}`,
           }"
         >
           <el-card class="attempt-card" shadow="hover">
@@ -32,6 +33,10 @@ const { quiz } = defineProps<{
                 <div class="info-item">
                   <el-icon><Timer /></el-icon>
                   <span>time: {{ formatTime(attempt.time) }}m</span>
+                </div>
+                <div v-if="isPublic" class="info-item">
+                  <el-icon><User /></el-icon>
+                  <span>@{{ attempt.userId.username }}</span>
                 </div>
               </div>
             </div>

@@ -7,8 +7,6 @@ import { getQuiz } from "../../../services/quiz";
 const route = useRoute();
 const quizId = route.params.id;
 
-const authStore = useAuthStore();
-
 const { isLoading, data } = useQuery({
   queryKey: ["quiz", quizId as string],
   queryFn: () => getQuiz(quizId as string),
@@ -23,7 +21,7 @@ const { isLoading, data } = useQuery({
       <h2>{{ data?.name }}</h2>
       <QuizPlayOptions :quiz="data" />
 
-      <QuizAttempts :quiz="data" />
+      <QuizAttempts :quiz="data" :isPublic="true" />
     </div>
     <el-alert
       :closable="false"

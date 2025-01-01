@@ -1,3 +1,5 @@
+import type { User } from "./user";
+
 export interface NewQuiz {
   prompt: string;
   questions: QuestionSettings[];
@@ -19,7 +21,7 @@ export type QuestionSettings = QuestionSettingsMultiple | QuestionSettingsBoolea
 
 export interface Quiz {
   id: string;
-  userId: string;
+  userId: User;
   name: string;
   questions: Question[];
   createdAt: string;
@@ -36,7 +38,7 @@ export interface Question {
 
 export interface QuizAttempt {
   _id: string;
-  userId: string;
+  userId: User;
   selectedAnswers: string[];
   time: string;
   createdAt: string;

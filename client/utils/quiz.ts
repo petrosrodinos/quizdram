@@ -8,7 +8,8 @@ export const calculateResult = (quiz: Quiz, selectedAnswers: string[]) => {
       score++;
     }
   });
-  return (score / quiz.questions.length) * 100;
+  const result = ((score / quiz.questions.length) * 100).toFixed(2);
+  return result;
 };
 
 export const calculateCorrect = (question: Question, answer: string) => {

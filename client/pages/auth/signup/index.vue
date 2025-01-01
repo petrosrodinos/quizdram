@@ -3,7 +3,7 @@ import { ElMessage, type FormRules, type FormInstance } from "element-plus";
 import { computed, reactive, ref } from "vue";
 import { useMutation } from "@tanstack/vue-query";
 import { signUp } from "../../../services/auth";
-import type { SignUp, User } from "../../../interfaces/auth";
+import type { SignUp, LoggedUser } from "../../../interfaces/auth";
 import { useAuthStore } from "../../../stores/auth";
 import { navigateTo } from "nuxt/app";
 import { useRoute } from "vue-router";
@@ -66,7 +66,7 @@ const rules = reactive<FormRules<SignUp>>({
 
 const { mutate, isPending } = useMutation({
   mutationFn: signUp,
-  onSuccess: async (data: User) => {
+  onSuccess: async (data: LoggedUser) => {
     authStore.setUser(data);
     if (redirect) {
       await navigateTo(redirect);

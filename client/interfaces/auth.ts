@@ -9,7 +9,7 @@ export interface Login {
   password: string;
 }
 
-export interface User {
+export interface LoggedUser {
   email: string;
   username: string;
   avatar?: string;

@@ -10,7 +10,7 @@ const { quiz, attempt } = defineProps<{
 }>();
 
 const handlePlayAgain = async () => {
-  navigateTo(`/user/quizes/${quiz.id}/play`);
+  navigateTo(`/quizzes/${quiz.id}/play`);
 };
 </script>
 
