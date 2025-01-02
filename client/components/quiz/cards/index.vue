@@ -4,16 +4,19 @@ import { Calendar, Document, Edit } from "@element-plus/icons-vue";
 import { defineProps } from "vue";
 import type { Quiz } from "../../../interfaces/quiz";
 
-const { quizes } = defineProps<{
+const { quizes, isPublic } = defineProps<{
   quizes: Quiz[];
+  isPublic?: boolean;
 }>();
+
+const quizLink = (id: string) => (isPublic ? `/quizzes/${id}` : `/user/quizzes/${id}`);
 </script>
 
 <template>
   <div class="quiz-cards">
     <el-row v-if="quizes?.length > 0" :gutter="10">
       <el-col :xs="24" :sm="12" :md="8" :lg="8" v-for="quiz in quizes" :key="quiz.id">
-        <NuxtLink :to="`/user/quizzes/${quiz.id}`">
+        <NuxtLink :to="quizLink(quiz.id)">
           <el-card class="quiz-card" shadow="hover">
             <div class="quiz-card-content">
               <h2 class="quiz-name">{{ quiz.name }}</h2>

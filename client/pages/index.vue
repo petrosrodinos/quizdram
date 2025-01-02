@@ -21,7 +21,7 @@ const { isLoading, data, error } = useQuery({
     </div>
     <div class="quiz-cards">
       <h2>Try out some of our users favorite quizzes!</h2>
-      <QuizCards v-if="data" :quizes="data" />
+      <QuizCards v-if="data" :quizes="data" :isPublic="true" />
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ const { isLoading, data, error } = useQuery({
   height: 92.5vh;
   margin-top: 2px;
   background: rgb(34, 193, 195);
-  background: linear-gradient(70deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 61%);
+  background: linear-gradient(70deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 81%);
   width: 100%;
 }
 
@@ -52,7 +52,7 @@ const { isLoading, data, error } = useQuery({
   position: relative;
   top: 25%;
   background: rgb(34, 193, 195);
-  background: linear-gradient(70deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 61%);
+  background: linear-gradient(70deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 81%);
   margin-top: 10px;
 
   h2 {

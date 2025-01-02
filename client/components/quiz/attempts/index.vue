@@ -15,11 +15,18 @@ const { quiz, isPublic } = defineProps<{
   <div>
     <h2>attempts</h2>
     <el-row v-if="quiz.attempts?.length > 0" :gutter="20">
-      <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="attempt in quiz.attempts" :key="attempt._id">
+      <el-col
+        :xs="24"
+        :sm="12"
+        :md="8"
+        :lg="12"
+        v-for="attempt in quiz.attempts"
+        :key="attempt._id"
+      >
         <NuxtLink
-          :to="{
-            path: `/quizzes/${quiz.id}/attempt/${attempt._id}`,
-          }"
+          :to="isPublic ? undefined : { path: `/quizzes/${quiz.id}/attempt/${attempt._id}` }"
+          :tag="isPublic ? 'span' : 'a'"
+          :class="{ disabled: isPublic }"
         >
           <el-card class="attempt-card" shadow="hover">
             <div class="attempt-card-content">
@@ -62,12 +69,6 @@ const { quiz, isPublic } = defineProps<{
 </template>
 
 <style lang="scss" scoped>
-.custom-card {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
 .attempt-card {
   margin-bottom: 20px;
   transition: transform 0.3s;
@@ -97,6 +98,10 @@ const { quiz, isPublic } = defineProps<{
       }
     }
   }
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 a {
