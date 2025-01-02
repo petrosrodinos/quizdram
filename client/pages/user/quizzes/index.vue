@@ -67,7 +67,7 @@ const handleCreateQuiz = () => {
             <span>shared</span>
           </span>
         </template>
-        <QuizCards :quizes="sharedData" />
+        <QuizCards :quizes="sharedData" isPublic="true" />
         <el-alert
           v-if="sharedData?.length == 0 && !isGettingShared"
           :closable="false"

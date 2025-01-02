@@ -55,7 +55,7 @@ export class QuizService {
       result = this.quizModel
         .find(filters)
         .sort({ createdAt: -1 })
-        .populate('userId', '-password');
+        .populate('userId attempts.userId', '-password');
 
       return result;
     } catch (error) {

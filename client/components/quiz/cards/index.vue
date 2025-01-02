@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ElCard, ElRow, ElCol } from "element-plus";
-import { Calendar, Document, Edit } from "@element-plus/icons-vue";
+import { Calendar, Document, Edit, View, Trophy } from "@element-plus/icons-vue";
 import { defineProps } from "vue";
 import type { Quiz } from "../../../interfaces/quiz";
 
@@ -8,33 +8,13 @@ const { quizes, isPublic } = defineProps<{
   quizes: Quiz[];
   isPublic?: boolean;
 }>();
-
-const quizLink = (id: string) => (isPublic ? `/quizzes/${id}` : `/user/quizzes/${id}`);
 </script>
 
 <template>
   <div class="quiz-cards">
     <el-row v-if="quizes?.length > 0" :gutter="10">
       <el-col :xs="24" :sm="12" :md="8" :lg="8" v-for="quiz in quizes" :key="quiz.id">
-        <NuxtLink :to="quizLink(quiz.id)">
-          <el-card class="quiz-card" shadow="hover">
-            <div class="quiz-card-content">
-              <h2 class="quiz-name">{{ quiz.name }}</h2>
-
-              <div class="quiz-info">
-                <div class="info-item">
-                  <el-icon><Calendar /></el-icon>
-                  <span>{{ formatDate(quiz.createdAt) }}</span>
-                </div>
-
-                <div class="info-item">
-                  <el-icon><Document /></el-icon>
-                  <span>{{ quiz.questions.length }} Questions</span>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </NuxtLink>
+        <QuizCardsContent :quiz="quiz" :isPublic="isPublic" />
       </el-col>
     </el-row>
   </div>
@@ -44,45 +24,5 @@ const quizLink = (id: string) => (isPublic ? `/quizzes/${id}` : `/user/quizzes/$
 .quiz-cards {
   margin-left: 2px;
   margin-right: 2px;
-}
-.quiz-title {
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: var(--el-text-color-primary);
-}
-
-.quiz-card {
-  margin-bottom: 10px;
-  transition: transform 0.3s;
-
-  &:hover {
-    transform: translateY(-5px);
-    cursor: pointer;
-  }
-
-  .quiz-card-content {
-    .quiz-name {
-      font-size: 18px;
-      margin: 0 0 10px 0;
-      color: var(--el-text-color-primary);
-    }
-
-    .quiz-info {
-      .info-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 8px;
-        color: var(--el-text-color-secondary);
-
-        .el-icon {
-          margin-right: 8px;
-        }
-      }
-    }
-  }
-}
-
-a {
-  text-decoration: none;
 }
 </style>

@@ -17,10 +17,10 @@ const { isLoading, data, error } = useQuery({
           top spot—fun, fast, and interactive!
         </span>
       </CreateQuiz>
-      <UiSpinner v-if="isLoading" />
     </div>
     <div class="quiz-cards">
       <h2>Try out some of our users favorite quizzes!</h2>
+      <UiSpinner v-if="isLoading" />
       <QuizCards v-if="data" :quizes="data" :isPublic="true" />
     </div>
   </div>

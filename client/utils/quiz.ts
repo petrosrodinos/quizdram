@@ -1,7 +1,8 @@
-import type { Question, Quiz } from "../interfaces/quiz";
+import type { User } from "../interfaces/user";
+import type { Question, Quiz, QuizAttempt } from "../interfaces/quiz";
 
-export const calculateResult = (quiz: Quiz, selectedAnswers: string[]) => {
-  if (!quiz || selectedAnswers.length == 0) return;
+export const calculateResult = (quiz: Quiz, selectedAnswers: string[]): string => {
+  if (!quiz || selectedAnswers.length == 0) return "0";
   let score = 0;
   quiz.questions.forEach((question, index) => {
     if (calculateCorrect(question, selectedAnswers[index])) {
@@ -18,4 +19,22 @@ export const calculateCorrect = (question: Question, answer: string) => {
   } else {
     return question.correct == answer;
   }
+};
+
+export const findBestResult = (quiz: Quiz): { user: User; result: number } => {
+  let userResults: { user: User; result: number }[] = [];
+
+  quiz.attempts.forEach((attempt: QuizAttempt) => {
+    const result = parseInt(calculateResult(quiz, attempt.selectedAnswers));
+    userResults.push({
+      user: attempt.userId,
+      result,
+    });
+  });
+
+  userResults.sort((a, b) => b.result - a.result);
+
+  const bestResult = userResults[0];
+
+  return bestResult;
 };
