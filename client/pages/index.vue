@@ -1,3 +1,13 @@
+<script lang="ts" setup>
+import { useQuery } from "@tanstack/vue-query";
+import { getQuizzes } from "../services/quiz";
+
+const { isLoading, data, error } = useQuery({
+  queryKey: ["quizes"],
+  queryFn: () => getQuizzes(),
+});
+</script>
+
 <template>
   <div class="home-container">
     <div class="home-content">
@@ -7,6 +17,11 @@
           top spot—fun, fast, and interactive!
         </span>
       </CreateQuiz>
+      <UiSpinner v-if="isLoading" />
+    </div>
+    <div class="quiz-cards">
+      <h2>Try out some of our users favorite quizzes!</h2>
+      <QuizCards v-if="data" :quizes="data" />
     </div>
   </div>
 </template>
@@ -30,6 +45,19 @@
     color: white;
     text-align: center;
     max-width: 750px;
+  }
+}
+
+.quiz-cards {
+  position: relative;
+  top: 25%;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(70deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 61%);
+  margin-top: 10px;
+
+  h2 {
+    color: white;
+    text-align: center;
   }
 }
 </style>

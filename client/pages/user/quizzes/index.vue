@@ -89,8 +89,6 @@ const handleCreateQuiz = () => {
 
 <style lang="scss" scoped>
 .quiz-container {
-  padding: 10px;
-
   button {
     margin-bottom: 10px;
   }

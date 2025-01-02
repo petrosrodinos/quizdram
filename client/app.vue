@@ -14,4 +14,9 @@
   font-family: "Poppins";
   margin: 0;
 }
+
+body {
+  height: 100vh;
+  /* background-color: red; */
+}
 </style>

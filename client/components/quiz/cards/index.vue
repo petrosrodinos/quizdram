@@ -10,9 +10,9 @@ const { quizes } = defineProps<{
 </script>
 
 <template>
-  <div>
-    <el-row v-if="quizes?.length > 0" :gutter="20">
-      <el-col :xs="24" :sm="12" :md="8" :lg="6" v-for="quiz in quizes" :key="quiz.id">
+  <div class="quiz-cards">
+    <el-row v-if="quizes?.length > 0" :gutter="10">
+      <el-col :xs="24" :sm="12" :md="8" :lg="8" v-for="quiz in quizes" :key="quiz.id">
         <NuxtLink :to="`/user/quizzes/${quiz.id}`">
           <el-card class="quiz-card" shadow="hover">
             <div class="quiz-card-content">
@@ -38,6 +38,10 @@ const { quizes } = defineProps<{
 </template>
 
 <style lang="scss" scoped>
+.quiz-cards {
+  margin-left: 2px;
+  margin-right: 2px;
+}
 .quiz-title {
   font-size: 28px;
   margin-bottom: 30px;
@@ -45,7 +49,7 @@ const { quizes } = defineProps<{
 }
 
 .quiz-card {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   transition: transform 0.3s;
 
   &:hover {
@@ -56,7 +60,7 @@ const { quizes } = defineProps<{
   .quiz-card-content {
     .quiz-name {
       font-size: 18px;
-      margin: 0 0 15px 0;
+      margin: 0 0 10px 0;
       color: var(--el-text-color-primary);
     }
 
