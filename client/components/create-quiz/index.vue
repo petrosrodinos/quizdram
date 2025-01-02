@@ -65,8 +65,11 @@ const showLoginDialog = () => {
 <template>
   <div class="create-quiz-container">
     <slot />
-    <CreateQuizPrompt :option="selectedOption" @onPromptSelected="handlePromptSelected" />
-    <CreateQuizOptions @onOptionClick="handleOptionClick" />
+    <UiSpinner v-if="isPending" />
+    <div v-if="!isPending">
+      <CreateQuizPrompt :option="selectedOption" @onPromptSelected="handlePromptSelected" />
+      <CreateQuizOptions @onOptionClick="handleOptionClick" />
+    </div>
   </div>
 </template>
 
