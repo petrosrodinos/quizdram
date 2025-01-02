@@ -7,6 +7,8 @@ import { getQuizzes } from "../../../services/quiz";
 
 const authStore = useAuthStore();
 
+const dialogFormVisible = ref(false);
+
 const { isLoading, data, error } = useQuery({
   queryKey: ["quizes", authStore?.user?.id],
   queryFn: () => getQuizzes({ userId: authStore?.user?.id }),
@@ -22,14 +24,18 @@ const {
   queryFn: () => getQuizzes({ userId: authStore?.user?.id, attempt: true }),
   enabled: !!authStore?.user,
 });
+
+const handleCreateQuiz = () => {
+  console.log("Asd");
+  dialogFormVisible.value = !dialogFormVisible.value;
+};
 </script>
 
 <template>
   <div class="quiz-container">
     <h1 class="quiz-title">your quizes</h1>
-    <NuxtLink to="/user/quizzes/new"
-      ><ElButton type="success" :icon="Edit">create a quiz</ElButton></NuxtLink
-    >
+    <ElButton @click="handleCreateQuiz" type="success" :icon="Edit">create a quiz</ElButton>
+
     <p v-if="isLoading">getting your quizzes...</p>
 
     <el-tabs type="border-card" class="demo-tabs">
@@ -78,6 +84,7 @@ const {
         />
       </el-tab-pane>
     </el-tabs>
+    <CreateQuizModal :visible="dialogFormVisible" @update:visible="dialogFormVisible = $event" />
   </div>
 </template>
 

@@ -64,10 +64,7 @@ const showLoginDialog = () => {
 
 <template>
   <div class="create-quiz-container">
-    <span>
-      Generate personalized quizzes with AI in seconds! Share with friends and compete for the top
-      spot—fun, fast, and interactive!
-    </span>
+    <slot />
     <CreateQuizPrompt :option="selectedOption" @onPromptSelected="handlePromptSelected" />
     <CreateQuizOptions @onOptionClick="handleOptionClick" />
   </div>
@@ -77,18 +74,8 @@ const showLoginDialog = () => {
 .create-quiz-container {
   display: flex;
   flex-direction: column;
-  padding-top: 100px;
   width: 100%;
   margin: 0 auto;
   max-width: 800px;
-}
-
-span {
-  font-size: 24px;
-  font-weight: 400;
-  margin: 20px;
-  color: white;
-  text-align: center;
-  max-width: 750px;
 }
 </style>
