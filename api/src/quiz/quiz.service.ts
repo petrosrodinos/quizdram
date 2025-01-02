@@ -5,7 +5,7 @@ import { askOpenAI } from 'src/utils/openai';
 import { generateQuizPrompt } from 'src/utils/prompt';
 import { Quiz } from 'src/schemas/quiz.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { CreateAttemptDto } from './dto/create-attempt.dto';
 
 @Injectable()
@@ -36,12 +36,28 @@ export class QuizService {
 
   findAll(query?: any) {
     try {
-      const filters = query || {};
+      let result: any;
+      let filters = query || {};
 
-      return this.quizModel
+      const { attempt, userId } = query;
+
+      if (attempt && userId) {
+        filters = {
+          attempts: {
+            $elemMatch: {
+              userId,
+            },
+          },
+          userId: { $ne: userId },
+        };
+      }
+
+      result = this.quizModel
         .find(filters)
         .sort({ createdAt: -1 })
         .populate('userId', '-password');
+
+      return result;
     } catch (error) {
       return new Error(error);
     }

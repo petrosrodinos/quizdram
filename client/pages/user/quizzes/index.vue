@@ -12,6 +12,16 @@ const { isLoading, data, error } = useQuery({
   queryFn: () => getQuizzes({ userId: authStore?.user?.id }),
   enabled: !!authStore?.user,
 });
+
+const {
+  isLoading: isGettingShared,
+  data: sharedData,
+  error: sharedError,
+} = useQuery({
+  queryKey: ["shared-quizes", authStore?.user?.id],
+  queryFn: () => getQuizzes({ userId: authStore?.user?.id, attempt: true }),
+  enabled: !!authStore?.user,
+});
 </script>
 
 <template>
@@ -52,16 +62,16 @@ const { isLoading, data, error } = useQuery({
             <span>shared</span>
           </span>
         </template>
-        <QuizCards :quizes="data" />
+        <QuizCards :quizes="sharedData" />
         <el-alert
-          v-if="data?.length == 0 && !isLoading"
+          v-if="sharedData?.length == 0 && !isGettingShared"
           :closable="false"
           effect="dark"
-          title="your quizzes are empty."
+          title="you have not attempted a shared quiz yet."
           type="warning"
         />
         <el-alert
-          v-if="(error || !data) && !isLoading"
+          v-if="(sharedError || !sharedData) && !isGettingShared"
           :closable="false"
           title="error finding your quizes."
           type="error"

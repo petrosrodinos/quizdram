@@ -43,7 +43,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
       <el-menu-item index="1-1">
         <NuxtLink to="/">home</NuxtLink>
       </el-menu-item>
-      <el-menu-item index="1-2"><NuxtLink to="/user/quizes">quizes</NuxtLink></el-menu-item>
+      <el-menu-item index="1-2"><NuxtLink to="/user/quizzes">quizzes</NuxtLink></el-menu-item>
 
       <el-menu-item index="1-3">
         <NuxtLink v-if="!authStore.user" to="/auth/login">sign in</NuxtLink>

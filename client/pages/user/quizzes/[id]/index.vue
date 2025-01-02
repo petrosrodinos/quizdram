@@ -11,7 +11,7 @@ const authStore = useAuthStore();
 
 const { isLoading, data } = useQuery({
   queryKey: ["quiz", quizId as string],
-  queryFn: () => getQuiz(quizId as string, { userId: authStore?.user?.id }),
+  queryFn: () => getQuiz(quizId as string, { userId: authStore?.user?.id as string }),
   enabled: !!authStore?.user && !!quizId,
 });
 </script>
@@ -25,8 +25,10 @@ const { isLoading, data } = useQuery({
       <QuizPlayOptions :quiz="data" />
 
       <QuizAttempts :quiz="data" />
-      <h2>questions</h2>
-      <Quiz :quiz="data" :edit="true" />
+      <div v-if="data.userId._id === authStore?.user?.id">
+        <h2>questions</h2>
+        <Quiz :quiz="data" :edit="true" />
+      </div>
     </div>
     <el-alert
       :closable="false"

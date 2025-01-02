@@ -16,7 +16,7 @@ const quizId = route.params.id as string;
 const authStore = useAuthStore();
 
 const { isLoading, data: quiz } = useQuery({
-  queryKey: ["quiz", quizId as string],
+  queryKey: ["quiz-play", quizId as string],
   queryFn: () => getQuiz(quizId as string),
   enabled: !!authStore?.user && !!quizId,
 });

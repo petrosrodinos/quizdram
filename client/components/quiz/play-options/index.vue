@@ -1,22 +1,49 @@
 <script setup lang="ts">
-import { ElCard, ElButton } from "element-plus";
+import { ElCard, ElButton, ElMessageBox } from "element-plus";
 import { Edit, UserFilled, Notebook } from "@element-plus/icons-vue";
 import type { Quiz } from "../../../interfaces/quiz";
 import { navigateTo } from "nuxt/app";
-import { ref } from "vue";
+import { h, ref } from "vue";
+import { useAuthStore } from "../../../stores/auth";
+import { useRoute } from "vue-router";
 
 const { quiz } = defineProps<{
   quiz: Quiz;
 }>();
 
+const authStore = useAuthStore();
+
+const route = useRoute();
+
+const currentRoute = route.fullPath;
+
 const dialogFormVisible = ref(false);
 
 const handlePlayQuiz = async () => {
+  if (!authStore.user) {
+    return showLoginDialog();
+  }
   await navigateTo(`/quizzes/${quiz.id}/play`);
 };
 
 const handlePlayWithFriends = () => {
   dialogFormVisible.value = !dialogFormVisible.value;
+};
+
+const showLoginDialog = () => {
+  ElMessageBox({
+    title: "Please login to continue",
+    message: h("p", null, [
+      h("span", null, "You need to "),
+      h("i", { style: "color: teal" }, "login"),
+      h("span", null, " to access this feature."),
+    ]),
+    confirmButtonText: "Login",
+    cancelButtonText: "Cancel",
+    type: "warning",
+  }).then(() => {
+    navigateTo(`/auth/signup?redirect=${currentRoute}`);
+  });
 };
 </script>
 
