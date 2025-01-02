@@ -18,7 +18,7 @@ const { isLoading, data, error } = useQuery({
   <div>
     <QuizResult v-if="data" :quiz="data?.quiz" :attempt="data?.attempt" />
     <div v-else>
-      <div v-if="isLoading">getting attempt...</div>
+      <UiSpinner v-if="isLoading" />
 
       <el-alert :closable="false" v-else-if="error" title="error finding attempt" type="error" />
     </div>

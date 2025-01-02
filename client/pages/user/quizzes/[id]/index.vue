@@ -18,7 +18,7 @@ const { isLoading, data } = useQuery({
 
 <template>
   <div class="quiz-container">
-    <div v-if="isLoading">getting quiz...</div>
+    <UiSpinner v-if="isLoading" />
 
     <div v-if="data && !isLoading">
       <h2>{{ data?.name }}</h2>

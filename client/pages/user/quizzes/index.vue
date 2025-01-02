@@ -26,7 +26,6 @@ const {
 });
 
 const handleCreateQuiz = () => {
-  console.log("Asd");
   dialogFormVisible.value = !dialogFormVisible.value;
 };
 </script>
@@ -36,10 +35,10 @@ const handleCreateQuiz = () => {
     <h1 class="quiz-title">your quizes</h1>
     <ElButton @click="handleCreateQuiz" type="success" :icon="Edit">create a quiz</ElButton>
 
-    <p v-if="isLoading">getting your quizzes...</p>
+    <UiSpinner v-if="isLoading" />
 
-    <el-tabs type="border-card" class="demo-tabs">
-      <el-tab-pane>
+    <el-tabs v-if="data || sharedData" type="border-card" class="demo-tabs">
+      <el-tab-pane v-if="data">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><User /></el-icon>
@@ -61,7 +60,7 @@ const handleCreateQuiz = () => {
           type="error"
         />
       </el-tab-pane>
-      <el-tab-pane>
+      <el-tab-pane v-if="sharedData">
         <template #label>
           <span class="custom-tabs-label">
             <el-icon><Share /></el-icon>

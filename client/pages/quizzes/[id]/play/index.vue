@@ -68,44 +68,51 @@ const finishQuiz = () => {
 </script>
 
 <template>
-  <div v-if="quiz">
-    <h1>{{ quiz.name }}</h1>
-    <div>
-      <h3>question {{ currentQuestionIndex + 1 }} / {{ quiz.questions.length }}</h3>
+  <div>
+    <UiSpinner v-if="isLoading" />
+    <div v-if="quiz">
+      <h1>{{ quiz.name }}</h1>
+      <div>
+        <h3>question {{ currentQuestionIndex + 1 }} / {{ quiz.questions.length }}</h3>
 
-      <div class="info-item">
-        <el-icon><Timer /></el-icon>
-        <span>{{ formattedTime }}</span>
-      </div>
-      <div v-if="currentQuestion">
-        <QuizQuestion
-          :answer="selectedAnswers[currentQuestionIndex] || ''"
-          @onAnswerChange="handleAnswerChange"
-          :question="currentQuestion"
-        />
-      </div>
+        <div class="info-item">
+          <el-icon><Timer /></el-icon>
+          <span>{{ formattedTime }}</span>
+        </div>
+        <div v-if="currentQuestion">
+          <QuizQuestion
+            :answer="selectedAnswers[currentQuestionIndex] || ''"
+            @onAnswerChange="handleAnswerChange"
+            :question="currentQuestion"
+          />
+        </div>
 
-      <div class="navigation-buttons">
-        <el-button type="warning" @click="previousQuestion" :disabled="currentQuestionIndex === 0">
-          previous
-        </el-button>
-        <el-button
-          type="success"
-          @click="handleNextClick"
-          :disabled="!selectedAnswers[currentQuestionIndex]"
-        >
-          {{ currentQuestionIndex === quiz.questions.length - 1 ? "finish" : "next" }}
-        </el-button>
+        <div class="navigation-buttons">
+          <el-button
+            type="warning"
+            @click="previousQuestion"
+            :disabled="currentQuestionIndex === 0"
+          >
+            previous
+          </el-button>
+          <el-button
+            type="success"
+            @click="handleNextClick"
+            :disabled="!selectedAnswers[currentQuestionIndex]"
+          >
+            {{ currentQuestionIndex === quiz.questions.length - 1 ? "finish" : "next" }}
+          </el-button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <el-alert
-    :closable="false"
-    v-else-if="!quiz && !isLoading"
-    title="you cannot access this page."
-    type="warning"
-  />
+    <el-alert
+      :closable="false"
+      v-else-if="!quiz && !isLoading"
+      title="you cannot access this page."
+      type="warning"
+    />
+  </div>
 </template>
 
 <style lang="scss" scoped>
