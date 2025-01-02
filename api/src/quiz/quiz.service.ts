@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
 import { askOpenAI } from 'src/utils/openai';
@@ -67,11 +67,10 @@ export class QuizService {
     try {
       const quiz = await this.quizModel
         .findById(id)
-        .populate('userId attempts.userId', '-password')
-        .lean();
+        .populate('userId attempts.userId', '-password');
 
       if (!quiz) {
-        return new Error('Quiz not found');
+        throw new NotFoundException('could not find quiz.');
       }
 
       const userId = query?.userId;

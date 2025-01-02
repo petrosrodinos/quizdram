@@ -36,6 +36,9 @@ export const getQuiz = async (id: string, query: { [key: string]: string } = {})
   try {
     const response = await axios.get(`${API_URL}/quiz/${id}?${searchParams(query)}`);
     const data = response.data;
+    if (!Object.keys(data).length) {
+      throw new Error("Quiz not found");
+    }
     const formattedData = {
       ...data,
       id: data._id,

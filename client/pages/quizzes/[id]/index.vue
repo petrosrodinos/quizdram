@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import { useAuthStore } from "../../../stores/auth";
 import { useQuery } from "@tanstack/vue-query";
 import { getQuiz } from "../../../services/quiz";
 
