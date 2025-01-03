@@ -22,11 +22,11 @@ export class QuizService {
       const user = await this.userModel.findById(userId);
 
       if (!user) {
-        return new Error('User not found');
+        throw new Error('User not found');
       }
 
       if (user.tokens < 1) {
-        return new Error('Not enough  tokens');
+        throw new Error('Not enough  tokens');
       }
 
       const prompt = generateQuizPrompt(createQuizDto);
@@ -52,7 +52,7 @@ export class QuizService {
 
       return response;
     } catch (error) {
-      return new Error(error);
+      throw new Error(error);
     }
   }
 
