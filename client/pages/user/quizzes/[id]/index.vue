@@ -14,6 +14,11 @@ const { isLoading, data } = useQuery({
   queryFn: () => getQuiz(quizId as string, { userId: authStore?.user?.id as string }),
   enabled: !!authStore?.user && !!quizId,
 });
+
+definePageMeta({
+  title: `Quiz`,
+  middleware: ["auth-user"],
+});
 </script>
 
 <template>

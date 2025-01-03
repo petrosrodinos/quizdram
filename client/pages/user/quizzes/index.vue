@@ -5,6 +5,11 @@ import { useQuery } from "@tanstack/vue-query";
 import { useAuthStore } from "../../../stores/auth";
 import { getQuizzes } from "../../../services/quiz";
 
+definePageMeta({
+  title: "Quizzes",
+  middleware: ["auth-user"],
+});
+
 const authStore = useAuthStore();
 
 const dialogFormVisible = ref(false);

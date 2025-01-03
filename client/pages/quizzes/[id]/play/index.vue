@@ -10,6 +10,11 @@ import { useQuizGame } from "../../../../composables/useQuizGame";
 import type { NewQuizAttempt } from "../../../../interfaces/quiz";
 import { Timer } from "@element-plus/icons-vue";
 
+definePageMeta({
+  title: "Play Quiz",
+  middleware: ["auth-user"],
+});
+
 const route = useRoute();
 const quizId = route.params.id as string;
 
