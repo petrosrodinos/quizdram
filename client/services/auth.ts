@@ -12,6 +12,7 @@ export const signUp = async (payload: SignUp): Promise<LoggedUser> => {
       username: data.user.username,
       email: data.user.email,
       avatar: data.user.avatar,
+      tokens: data.user.tokens,
     };
     return reformedData;
   } catch (error: any) {
@@ -29,6 +30,7 @@ export const logIn = async (payload: Login): Promise<LoggedUser> => {
       username: data.user.username,
       email: data.user.email,
       avatar: data.user.avatar,
+      tokens: data.user.tokens,
     };
     return reformedData;
   } catch (error: any) {

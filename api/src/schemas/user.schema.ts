@@ -36,6 +36,13 @@ export class User {
     required: false,
   })
   avatar: any;
+
+  @Prop({
+    type: Number,
+    required: false,
+    default: 3,
+  })
+  tokens: number;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

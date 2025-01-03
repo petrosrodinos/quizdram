@@ -7,15 +7,28 @@ import { Quiz } from 'src/schemas/quiz.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { CreateAttemptDto } from './dto/create-attempt.dto';
+import { User } from 'src/schemas/user.schema';
 
 @Injectable()
 export class QuizService {
   constructor(
     @InjectModel(Quiz.name)
     private quizModel: Model<Quiz>,
+    @InjectModel(User.name)
+    private userModel: Model<User>,
   ) {}
   async create(createQuizDto: CreateQuizDto, userId?: string) {
     try {
+      const user = await this.userModel.findById(userId);
+
+      if (!user) {
+        return new Error('User not found');
+      }
+
+      if (user.tokens < 1) {
+        return new Error('Not enough  tokens');
+      }
+
       const prompt = generateQuizPrompt(createQuizDto);
       const quiz = await askOpenAI(prompt);
 
@@ -26,9 +39,18 @@ export class QuizService {
 
       const result = new this.quizModel(data);
 
+      user.tokens -= 1;
+
+      await user.save();
+
       await result.save();
 
-      return result;
+      const response = {
+        ...result.toObject(),
+        remainingTokens: user.tokens,
+      };
+
+      return response;
     } catch (error) {
       return new Error(error);
     }

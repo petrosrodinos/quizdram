@@ -15,4 +15,5 @@ export interface LoggedUser {
   avatar?: string;
   token: string;
   id: string;
+  tokens: number;
 }

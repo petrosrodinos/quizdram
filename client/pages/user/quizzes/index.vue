@@ -4,6 +4,7 @@ import { Calendar, Document, Edit, User, Share } from "@element-plus/icons-vue";
 import { useQuery } from "@tanstack/vue-query";
 import { useAuthStore } from "../../../stores/auth";
 import { getQuizzes } from "../../../services/quiz";
+import { useTokenDialog } from "../../../composables/useTokenDialog";
 
 definePageMeta({
   title: "Quizzes",
@@ -11,6 +12,8 @@ definePageMeta({
 });
 
 const authStore = useAuthStore();
+
+const { showNoTokensDialog } = useTokenDialog();
 
 const dialogFormVisible = ref(false);
 
@@ -31,6 +34,10 @@ const {
 });
 
 const handleCreateQuiz = () => {
+  if (authStore.user?.tokens === 0) {
+    showNoTokensDialog();
+    return;
+  }
   dialogFormVisible.value = !dialogFormVisible.value;
 };
 </script>

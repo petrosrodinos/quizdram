@@ -10,8 +10,8 @@ export const useAuthStore = defineStore(
     function setUser(newUser: LoggedUser) {
       user.value = newUser;
     }
-    function updateUser(newUser: Partial<LoggedUser>) {
-      user.value = { ...user.value, ...newUser } as LoggedUser;
+    function updateUser(newData: Partial<LoggedUser>) {
+      user.value = { ...user.value, ...newData } as LoggedUser;
     }
     function logout() {
       user.value = null;

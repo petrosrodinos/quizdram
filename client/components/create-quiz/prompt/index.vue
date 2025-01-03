@@ -1,11 +1,19 @@
 <script lang="ts" setup>
-import { defineAsyncComponent, defineEmits } from "vue";
+import { ElMessageBox } from "element-plus";
+import { navigateTo } from "nuxt/app";
+import { defineAsyncComponent, defineEmits, h } from "vue";
+import { useAuthStore } from "../../../stores/auth";
+import { useTokenDialog } from "../../../composables/useTokenDialog";
 
 const { option } = defineProps<{
   option: string;
 }>();
 
 const emit = defineEmits(["onPromptSelected"]);
+
+const { showNoTokensDialog } = useTokenDialog();
+
+const authStore = useAuthStore();
 
 const options: any = {
   doc: defineAsyncComponent(() => import("./doc.vue")),
@@ -15,6 +23,10 @@ const options: any = {
 };
 
 const handlePromptSelected = (prompt: string) => {
+  if (authStore.user?.tokens === 0) {
+    showNoTokensDialog();
+    return;
+  }
   emit("onPromptSelected", prompt);
 };
 </script>

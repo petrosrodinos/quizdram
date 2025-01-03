@@ -5,7 +5,7 @@ import { QUIZ_QUESTION_SETTINGS } from "../../utils/constants";
 import { useQuizStore } from "../../stores/quiz";
 import { useAuthStore } from "../../stores/auth";
 import { navigateTo } from "nuxt/app";
-import { ElMessageBox } from "element-plus";
+import { ElMessageBox, ElNotification } from "element-plus";
 import { useMutation } from "@tanstack/vue-query";
 import { createQuiz } from "../../services/quiz";
 import { ElMessage } from "element-plus";
@@ -18,6 +18,10 @@ const selectedOption = ref("ai");
 const { mutate, isPending } = useMutation({
   mutationFn: (data: NewQuiz) => createQuiz(data, authStore.user?.token),
   onSuccess: async (data: Quiz) => {
+    authStore.updateUser({
+      tokens: data.remainingTokens,
+    });
+    showRemainingTokensMessage();
     navigateTo(`/user/quizzes/${data.id}`);
   },
   onError: (error) => {
@@ -47,17 +51,25 @@ const handlePromptSelected = async (prompt: string) => {
 
 const showLoginDialog = () => {
   ElMessageBox({
-    title: "Please login to continue",
+    title: "please login to continue",
     message: h("p", null, [
-      h("span", null, "You need to "),
+      h("span", null, "you need to "),
       h("i", { style: "color: teal" }, "login"),
       h("span", null, " to access this feature."),
     ]),
-    confirmButtonText: "Login",
-    cancelButtonText: "Cancel",
+    confirmButtonText: "login",
+    cancelButtonText: "cancel",
     type: "warning",
   }).then(() => {
     navigateTo("/auth/signup?redirect=/");
+  });
+};
+
+const showRemainingTokensMessage = () => {
+  ElNotification({
+    title: "quiz created",
+    message: `you have ${authStore.user?.tokens} tokens remaining`,
+    type: "success",
   });
 };
 </script>

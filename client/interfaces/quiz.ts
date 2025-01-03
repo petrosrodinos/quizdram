@@ -26,6 +26,7 @@ export interface Quiz {
   questions: Question[];
   createdAt: string;
   attempts: QuizAttempt[];
+  remainingTokens: number;
 }
 
 export interface Question {

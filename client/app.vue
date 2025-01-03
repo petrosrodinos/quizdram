@@ -17,6 +17,5 @@
 
 body {
   height: 100vh;
-  /* background-color: red; */
 }
 </style>
