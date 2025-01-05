@@ -9,7 +9,10 @@ import { AuthModule } from './api/auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath:
+        process.env.NODE_ENV === 'production'
+          ? '.env.production'
+          : '.env.development',
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGO_URL),

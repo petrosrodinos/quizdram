@@ -22,6 +22,13 @@ const { isLoading, data, error } = useQuery({
       <h2>Try out some of our user's favorite quizzes!</h2>
       <UiSpinner v-if="isLoading" />
       <QuizCards v-if="data" :quizes="data" :isPublic="true" />
+      <el-alert
+        v-if="(error || data?.length === 0) && !isLoading"
+        :closable="false"
+        effect="dark"
+        title="no quizzes found, Please try again later."
+        type="warning"
+      />
     </div>
   </div>
 </template>
@@ -59,5 +66,13 @@ const { isLoading, data, error } = useQuery({
     color: white;
     text-align: center;
   }
+}
+
+.el-alert {
+  margin: 0 auto;
+  width: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
