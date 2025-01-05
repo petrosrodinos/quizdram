@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
-import { askOpenAI } from 'src/utils/openai';
-import { generateQuizPrompt } from 'src/utils/prompt';
+import { askOpenAI } from '../utils/openai';
+import { generateQuizPrompt } from '../utils/prompt';
 import { Quiz } from 'src/schemas/quiz.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { CreateAttemptDto } from './dto/create-attempt.dto';
 import { User } from 'src/schemas/user.schema';
 
