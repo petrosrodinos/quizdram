@@ -4,7 +4,7 @@ export const API_URL = process.env.API_URL || "http://localhost:5000/api/v1";
 
 export const FRONT_END_URL = process.env.FRONT_END_URL || "http://localhost:3000";
 
-export const FREE_TOKENS: number = parseInt(process.env.FREE_TOKENS || "3");
+export const FREE_TOKENS: number = parseInt(process.env.FREE_TOKENS || "5");
 
 export const QUIZ_QUESTION_SETTINGS: QuestionSettings[] = [
   {
