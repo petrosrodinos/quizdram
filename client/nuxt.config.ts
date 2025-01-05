@@ -28,7 +28,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      myPublicVariable: process.env.API_URL,
+      apiUrl: process.env.NUXT_API_URL,
+      frontEndUrl: process.env.NUXT_FRONT_END_URL,
     },
     // private: {
     //   myPrivateToken: process.env.PRIVATE_TOKEN

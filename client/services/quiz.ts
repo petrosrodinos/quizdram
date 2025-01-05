@@ -1,6 +1,7 @@
 import axios from "axios";
 import type { NewQuizAttempt, NewQuiz, Quiz, GetAttempt } from "../interfaces/quiz";
 import { getHeaders, searchParams } from "../utils/api";
+import { API_URL } from "../utils/constants";
 
 export const createQuiz = async (quiz: NewQuiz, token: string | undefined): Promise<Quiz> => {
   try {

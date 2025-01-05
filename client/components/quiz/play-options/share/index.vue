@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { reactive, defineProps, defineEmits, computed, type PropType } from "vue";
+import { defineProps, defineEmits, computed, type PropType } from "vue";
 import type { Quiz } from "../../../../interfaces/quiz";
+import { FRONT_END_URL } from "../../../../utils/constants";
 
 const { visible, quiz } = defineProps({
   visible: {
@@ -11,10 +12,6 @@ const { visible, quiz } = defineProps({
     type: Object as PropType<Quiz>,
     required: true,
   },
-});
-
-const form = reactive({
-  name: "",
 });
 
 const emit = defineEmits(["update:visible"]);
