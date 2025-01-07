@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 import { useQuery } from "@tanstack/vue-query";
-import { getAttempt } from "../../../../services/quiz";
+import { useQuiz } from "../../../../composables/api/useQuiz";
 
 const route = useRoute();
 
 const quizId = route.params.id as string;
 const attemptId = route.params.attemptId as string;
+
+const { getAttempt } = useQuiz();
 
 const { isLoading, data, error } = useQuery({
   queryKey: ["quiz-attempt", quizId, attemptId],

@@ -2,12 +2,14 @@
 import { useRoute } from "vue-router";
 import { useAuthStore } from "../../../../stores/auth";
 import { useQuery } from "@tanstack/vue-query";
-import { getQuiz } from "../../../../services/quiz";
+import { useQuiz } from "../../../../composables/api/useQuiz";
 
 const route = useRoute();
 const quizId = route.params.id;
 
 const authStore = useAuthStore();
+
+const { getQuiz } = useQuiz();
 
 const { isLoading, data } = useQuery({
   queryKey: ["quiz", quizId as string],

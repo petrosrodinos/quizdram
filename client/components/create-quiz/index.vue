@@ -7,13 +7,15 @@ import { useAuthStore } from "../../stores/auth";
 import { navigateTo } from "nuxt/app";
 import { ElMessageBox, ElNotification } from "element-plus";
 import { useMutation } from "@tanstack/vue-query";
-import { createQuiz } from "../../services/quiz";
 import { ElMessage } from "element-plus";
+import { useQuiz } from "../../composables/api/useQuiz";
 
 const quizStore = useQuizStore();
 const authStore = useAuthStore();
 
 const selectedOption = ref("ai");
+
+const { createQuiz } = useQuiz();
 
 const { mutate, isPending } = useMutation({
   mutationFn: (data: NewQuiz) => createQuiz(data, authStore.user?.token),

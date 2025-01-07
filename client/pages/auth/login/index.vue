@@ -2,17 +2,19 @@
 import { ElMessage, type FormRules, type FormInstance } from "element-plus";
 import { reactive, ref } from "vue";
 import { useMutation } from "@tanstack/vue-query";
-import { logIn } from "../../../services/auth";
 import type { Login, LoggedUser } from "../../../interfaces/auth";
 import { useAuthStore } from "../../../stores/auth";
 import { navigateTo } from "nuxt/app";
 import { useRoute } from "vue-router";
+import { useAuth } from "../../../composables/api/useAuth";
 
 const route = useRoute();
 
 const query = route.query;
 const redirect = query.redirect as string | undefined;
 const authStore = useAuthStore();
+
+const { logIn } = useAuth();
 
 const ruleFormRef = ref<FormInstance>();
 const loginForm = reactive<Login>({

@@ -3,13 +3,15 @@ import { ElCard, ElRow, ElCol } from "element-plus";
 import { Calendar, Document, Edit, User, Share } from "@element-plus/icons-vue";
 import { useQuery } from "@tanstack/vue-query";
 import { useAuthStore } from "../../../stores/auth";
-import { getQuizzes } from "../../../services/quiz";
 import { useTokenDialog } from "../../../composables/useTokenDialog";
+import { useQuiz } from "../../../composables/api/useQuiz";
 
 definePageMeta({
   title: "Quizzes",
   middleware: ["auth-user"],
 });
+
+const { getQuizzes } = useQuiz();
 
 const authStore = useAuthStore();
 

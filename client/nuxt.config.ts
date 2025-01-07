@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@interfaces": "./interfaces",
     "@stores": "./stores",
     "@utils": "./utils",
+    "@composables": "./composables",
   },
   vueQuery: {
     stateKey: "vue-query-nuxt",

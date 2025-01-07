@@ -2,18 +2,20 @@
 import { watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import { useQuery, useMutation } from "@tanstack/vue-query";
-import { createAttempt, getQuiz } from "../../../../services/quiz";
 import { navigateTo } from "nuxt/app";
 import { useTimer } from "../../../../composables/useTimer";
 import { useAuthStore } from "../../../../stores/auth";
 import { useQuizGame } from "../../../../composables/useQuizGame";
 import type { NewQuizAttempt } from "../../../../interfaces/quiz";
 import { Timer } from "@element-plus/icons-vue";
+import { useQuiz } from "../../../../composables/api/useQuiz";
 
 definePageMeta({
   title: "Play Quiz",
   middleware: ["auth-user"],
 });
+
+const { getQuiz, createAttempt } = useQuiz();
 
 const route = useRoute();
 const quizId = route.params.id as string;

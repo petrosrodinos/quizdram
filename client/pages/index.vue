@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { useQuery } from "@tanstack/vue-query";
-import { getQuizzes } from "../services/quiz";
+import { useQuiz } from "../composables/api/useQuiz";
+
+const { getQuizzes } = useQuiz();
 
 const { isLoading, data, error } = useQuery({
   queryKey: ["quizes"],
