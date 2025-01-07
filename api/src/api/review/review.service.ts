@@ -3,15 +3,20 @@ import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User } from 'src/schemas/user.schema';
 
 @Injectable()
 export class ReviewService {
   constructor(
+    @InjectModel(User.name)
+    private userModel: Model<User>,
     private readonly mailService: MailerService,
     private configService: ConfigService,
   ) {}
 
-  create(createReviewDto: CreateReviewDto) {
+  async create(userId: string, createReviewDto: CreateReviewDto) {
     try {
       const adminEmail = this.configService.get('ADMIN_EMAIL');
       const message = `Review: ${createReviewDto.review} </br> Username: ${createReviewDto.username}`;
@@ -24,6 +29,16 @@ export class ReviewService {
       };
 
       this.mailService.sendMail(email);
+
+      const user = await this.userModel.findById(userId);
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      user.tokens += 1;
+
+      await user.save();
 
       return {
         message: 'Review has been submitted',

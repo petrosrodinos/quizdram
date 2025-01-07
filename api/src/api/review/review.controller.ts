@@ -20,8 +20,13 @@ export class ReviewController {
 
   @Post()
   @UseGuards(JwtGuard)
-  create(@Body() createReviewDto: CreateReviewDto) {
-    return this.reviewService.create(createReviewDto);
+  create(
+    @Req() req: Express.Request,
+    @Body() createReviewDto: CreateReviewDto,
+  ) {
+    const userId = req.user?.userId;
+
+    return this.reviewService.create(userId, createReviewDto);
   }
 
   @Get()

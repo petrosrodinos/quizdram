@@ -33,6 +33,10 @@ const handleSelect = (key: string, keyPath: string[]) => {
       ><NuxtLink to="/user/quizzes">quizzes</NuxtLink></el-menu-item
     >
 
+    <el-menu-item class="menu-item-large" index="3"
+      ><NuxtLink to="/feedback">feedback</NuxtLink></el-menu-item
+    >
+
     <el-menu-item class="menu-item-large nav-item-right">
       <NuxtLink v-if="!authStore.user" to="/auth/login">signin</NuxtLink>
       <NuxtLink v-else @click="authStore.logout()" to="/auth/login"> logout </NuxtLink>
@@ -44,8 +48,9 @@ const handleSelect = (key: string, keyPath: string[]) => {
         <NuxtLink to="/">home</NuxtLink>
       </el-menu-item>
       <el-menu-item index="1-2"><NuxtLink to="/user/quizzes">quizzes</NuxtLink></el-menu-item>
+      <el-menu-item index="1-3"><NuxtLink to="/feedback">feedback</NuxtLink></el-menu-item>
 
-      <el-menu-item index="1-3">
+      <el-menu-item index="1-4">
         <NuxtLink v-if="!authStore.user" to="/auth/login">sign in</NuxtLink>
         <NuxtLink v-else @click="authStore.logout()" to="/auth/login">logout</NuxtLink>
       </el-menu-item>

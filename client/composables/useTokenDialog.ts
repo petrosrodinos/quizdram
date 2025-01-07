@@ -4,14 +4,14 @@ export function useTokenDialog() {
       title: "you are out of tokens",
       message: h("p", null, [
         h("span", null, "you need to "),
-        h("i", { style: "color: teal" }, "buy tokens"),
+        h("i", { style: "color: teal" }, "give a review"),
         h("span", null, " ,or try after midnight to get more tokens."),
       ]),
-      confirmButtonText: "buy tokens",
+      confirmButtonText: "sent a review",
       cancelButtonText: "cancel",
       type: "warning",
     }).then(() => {
-      navigateTo("/plans");
+      navigateTo("/feedback");
     });
   };
 
