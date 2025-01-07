@@ -1,14 +1,18 @@
 import type { SignUp, Login, LoggedUser } from "@interfaces/auth";
 import axios from "axios";
 import { useRuntimeConfig } from "nuxt/app";
+import { decodeToken } from "../../utils/token";
 
 export const useAuth = () => {
   const config = useRuntimeConfig();
   const API_URL = config.public.apiUrl;
+
   const signUp = async (payload: SignUp): Promise<LoggedUser> => {
     try {
       const result = await axios.post(`${API_URL}/auth/signup`, payload);
       const data = result.data;
+      const { exp } = decodeToken(data.token);
+
       const reformedData = {
         token: data.token,
         id: data.user._id,
@@ -16,6 +20,7 @@ export const useAuth = () => {
         email: data.user.email,
         avatar: data.user.avatar,
         tokens: data.user.tokens,
+        exp,
       };
       return reformedData;
     } catch (error: any) {
@@ -27,6 +32,8 @@ export const useAuth = () => {
     try {
       const result = await axios.post(`${API_URL}/auth/signin`, payload);
       const data = result.data;
+      const { exp } = decodeToken(data.token);
+
       const reformedData = {
         token: data.token,
         id: data.user._id,
@@ -34,6 +41,7 @@ export const useAuth = () => {
         email: data.user.email,
         avatar: data.user.avatar,
         tokens: data.user.tokens,
+        exp,
       };
       return reformedData;
     } catch (error: any) {

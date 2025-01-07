@@ -16,4 +16,5 @@ export interface LoggedUser {
   token: string;
   id: string;
   tokens: number;
+  exp: number;
 }

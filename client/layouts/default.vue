@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+import { useAutoLogout } from "../composables/useAutoLogout";
+
+useAutoLogout();
+</script>
+
 <template>
   <div>
     <NavBar />
