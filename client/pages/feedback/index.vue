@@ -91,6 +91,14 @@ const handleSendReview = async (formEl: FormInstance | undefined) => {
     });
     return;
   }
+  if (authStore.user.tokens > 0) {
+    ElMessage({
+      showClose: true,
+      message: "you cant send a review if you have tokens left",
+      type: "warning",
+    });
+    return;
+  }
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {

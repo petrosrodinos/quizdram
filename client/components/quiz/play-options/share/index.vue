@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { defineProps, defineEmits, computed, type PropType } from "vue";
 import type { Quiz } from "../../../../interfaces/quiz";
-import { FRONT_END_URL } from "../../../../utils/constants";
+import { useRuntimeConfig } from "nuxt/app";
 
 const { visible, quiz } = defineProps({
   visible: {
@@ -13,6 +13,8 @@ const { visible, quiz } = defineProps({
     required: true,
   },
 });
+
+const config = useRuntimeConfig();
 
 const emit = defineEmits(["update:visible"]);
 
@@ -30,13 +32,13 @@ const handleClose = () => {
   <el-dialog
     :model-value="dialogVisible"
     @update:model-value="dialogVisible = $event"
-    title="Share the quiz"
+    title="share the quiz"
   >
-    <h3>Send the link to your friends</h3>
-    <p class="share-link">{{ FRONT_END_URL }}/quizzes/{{ quiz.id }}</p>
+    <h3>send the link to your friends</h3>
+    <p class="share-link">{{ config.public.frontEndUrl }}/quizzes/{{ quiz.id }}</p>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="handleClose">Cancel</el-button>
+        <el-button @click="handleClose">cancel</el-button>
       </div>
     </template>
   </el-dialog>
