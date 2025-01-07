@@ -22,7 +22,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
     active-text-color="#ffd04b"
   >
     <el-menu-item index="0">
-      <img class="image-logo" style="width: 100px" src="/assets/logo.jpg" alt="Element logo" />
+      <img class="image-logo" src="/assets/quizdram-logo.png" alt="Element logo" />
     </el-menu-item>
 
     <el-menu-item class="menu-item-large" index="1">
@@ -75,10 +75,8 @@ a {
 
 .image-logo {
   border-radius: 50px;
-  width: 30px;
-  height: 30px;
-  // margin-bottom: 10px;
-  margin: 20px;
+  width: 120px;
+  height: 50px;
 }
 
 .menu-item-large {
