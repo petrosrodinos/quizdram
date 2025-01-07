@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { QuizModule } from './quiz/quiz.module';
 import { AuthModule } from './api/auth/auth.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ResetTokensModule } from './schedulers/tokens/tokens.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
     ]),
     QuizModule,
     AuthModule,
+    ResetTokensModule,
   ],
   controllers: [AppController],
   providers: [AppService],

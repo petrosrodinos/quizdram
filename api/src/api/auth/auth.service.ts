@@ -9,6 +9,7 @@ import { Model, Error } from 'mongoose';
 import { User } from 'src/schemas/user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateJwtService } from './jwt/jwt.service';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
@@ -16,6 +17,7 @@ export class AuthService {
     @InjectModel(User.name)
     private userModel: Model<User>,
     private jwt: CreateJwtService,
+    private config: ConfigService,
   ) {}
 
   async signup(dto: SignUpDto, file: Express.Multer.File | undefined) {
@@ -31,11 +33,14 @@ export class AuthService {
 
     const hash = await argon.hash(dto.password);
 
+    const freeTokens = this.config.get('FREE_TOKENS');
+
     try {
       const user = new this.userModel({
         ...dto,
         avatar: avatarUrl || '',
         password: hash,
+        tokens: freeTokens,
       });
       await user.save();
 
