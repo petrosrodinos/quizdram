@@ -5,7 +5,7 @@ export function useTokenDialog() {
       message: h("p", null, [
         h("span", null, "you need to "),
         h("i", { style: "color: teal" }, "buy tokens"),
-        h("span", null, " to create more quizzes."),
+        h("span", null, " ,or try after midnight to get more tokens."),
       ]),
       confirmButtonText: "buy tokens",
       cancelButtonText: "cancel",
