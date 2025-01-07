@@ -1,4 +1,4 @@
-import { ref, computed, onMounted, onUnmounted } from "vue";
+import { ref, computed, onUnmounted } from "vue";
 
 export function useTimer() {
   const timer = ref(0);
@@ -6,10 +6,6 @@ export function useTimer() {
   const isRunning = ref(false);
 
   let interval: ReturnType<typeof setInterval> | null = null;
-
-  //   onMounted(() => {
-  //     startTimer();
-  //   });
 
   const startTimer = () => {
     if (!isRunning.value) {

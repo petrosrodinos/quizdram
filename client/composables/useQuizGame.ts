@@ -1,25 +1,12 @@
-// composables/useQuizGame.ts
-import { ref, computed, watch } from "vue";
-import type { Question } from "../interfaces/quiz";
+import { ref, computed } from "vue";
 
 export const useQuizGame = (quiz: any) => {
   const currentQuestionIndex = ref(0);
   const selectedAnswers = ref<string[]>([]);
-  //   const currentQuestion = ref<Question | undefined>(undefined);
-
-  //   currentQuestion.value = quiz?.value?.questions?.[currentQuestionIndex.value];
 
   const currentQuestion = computed(() => {
     return quiz?.value.questions[currentQuestionIndex.value];
   });
-
-  //   watch(quiz, () => {
-  //     currentQuestion.value = quiz?.value.questions[currentQuestionIndex.value];
-  //   });
-
-  //   watch(currentQuestionIndex, () => {
-  //     currentQuestion.value = quiz?.value.questions[currentQuestionIndex.value];
-  //   });
 
   const nextQuestion = () => {
     if (!quiz) return;
