@@ -13,14 +13,14 @@ import {
 import { QuizService } from './quiz.service';
 import { CreateQuizDto } from './dto/create-quiz.dto';
 import { UpdateQuizDto } from './dto/update-quiz.dto';
-import { LooseJwtGuard, JwtGuard } from 'src/api/auth/guard';
+import { JwtGuard } from 'src/api/auth/guard';
 import { CreateAttemptDto } from './dto/create-attempt.dto';
 
 @Controller('quiz')
 export class QuizController {
   constructor(private readonly quizService: QuizService) {}
 
-  @UseGuards(LooseJwtGuard)
+  @UseGuards(JwtGuard)
   @Post()
   create(@Req() req: Express.Request, @Body() createQuizDto: CreateQuizDto) {
     const userId = req.user?.userId;

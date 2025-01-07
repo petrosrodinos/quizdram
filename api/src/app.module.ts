@@ -7,6 +7,8 @@ import { QuizModule } from './quiz/quiz.module';
 import { AuthModule } from './api/auth/auth.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ResetTokensModule } from './schedulers/tokens/tokens.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { ReviewModule } from './api/review/review.module';
 
 @Module({
   imports: [
@@ -21,9 +23,19 @@ import { ResetTokensModule } from './schedulers/tokens/tokens.module';
         limit: 10,
       },
     ]),
+    MailerModule.forRoot({
+      transport: {
+        host: process.env.EMAIL_HOST,
+        auth: {
+          user: process.env.EMAIL_USERNAME,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      },
+    }),
     QuizModule,
     AuthModule,
     ResetTokensModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],
