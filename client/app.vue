@@ -17,5 +17,6 @@
 
 body {
   height: 100vh;
+  background-color: #fff8e6;
 }
 </style>
