@@ -4,8 +4,7 @@ export function useTokenDialog() {
       title: "you are out of tokens",
       message: h("p", null, [
         h("span", null, "you need to "),
-        h("i", { style: "color: teal" }, "give a review"),
-        h("span", null, " ,or try after midnight to get more tokens."),
+        h("span", null, "try after midnight to get more tokens."),
       ]),
       confirmButtonText: "sent a review",
       cancelButtonText: "cancel",
