@@ -19,13 +19,20 @@ export class ReviewService {
   async create(userId: string, createReviewDto: CreateReviewDto) {
     try {
       const adminEmail = this.configService.get('ADMIN_EMAIL');
-      const message = `Review: ${createReviewDto.review} </br> Username: ${createReviewDto.username}`;
-
+      const platformEmail = this.configService.get('PLATFORM_EMAIL');
+      const html = `
+      <div>
+        <h1>New Review</h1>
+        <p>Review: ${createReviewDto.review}</p>
+        <p>Username: ${createReviewDto.username}</p>
+        <p>Email: ${createReviewDto.email}</p>
+      </div>
+      `;
       const email = {
-        from: createReviewDto.email,
-        to: adminEmail,
+        from: adminEmail,
+        to: platformEmail,
         subject: `New QuizDram Review`,
-        text: message,
+        html,
       };
 
       this.mailService.sendMail(email);
